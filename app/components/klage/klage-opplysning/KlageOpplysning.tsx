@@ -7,6 +7,7 @@ import { KlageOpplysningBoolean } from "~/components/klage/klage-opplysning/Klag
 import { KlageOpplysningDato } from "~/components/klage/klage-opplysning/KlageOpplysningDato";
 import { KlageOpplysningFlervalg } from "~/components/klage/klage-opplysning/KlageOpplysningFlervalg";
 import { KlageOpplysningTekst } from "~/components/klage/klage-opplysning/KlageOpplysningTekst";
+import { KlageOpplysningUuid } from "~/components/klage/klage-opplysning/KlageOpplysningUuid";
 import { KlageOpplysningValg } from "~/components/klage/klage-opplysning/KlageOpplysningValg";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForKlageOpplysningSkjema } from "~/utils/validering.util";
@@ -111,6 +112,11 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
           readonly={readonly}
         />
       );
+
+    case "UUID":
+      return (
+        <KlageOpplysningUuid opplysning={opplysning} formScope={formScope} readonly={readonly} />
+      );
   }
 }
 
@@ -132,5 +138,7 @@ function formaterKlageOpplysningVerdi(
       return opplysning.verdi;
     case "FLER_LISTEVALG":
       return opplysning.verdi.join(", ");
+    case "UUID":
+      return opplysning.verdi;
   }
 }

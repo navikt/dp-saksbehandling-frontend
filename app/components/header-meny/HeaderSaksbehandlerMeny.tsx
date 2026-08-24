@@ -21,7 +21,7 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
           description={saksbehandler.onPremisesSamAccountName}
           as={Dropdown.Toggle}
         />
-        <Dropdown.Menu className={styles.dropdownMeny}>
+        <Dropdown.Menu className={styles.dropdownMeny} strategy="fixed">
           <Dropdown.Menu.List>
             <Dropdown.Menu.List.Item>
               <Switch

@@ -20,7 +20,7 @@ import {
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
 
-type SortKey = "opprettet" | "utlostAv" | "status" | "saksbehandler";
+type SortKey = "opprettet" | "utlostAv" | "status" | "saksbehandler" | "utsattTil";
 type SortDirection = "ascending" | "descending";
 
 function toAkselDirection(sortering: string | null): SortDirection {
@@ -93,7 +93,7 @@ export function OppgaveListe(props: IProps) {
         <Table.Body>
           {oppgaver.length === 0 && (
             <Table.Row shadeOnHover={false}>
-              <Table.DataCell colSpan={visPersonIdent ? 9 : 8}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell colSpan={visPersonIdent ? 10 : 9}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
@@ -193,18 +193,20 @@ export function OppgaveListe(props: IProps) {
                     className={"flex gap-2 whitespace-nowrap"}
                   >
                     {hentOppgaveTilstandTekst(tilstand)}
-
-                    {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                      <Tag
-                        size={"xsmall"}
-                        variant={"outline"}
-                        data-color={"brand-magenta"}
-                        className={"whitespace-nowrap"}
-                      >
-                        <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                      </Tag>
-                    )}
                   </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                    <Tag
+                      size={"xsmall"}
+                      variant={"outline"}
+                      data-color={"brand-magenta"}
+                      className={"whitespace-nowrap"}
+                    >
+                      <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                    </Tag>
+                  )}
                 </Table.DataCell>
 
                 <Table.DataCell>

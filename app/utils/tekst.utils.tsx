@@ -141,6 +141,15 @@ export function hentUtløstAvTekstForVisning(
         "Revurdering etter klage"
       );
 
+    case "REVURDERING_ETTER_VEDTAK_FRA_KLAGEINSTANS":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ArrowsSquarepathIcon aria-hidden fontSize="1.5rem" /> Revurdering etter klageinstans
+        </span>
+      ) : (
+        "Revurdering etter klageinstans"
+      );
+
     case "TILBAKEKREVING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>
@@ -219,6 +228,12 @@ export function hentFargevariantForSøknadsresultat(visningsnavn: string): Aksel
       return "success";
     case "Avslag":
       return "danger";
+    case "Stans":
+      return "warning";
+    case "Gjenopptak":
+      return "success";
+    case "Endring":
+      return "info";
     default:
       return "neutral";
   }
@@ -245,6 +260,8 @@ export function hentTekstForLeggTilbakeÅrsak(
       return "Fravær";
     case "INHABILITET":
       return "Inhabil";
+    case "KONTROLL_AV_KLAGE":
+      return "Kontroll av klage";
     case "ANNET":
       return "Annet";
     default:
@@ -262,11 +279,40 @@ export function hentTekstForFerdigstilling(
       return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
     case "RETT_TIL_DAGPENGER_REVURDERING":
       return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
+    case "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE":
+      return `${behandlingTypeTekst} ferdigstilt, ny revurdering etter klage opprettet ✅`;
     case "KLAGE":
       return `${behandlingTypeTekst} ferdigstilt, ny klage opprettet ✅`;
     case "OPPFOLGING":
       return `${behandlingTypeTekst} ferdigstilt, ny oppfølging opprettet ✅`;
     case "INGEN":
       return `${behandlingTypeTekst} ferdigstilt ✅`;
+  }
+}
+
+export function hentTekstForKlageinstansUtfall(
+  utfall: saksbehandlingComponents["schemas"]["KlageinstansUtfall"]["verdi"],
+): string {
+  switch (utfall) {
+    case "TRUKKET":
+      return "Trukket";
+    case "RETUR":
+      return "Retur";
+    case "OPPHEVET":
+      return "Opphevet";
+    case "MEDHOLD":
+      return "Medhold";
+    case "DELVIS_MEDHOLD":
+      return "Delvis medhold";
+    case "STADFESTELSE":
+      return "Stadfestelse";
+    case "UGUNST":
+      return "Ugunst";
+    case "AVVIST":
+      return "Avvist";
+    case "HENLAGT":
+      return "Henlagt";
+    default:
+      return utfall;
   }
 }

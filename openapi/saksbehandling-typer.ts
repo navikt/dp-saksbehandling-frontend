@@ -89,14 +89,14 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Oppfølgingen ble oppdatert */
+                /** @description Oppfølging oppdatert */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content?: never;
                 };
-                /** @description Oppfølgingen ble ikke funnet */
+                /** @description Oppfølging ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -431,10 +431,14 @@ export interface paths {
                     tom?: string;
                     harDpSak?: boolean;
                     mineOppgaver?: boolean;
+                    /** @description Filtrer på oppgaver tildelt en bestemt saksbehandler (NAV-ident) */
+                    saksbehandlerIdent?: string;
+                    /** @description Vis kun oppgaver som ikke er tildelt en saksbehandler */
+                    utenSaksbehandler?: boolean;
                     antallOppgaver?: number;
                     side?: number;
                     /** @description Feltet oppgaver sorteres på */
-                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler";
+                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "utsattTil";
                     /** @description Sorteringsrekkefølge for oppgaver */
                     sortering?: "ASC" | "DESC";
                 };
@@ -2452,11 +2456,11 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "REVURDERING_ETTER_KLAGE" | "KLAGE" | "INNSENDING" | "TILBAKEKREVING" | "OPPFØLGING" | "FERIETILLEGG" | "ARBEIDSSØKERPERIODE" | "SAMORDNING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "REVURDERING_ETTER_KLAGE" | "REVURDERING_ETTER_VEDTAK_FRA_KLAGEINSTANS" | "KLAGE" | "INNSENDING" | "TILBAKEKREVING" | "OPPFØLGING" | "FERIETILLEGG" | "ARBEIDSSØKERPERIODE" | "SAMORDNING";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "OPPFOLGING";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE" | "KLAGE" | "OPPFOLGING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2522,7 +2526,7 @@ export interface components {
             aarsak: components["schemas"]["LeggTilbakeAarsak"];
         };
         /** @enum {string} */
-        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "ANNET";
+        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "KONTROLL_AV_KLAGE" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;
@@ -2530,7 +2534,7 @@ export interface components {
             aarsak: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
-        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "MANGLENDE_FUNKSJONALITET" | "ANNET";
+        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "SØKT_FOR_TIDLIG" | "MANGLENDE_FUNKSJONALITET" | "ANNET";
         LagreNotatResponse: {
             /**
              * Format: date-time
@@ -2640,6 +2644,7 @@ export interface components {
             utfall: components["schemas"]["Utfall"];
             /** @enum {string} */
             tilstand: "BEHANDLES" | "BEHANDLING_UTFORT" | "OVERSEND_KLAGEINSTANS" | "BEHANDLES_AV_KLAGEINSTANS" | "FERDIGSTILT" | "AVBRUTT";
+            klageinstansBehandling?: components["schemas"]["KlageinstansBehandling"];
         };
         TekstVerdi: {
             verdi: string;
@@ -2674,6 +2679,15 @@ export interface components {
              */
             type: "FLER_LISTEVALG";
         };
+        UUIDVerdi: {
+            /** Format: uuid */
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "UUID";
+        };
         OpprettKlage: {
             /** Format: date-time */
             opprettet: string;
@@ -2682,7 +2696,7 @@ export interface components {
             sakId: string;
             personIdent: components["schemas"]["PersonIdent"];
         };
-        OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"];
+        OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"] | components["schemas"]["UUIDVerdi"];
         /** @enum {string} */
         KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
         KlageOpplysningTekst: {
@@ -2766,14 +2780,43 @@ export interface components {
              */
             type: "LISTEVALG";
         };
+        KlageOpplysningUUID: {
+            /** Format: uuid */
+            opplysningId: string;
+            opplysningNavnId: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter: string[];
+            redigerbar: boolean;
+            /** Format: uuid */
+            verdi?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "UUID";
+        };
         /** @enum {string} */
-        KlageOpplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER_LISTEVALG";
-        KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"];
+        KlageOpplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER_LISTEVALG" | "UUID";
+        KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"] | components["schemas"]["KlageOpplysningUUID"];
         Utfall: {
             /** @enum {string} */
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
+        };
+        KlageinstansUtfall: {
+            /** @enum {string} */
+            verdi: "TRUKKET" | "RETUR" | "OPPHEVET" | "MEDHOLD" | "DELVIS_MEDHOLD" | "STADFESTELSE" | "UGUNST" | "AVVIST" | "HENLAGT";
+            /** @description Tilgjengelige utfall for klagebehandling i KA */
+            tilgjengeligeKlageinstansUtfall: string[];
+        };
+        KlageinstansBehandling: {
+            /** Format: uuid */
+            behandlingId: string;
+            utfall: components["schemas"]["KlageinstansUtfall"];
+            journalpostIder: string[];
         };
         FerdigstillInnsendingRequest: {
             /** Format: uuid */

@@ -32,7 +32,7 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
       _action: "sett-oppgave-på-vent",
       oppgaveId: oppgave.oppgaveId,
       aktivtOppgaveSok: aktivtOppgaveSok,
-      beholdOppgave: false,
+      beholdOppgave: false as boolean,
       utsettTilDato: undefined as unknown as string | undefined,
       paaVentAarsak: "" as unknown as components["schemas"]["UtsettOppgaveAarsak"],
     },
@@ -98,7 +98,11 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
             </Alert>
           )}
 
-          <Checkbox name="beholdOppgave" size="small" className={"mt-2"}>
+          <Checkbox
+            {...utsettOppgaveForm.field("beholdOppgave").getInputProps()}
+            size="small"
+            className={"mt-2"}
+          >
             Behold oppgave
           </Checkbox>
         </Modal.Body>

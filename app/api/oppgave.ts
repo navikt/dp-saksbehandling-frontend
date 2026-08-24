@@ -1,7 +1,7 @@
 import type { components } from "../../openapi/saksbehandling-typer";
 import type { LeggTilbakeOppgaveResponse } from "../routes/api.oppgave.legg-tilbake";
 import type { TildelOppgaveResponse } from "../routes/api.oppgave.tildel";
-import { apiGet, apiPost } from "./util";
+import { apiGet, apiPost, apiPut } from "./util";
 
 export type OppgaveOversikt = components["schemas"]["OppgaveOversikt"];
 export type Oppgave = components["schemas"]["Oppgave"];
@@ -37,5 +37,13 @@ export async function leggTilbakeOppgaveFetch(payload: { oppgaveId: string; års
     "/api/oppgave/legg-tilbake",
     payload,
     "Failed to legg tilbake oppgave",
+  );
+}
+
+export async function returnerTilSaksbehandlerFetch(payload: { oppgaveId: string; årsak: string }) {
+  return apiPut<never>(
+    "/api/oppgave/returner-til-saksbehandler",
+    payload,
+    "Failed to returner oppgave til saksbehandler",
   );
 }

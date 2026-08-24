@@ -35,7 +35,7 @@ export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} overflow-hidden`}>
         <div className={styles.navnContainer}>
           <span
             className={classnames(styles.iconContainer, {

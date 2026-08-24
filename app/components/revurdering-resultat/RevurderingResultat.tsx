@@ -5,13 +5,24 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
+import { components } from "../../../openapi/behandling-typer";
+
 const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
-  const omgjøringRegelsett = behandling.fastsettelser.find(
-    (regelsett) => regelsett.id === omgjøringRegelsettId,
-  );
+
+  const relevanteHendelsestyper: components["schemas"]["Hendelse"]["type"][] = [
+    "Omgjøring",
+    "Meldekort",
+  ];
+  if (!relevanteHendelsestyper.includes(behandling.behandletHendelse.type)) {
+    return null;
+  }
+
+  const omgjøringRegelsett =
+    behandling.fastsettelser.find((regelsett) => regelsett.id === omgjøringRegelsettId) ??
+    behandling.saksbehandlingsregler?.find((regelsett) => regelsett.id === omgjøringRegelsettId);
 
   if (!omgjøringRegelsett) {
     return null;
@@ -21,6 +32,20 @@ export function RevurderingResultat() {
     omgjøringRegelsett.opplysninger.includes(opplysninger.opplysningTypeId),
   );
 
+  const omgjøringBegrunnelser = omgjøringOpplysninger
+    .map((opplysning) => ({
+      opplysningTypeId: opplysning.opplysningTypeId,
+      begrunnelse: opplysning.perioder[0]?.kilde?.begrunnelse,
+    }))
+    .filter(
+      (
+        entry,
+      ): entry is {
+        opplysningTypeId: string;
+        begrunnelse: NonNullable<typeof entry.begrunnelse>;
+      } => entry.begrunnelse !== undefined,
+    );
+
   const pengerSomSkalUtbetalesDenneBehandling = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
@@ -29,6 +54,13 @@ export function RevurderingResultat() {
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
 
+  const harPengesammenligning =
+    pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling;
+
+  if (omgjøringBegrunnelser.length === 0 && !harPengesammenligning) {
+    return null;
+  }
+
   return (
     <InfoCard data-color="info">
       <InfoCard.Header icon={<BulletListIcon aria-hidden />}>
@@ -36,20 +68,18 @@ export function RevurderingResultat() {
       </InfoCard.Header>
       <InfoCard.Content>
         <div className={"flex flex-col gap-4"}>
-          <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
-          <List as="ul">
-            {omgjøringOpplysninger.map((opplysning) => {
-              if (opplysning.perioder[0]?.kilde?.begrunnelse) {
-                return (
-                  <List.Item key={opplysning.opplysningTypeId}>
-                    {opplysning.perioder[0].kilde.begrunnelse.verdi}
-                  </List.Item>
-                );
-              }
-            })}
-          </List>
+          {omgjøringBegrunnelser.length > 0 && (
+            <>
+              <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
+              <List as="ul">
+                {omgjøringBegrunnelser.map(({ opplysningTypeId, begrunnelse }) => (
+                  <List.Item key={opplysningTypeId}>{begrunnelse.verdi}</List.Item>
+                ))}
+              </List>
+            </>
+          )}
 
-          {pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling && (
+          {harPengesammenligning && (
             <>
               <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
               <div className={"flex gap-4"}>

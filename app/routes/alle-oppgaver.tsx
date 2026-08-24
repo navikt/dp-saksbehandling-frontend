@@ -11,6 +11,7 @@ import {
 import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterSaksbehandler } from "~/components/oppgave-filter/OppgaveFilterSaksbehandler";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
@@ -83,6 +84,7 @@ export default function Saksbehandling() {
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
         <EmneknaggFilter />
+        <OppgaveFilterSaksbehandler />
       </nav>
 
       <main>

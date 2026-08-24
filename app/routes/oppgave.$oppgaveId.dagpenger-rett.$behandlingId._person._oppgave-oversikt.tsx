@@ -11,7 +11,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function BehandlingLayout() {
   return (
-    <div className={"main flex gap-4"}>
+    <div className={"flex gap-4"}>
       <OppgaveOversikt />
       <div className={"flex-1"}>
         <main>

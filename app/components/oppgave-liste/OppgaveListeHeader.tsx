@@ -30,6 +30,10 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
           <Detail>Status</Detail>
         </Table.ColumnHeader>
 
+        <Table.ColumnHeader scope="col" sortable sortKey="utsattTil">
+          <Detail>Dager på vent</Detail>
+        </Table.ColumnHeader>
+
         <Table.ColumnHeader scope="col">
           <Detail>Utfall</Detail>
         </Table.ColumnHeader>

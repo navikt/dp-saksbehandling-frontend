@@ -4,19 +4,17 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { hentOppgave } from "~/models/saksbehandling.server";
+import { useOppgave } from "~/hooks/useOppgave";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+export async function loader({ params }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-
-  return { oppgave, behandlingId: params.behandlingId };
+  return { behandlingId: params.behandlingId };
 }
 
 export default function BehandlingFerdig() {
-  const { oppgave, behandlingId } = useLoaderData<typeof loader>();
+  const { behandlingId } = useLoaderData<typeof loader>();
+  const { oppgave } = useOppgave();
 
   return (
     <div className="card">

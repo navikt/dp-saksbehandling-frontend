@@ -5,22 +5,48 @@ import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
+import { GjeldendeVedtakMedBehandling } from "../gjeldende-vedtak/GjeldendeVedtakMedBehandling";
 import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
+import { BehandlingOppgavePair, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
-  dagpengerRettBehandling?: behandlingComponents["schemas"]["Behandling"];
+  sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
+  gjetterSisteBehandling?: behandlingComponents["schemas"]["Behandling"];
 }
 
-export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
+export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
+
+  const oppgaverSomIkkeErIDpBehandling = sakIDpBehandling
+    ? sak.oppgaver.filter(
+        (oppgave) =>
+          !sakIDpBehandling?.behandlinger.find(
+            (behandling) => behandling.behandlingId === oppgave.behandlingId,
+          ),
+      )
+    : sak.oppgaver;
+
+  const sorterteGreier = sakIDpBehandling
+    ? sakIDpBehandling.behandlinger
+        .map((behandling) => {
+          return {
+            behandling,
+            oppgave: sak.oppgaver.find(
+              (oppgave) => oppgave.behandlingId === behandling.behandlingId,
+            ),
+          };
+        })
+        .filter((greie): greie is BehandlingOppgavePair => greie.oppgave !== undefined)
+    : [];
 
   return (
     <div className={"card my-4 p-4"}>
       <div className={"flex items-center gap-2 pb-4"}>
         <Heading
+          level="2"
           size={"small"}
           className={"flex items-center gap-1 border-r border-(--ax-border-neutral-subtle) pr-4"}
         >
@@ -36,11 +62,32 @@ export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
 
-      {dagpengerRettBehandling && (
-        <GjeldendeVedtak dagpengerRettBehandling={dagpengerRettBehandling} />
+      {sakIDpBehandling && <GjeldendeVedtak status={sakIDpBehandling.status} />}
+      {!sakIDpBehandling && gjetterSisteBehandling && (
+        <GjeldendeVedtakMedBehandling dagpengerRettBehandling={gjetterSisteBehandling} />
       )}
 
-      <OppgaveListe oppgaver={sak.oppgaver} totaltAntallOppgaver={sak.oppgaver.length} />
+      {sorterteGreier.length > 0 && (
+        <>
+          <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
+            Oppgaver knyttet til behandlingsløp
+          </Heading>
+          <SakOppgaveListe greier={sorterteGreier} totaltAntallOppgaver={sorterteGreier.length} />
+        </>
+      )}
+      {oppgaverSomIkkeErIDpBehandling.length > 0 && (
+        <>
+          {sorterteGreier.length !== 0 && (
+            <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
+              Frie oppgaver
+            </Heading>
+          )}
+          <OppgaveListe
+            oppgaver={oppgaverSomIkkeErIDpBehandling}
+            totaltAntallOppgaver={oppgaverSomIkkeErIDpBehandling.length}
+          />
+        </>
+      )}
     </div>
   );
 }

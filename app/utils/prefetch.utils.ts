@@ -13,7 +13,7 @@ export const prefetchDataForRoute = async (
 ) => {
   if (url.pathname.startsWith("/mine-oppgaver")) {
     const mineOppgaverParams = new URLSearchParams(
-      "?" + convertToQueryParamString(mineOppgaverDefaultParams),
+      `?${convertToQueryParamString(mineOppgaverDefaultParams)}`,
     );
 
     // Let errors be stored in the query cache (no try/catch here)

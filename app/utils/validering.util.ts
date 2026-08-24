@@ -7,9 +7,14 @@ import { logger } from "~/utils/logger.utils";
 export type NyBehandlingType =
   | "RETT_TIL_DAGPENGER_MANUELL"
   | "RETT_TIL_DAGPENGER_REVURDERING"
+  | "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE"
   | "KLAGE"
   | "OPPFOLGING"
   | "INGEN";
+
+export function boolToStringbool(val: boolean | undefined) {
+  return val === undefined ? undefined : val ? "true" : "false";
+}
 
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
@@ -162,6 +167,9 @@ function hentValideringForKlageOpplysningVerdi(
         ),
       );
 
+    case "UUID":
+      return z.uuid({ message: "Du må skrive inn en gyldig behandling-id (UUID)" });
+
     default:
       return z.string();
   }
@@ -188,6 +196,7 @@ export function hentValideringSettOppgavePåVent() {
     "AVVENT_PERMITTERINGSÅRSAK",
     "AVVENT_RAPPORTERINGSFRIST",
     "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "SØKT_FOR_TIDLIG",
     "MANGLENDE_FUNKSJONALITET",
     "ANNET",
   ];
@@ -195,7 +204,10 @@ export function hentValideringSettOppgavePåVent() {
     _action: z.literal("sett-oppgave-på-vent"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     aktivtOppgaveSok: z.string().optional(),
-    beholdOppgave: z.coerce.boolean(),
+    beholdOppgave: z.preprocess(
+      (val) => val === true || val === "true" || val === "on",
+      z.boolean(),
+    ),
     utsettTilDato: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
@@ -217,37 +229,6 @@ export function hentValideringAvbrytOppgave() {
     _action: z.literal("avbryt-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
-  });
-}
-
-export function hentValideringOrkestratorBarn() {
-  return z.object({
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-    ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: z.enum(["true", "false"], {
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
-      message: "Du må velge et svar",
-    }),
-    barnetilleggFom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-      ),
-    barnetilleggTom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-      ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
   });
 }
 
@@ -451,6 +432,10 @@ export function hentValideringForFerdigstillOppgave(
         }),
         z.object({
           ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE"),
+        }),
+        z.object({
+          ...ferdigstillInnsendingFelter,
           behandlingsvariant: z.literal("KLAGE"),
         }),
         z
@@ -563,76 +548,27 @@ export function hentValideringForOpprettRevurderingEtterKlage() {
   });
 }
 
-export function hentValideringForRedigeringBarn() {
-  const boolskSvar = z
-    .enum(["true", "false"], { message: "Du må velge et svar" })
-    .transform((value) => value === "true");
-
+export function hentValideringForNyBarneperiode() {
   return z.object({
-    _action: z.literal("rediger-barn"),
+    _action: z.literal("opprett-barneliste-periode"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    opplysningTypeId: z.string().min(1, { message: "Det mangler opplysningTypeId i skjema" }),
-    barnId: z.string().min(1, { message: "BarnId mangler" }),
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
-    ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: boolskSvar,
-    kvalifisererTilBarnetillegg: boolskSvar,
-    barnetilleggFom: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    barnetilleggTom: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-  });
-}
-
-export function hentValideringForSlettBarn() {
-  return z.object({
-    _action: z.literal("slett-barn"),
-    soknadbarnId: z.string().min(1, { message: "Det mangler soknadbarnId i skjema" }),
-    barnId: z.string().min(1, { message: "Det mangler barnId i skjema" }),
-    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
+    soknadBarnId: z.string().optional(),
+    gyldigFraOgMed: z.string({ message: "Du må velge en gyldig fra og med dato" }),
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
-  });
-}
-
-export function hentValideringForNyttBarn() {
-  const boolskSvar = z
-    .enum(["true", "false"], { message: "Du må velge et svar" })
-    .transform((value) => value === "true");
-
-  return z.object({
-    _action: z.literal("legg-til-barn"),
-    soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
-    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.preprocess(
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
+    barn: z.array(
+      z.object({
+        kilde: z
+          .enum(["Register", "Søknad", "Saksbehandler"], { message: "Du må velge en kilde" })
+          .optional(),
+        fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
+        etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
+        fødselsdato: z.string().min(1, { message: "Du må skrive fødselsdato" }),
+        ident: z.string().optional(),
+        oppholdsland: z.string().min(1, { message: "Du må velge et land" }),
+        forsørgeransvar: z.stringbool({ message: "Du må velge et svar" }),
+        kvalifiserer: z.stringbool({ message: "Du må velge et svar" }),
+        begrunnelse: z.string().optional(),
+      }),
     ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: boolskSvar,
-    kvalifisererTilBarnetillegg: boolskSvar,
-    barnetilleggFom: z.preprocess(
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    barnetilleggTom: z.preprocess(
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
   });
 }

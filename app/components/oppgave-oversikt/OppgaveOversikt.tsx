@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
@@ -30,12 +31,17 @@ import { getEnv } from "~/utils/env.utils";
 import {
   hentFargevariantForSøknadsresultat,
   hentOppgaveTilstandTekst,
+  hentTekstForKlageinstansUtfall,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
 
 import { NoteButton, NoteModal } from "../note-button/NoteButton";
 
-export function OppgaveOversikt() {
+interface IProps {
+  klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
+}
+
+export function OppgaveOversikt(props: IProps) {
   const [visHuskelapp, setVisHuskelapp] = useState(false);
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
@@ -141,6 +147,13 @@ export function OppgaveOversikt() {
                     </>
                   }
                 />
+                {props.klageinstansUtfall && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Utfall fra klageinstans"}
+                    verdi={hentTekstForKlageinstansUtfall(props.klageinstansUtfall.verdi)}
+                  />
+                )}
 
                 {søknadResultatEmneknagger.length > 0 && (
                   <VerdiMedTittel
