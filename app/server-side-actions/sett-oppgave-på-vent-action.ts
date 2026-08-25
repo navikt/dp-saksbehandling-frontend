@@ -37,7 +37,7 @@ export async function settOppgavePåVentAction(request: Request, formData: FormD
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/${oppgaveId}/fullfort-oppgave`, {
+  return redirect(`/oppgave/${oppgaveId}/fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
