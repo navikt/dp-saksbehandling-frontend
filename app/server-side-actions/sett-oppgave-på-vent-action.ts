@@ -15,8 +15,7 @@ export async function settOppgavePåVentAction(request: Request, formData: FormD
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId, utsettTilDato, aktivtOppgaveSok, beholdOppgave, paaVentAarsak } =
-    validertSkjema.data;
+  const { oppgaveId, utsettTilDato, beholdOppgave, paaVentAarsak } = validertSkjema.data;
 
   const { error } = await utsettOppgave(
     request,
@@ -38,7 +37,7 @@ export async function settOppgavePåVentAction(request: Request, formData: FormD
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/?${aktivtOppgaveSok}`, {
+  return redirect(`/${oppgaveId}/fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
