@@ -1,5 +1,5 @@
 import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, Link, Table } from "@navikt/ds-react";
+import { Button, HelpText, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -54,6 +54,15 @@ export function OpplysningPerioderTabell({ opplysning }: IProps) {
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">{opplysning.navn}</Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <div className={"flex items-center gap-2"}>
+                Opprinnelse
+                <HelpText>
+                  Er opplysningsperioden vedtatt i en tidligere behandling eller opprettet i denne
+                  behandlingen?
+                </HelpText>
+              </div>
+            </Table.HeaderCell>
             <Table.HeaderCell scope="col" colSpan={2}>
               Valg
             </Table.HeaderCell>
@@ -89,6 +98,7 @@ export function OpplysningPerioderTabell({ opplysning }: IProps) {
                 <Table.DataCell>
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
+                <Table.DataCell>{periode.opprinnelse}</Table.DataCell>
 
                 {!readonly &&
                   opplysning.redigerbar &&
