@@ -10,11 +10,8 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OppfolgingInfo } from "~/components/oppfolging/oppfolging-info/OppfolgingInfo";
 import { OppfolgingInnhold } from "~/components/oppfolging/oppfolging-innhold/OppfolgingInnhold";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentOppfolging, hentOppgave } from "~/models/saksbehandling.server";
+import { hentOppfolging } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -24,30 +21,21 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
   const oppfolging = await hentOppfolging(request, params.behandlingId);
 
-  return {
-    oppgave,
-    oppfolging,
-  };
+  return { oppfolging };
 }
 
 export default function OppfolgingRoute() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, oppfolging } = useLoaderData<typeof loader>();
+  const { oppfolging } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-      <PersonBoks person={oppgave.person} />
-      <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
-        <OppfolgingInfo oppfolging={oppfolging} />
-        <OppfolgingInnhold oppfolging={oppfolging} />
-      </div>
-    </OppgaveProvider>
+    <div className={`grid grid-cols-[350px_1fr] gap-4`}>
+      <OppfolgingInfo oppfolging={oppfolging} />
+      <OppfolgingInnhold oppfolging={oppfolging} />
+    </div>
   );
 }
 

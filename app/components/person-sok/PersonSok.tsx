@@ -21,9 +21,10 @@ export function PersonSok() {
       <Search
         {...sokPersonForm.getInputProps("personIdent")}
         hideLabel={true}
+        className="min-w-65"
         size="small"
-        label="Søk petter person"
-        placeholder="Søk etter person"
+        label="Søk etter person eller behandling"
+        placeholder="Søk etter person eller behandling-id"
         variant="secondary"
         clearButton
         onBlur={() => sokPersonForm.clearError("personIdent")}

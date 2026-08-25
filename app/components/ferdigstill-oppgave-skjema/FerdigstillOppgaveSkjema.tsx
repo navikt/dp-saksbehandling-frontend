@@ -84,6 +84,11 @@ export function FerdigstillOppgaveSkjema({
           >
             <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
             <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
+            {variant === "ferdigstill-oppfolging" && (
+              <Radio value="RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE">
+                Revurdering etter klage
+              </Radio>
+            )}
             <Radio value="KLAGE">Klage</Radio>
             <Radio value="OPPFOLGING">Oppfølging</Radio>
           </RadioGroup>

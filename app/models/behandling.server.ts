@@ -12,12 +12,30 @@ const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_UR
 export async function opprettBehandling(
   request: Request,
   ident: string,
-  behandlingstype: components["schemas"]["Behandlingstype"],
+  behandlingstype: Exclude<components["schemas"]["Behandlingstype"], "OmgjøringEtterKlage">,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {
     headers: getHeaders(onBehalfOfToken),
     body: { ident, behandlingstype },
+  });
+}
+
+export async function opprettRevurderingEtterKlage(
+  request: Request,
+  ident: string,
+  klageId: string,
+  kildesystem: components["schemas"]["KlageKildesystem"],
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.POST("/person/behandling", {
+    headers: getHeaders(onBehalfOfToken),
+    body: {
+      ident,
+      behandlingstype: "OmgjøringEtterKlage",
+      id: klageId,
+      kildesystem,
+    },
   });
 }
 
@@ -132,4 +150,28 @@ export async function hentVurderinger(request: Request, behandlingId: string) {
   throw new Error(
     `Uhåndtert feil i hentVurderinger(). ${response.status} - ${response.statusText}`,
   );
+}
+
+export async function hentSak(request: Request, sakId: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  const { data, error, response } = await behandlingClient.GET("/sak/{sakId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { sakId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    if (error.status === 404) {
+      return undefined;
+    }
+
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentSak(). ${response.status} - ${response.statusText}`);
 }

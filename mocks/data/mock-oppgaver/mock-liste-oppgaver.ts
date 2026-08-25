@@ -39,6 +39,10 @@ export function konverterOppgaveTilListeOppgave(
   };
 }
 
+export const avbrutteListeOppgaver = [
+  konverterOppgaveTilListeOppgave(oppgave019df6848fd37128824390451b3cf219),
+];
+
 export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(oppgave019c28e8fbdb7466b5e6f6466f89d054),
   konverterOppgaveTilListeOppgave(oppgave019b9cf5580377b3b9db2195d8101a55),
@@ -54,5 +58,4 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(tilbakekrevingOppgave),
   konverterOppgaveTilListeOppgave(oppfolging),
   konverterOppgaveTilListeOppgave(oppgave019cc20df6fe713f85637ed86f12f4d4),
-  konverterOppgaveTilListeOppgave(oppgave019df6848fd37128824390451b3cf219),
 ];

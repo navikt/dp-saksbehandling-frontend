@@ -1,10 +1,24 @@
-import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, CopyButton, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
+import {
+  ChevronLeftDoubleIcon,
+  ChevronRightDoubleIcon,
+  ExternalLinkIcon,
+} from "@navikt/aksel-icons";
+import {
+  BodyShort,
+  Button,
+  CopyButton,
+  Detail,
+  Heading,
+  Link,
+  Skeleton,
+  Tag,
+} from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
@@ -13,15 +27,21 @@ import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-overs
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { getEnv } from "~/utils/env.utils";
 import {
   hentFargevariantForSøknadsresultat,
   hentOppgaveTilstandTekst,
+  hentTekstForKlageinstansUtfall,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
 
 import { NoteButton, NoteModal } from "../note-button/NoteButton";
 
-export function OppgaveOversikt() {
+interface IProps {
+  klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
+}
+
+export function OppgaveOversikt(props: IProps) {
   const [visHuskelapp, setVisHuskelapp] = useState(false);
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
@@ -127,6 +147,13 @@ export function OppgaveOversikt() {
                     </>
                   }
                 />
+                {props.klageinstansUtfall && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Utfall fra klageinstans"}
+                    verdi={hentTekstForKlageinstansUtfall(props.klageinstansUtfall.verdi)}
+                  />
+                )}
 
                 {søknadResultatEmneknagger.length > 0 && (
                   <VerdiMedTittel
@@ -243,9 +270,17 @@ export function OppgaveOversikt() {
               </div>
 
               <div className={"card p-4"}>
-                <Heading className={"pb-2"} size={"small"}>
-                  Historikk
-                </Heading>
+                <div className="flex items-center justify-between">
+                  <Heading className={"pb-2"} size={"small"}>
+                    Historikk
+                  </Heading>
+                  <Link
+                    href={`${getEnv("DP_AKTIVITETSLOGG_FRONTEND_URL")}/aktivitetslogg?behandlingId=${oppgave.behandlingId}`}
+                    target="_blank"
+                  >
+                    Se i aktivitetslogg <ExternalLinkIcon className="inline-block" />
+                  </Link>
+                </div>
                 <OppgaveHistorikk />
               </div>
 

@@ -11,6 +11,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { alleRegelsett } from "~/utils/behandling.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
@@ -22,16 +23,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
   const { behandling, sistePrøvingsdato } = useBehandling();
-  const { rapporteringPersonIdPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
-  );
+  const { rapporteringPersonIdPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.id === regelsettId,
-  );
+  const regelsett = alleRegelsett(behandling).find((sett) => sett.id === regelsettId);
 
   const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === opplysningId,
@@ -66,7 +63,7 @@ export default function Opplysning() {
 
   return (
     <>
-      <main className={"main"}>
+      <main>
         <LoadingLink
           to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/${tilbakeKnappTilstand.path}`}
           className={"flex items-center gap-1 pb-2"}

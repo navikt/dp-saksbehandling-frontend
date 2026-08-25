@@ -152,6 +152,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       DP_INNTEKT_REDIGERING_FRONTEND_URL: process.env.DP_INNTEKT_REDIGERING_FRONTEND_URL,
       DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL:
         process.env.DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL,
+      DP_AKTIVITETSLOGG_FRONTEND_URL: process.env.DP_AKTIVITETSLOGG_FRONTEND_URL,
       ARBEID_INNTEKT_URL: process.env.ARBEID_INNTEKT_URL,
       GOSYS_URL: process.env.GOSYS_URL,
       MODIA_URL: process.env.MODIA_URL,
@@ -159,7 +160,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
       UMAMI_TRACKING_ID: process.env.UMAMI_TRACKING_ID,
-      UMAMI_HOST_URL: process.env.UMAMI_HOST_URL,
+      UMAMI_TRACKING_URL: process.env.UMAMI_TRACKING_URL,
     },
   };
 }
@@ -208,7 +209,6 @@ export default function App() {
 
                 <AlertProvider>
                   <GlobalAlerts />
-
                   <Outlet />
                 </AlertProvider>
 
@@ -238,8 +238,7 @@ export default function App() {
                 />
                 <script
                   defer
-                  src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-                  data-host-url={env.UMAMI_HOST_URL}
+                  src={env.UMAMI_TRACKING_URL}
                   data-website-id={env.UMAMI_TRACKING_ID}
                   data-before-send="umamiBeforeSend"
                 />

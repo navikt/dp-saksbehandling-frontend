@@ -113,7 +113,7 @@ export default function Saksbehandling() {
             </Button>
           )}
         </div>
-        <SwitchFilter param="harDpSak">Vis kun DP-saker</SwitchFilter>
+        <SwitchFilter param="harDpSak">Kun personer med sak i DP-sak</SwitchFilter>
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
         <OppgaveFilterStatus

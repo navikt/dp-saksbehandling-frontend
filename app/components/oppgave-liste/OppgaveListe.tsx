@@ -12,6 +12,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 import {
   hentFargevariantForSøknadsresultat,
+  hentFargevariantForUdefinertEmneknagg,
   hentOppgaveTilstandTekst,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
@@ -19,7 +20,7 @@ import {
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
 
-type SortKey = "opprettet" | "utlostAv" | "status" | "saksbehandler";
+type SortKey = "opprettet" | "utlostAv" | "status" | "saksbehandler" | "utsattTil";
 type SortDirection = "ascending" | "descending";
 
 function toAkselDirection(sortering: string | null): SortDirection {
@@ -92,7 +93,7 @@ export function OppgaveListe(props: IProps) {
         <Table.Body>
           {oppgaver.length === 0 && (
             <Table.Row shadeOnHover={false}>
-              <Table.DataCell colSpan={visPersonIdent ? 9 : 8}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell colSpan={visPersonIdent ? 10 : 9}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
@@ -134,6 +135,10 @@ export function OppgaveListe(props: IProps) {
 
             const udefinerteEmnekagger = oppgave.emneknagger.filter(
               (emneknagg) => emneknagg.kategori === "UDEFINERT",
+            );
+
+            const ettersendingEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "ETTERSENDING",
             );
 
             return (
@@ -188,18 +193,20 @@ export function OppgaveListe(props: IProps) {
                     className={"flex gap-2 whitespace-nowrap"}
                   >
                     {hentOppgaveTilstandTekst(tilstand)}
-
-                    {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                      <Tag
-                        size={"xsmall"}
-                        variant={"outline"}
-                        data-color={"brand-magenta"}
-                        className={"whitespace-nowrap"}
-                      >
-                        <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                      </Tag>
-                    )}
                   </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                    <Tag
+                      size={"xsmall"}
+                      variant={"outline"}
+                      data-color={"brand-magenta"}
+                      className={"whitespace-nowrap"}
+                    >
+                      <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                    </Tag>
+                  )}
                 </Table.DataCell>
 
                 <Table.DataCell>
@@ -293,6 +300,21 @@ export function OppgaveListe(props: IProps) {
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={hentFargevariantForUdefinertEmneknagg(emneknagg.visningsnavn)}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {ettersendingEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"info"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>

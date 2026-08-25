@@ -11,20 +11,20 @@ jobs:
       contents: "read"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.0.9
+        uses: pnpm/action-setup@v6.0.10
 
       - name: Setup node
-        uses: actions/setup-node@v6.4.0
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: "26.x"
           cache: "pnpm"
           registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node_modules
-        uses: actions/cache@v5
+        uses: actions/cache@v6.1.0
         id: node_modules
         with:
           path: ./node_modules
@@ -53,20 +53,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.0.9
+        uses: pnpm/action-setup@v6.0.10
 
       - name: Setup node
-        uses: actions/setup-node@v6.4.0
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: "24.x"
           cache: "pnpm"
           registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node_modules
-        uses: actions/cache@v5
+        uses: actions/cache@v6.1.0
         id: node_modules
         with:
           path: ./node_modules
@@ -117,7 +117,7 @@ jobs:
       name: Development
       url: "https://saksbehandling-dagpenger.ansatt.dev.nav.no"
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
       - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
@@ -137,7 +137,7 @@ jobs:
       name: Production
       url: "https://saksbehandling-dagpenger.ansatt.nav.no"
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
       - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}

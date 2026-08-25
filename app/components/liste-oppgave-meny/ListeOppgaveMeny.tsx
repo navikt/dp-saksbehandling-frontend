@@ -12,6 +12,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import { OppgaveValgAvbryt } from "../oppgave-valg/OppgaveValgAvbryt";
+import { OppgaveValgReturnerTilMeg } from "../oppgave-valg/OppgaveValgReturnerTilSaksbehandler";
 import { OppgaveValgSe } from "../oppgave-valg/OppgaveValgSe";
 
 interface IProps {
@@ -86,6 +87,9 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                       }
                     />
                   );
+
+                case "returner-oppgave-til-meg":
+                  return <OppgaveValgReturnerTilMeg key={valg} oppgave={listeOppgave} />;
               }
             })}
           </ActionMenu.Content>

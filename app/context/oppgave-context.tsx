@@ -33,23 +33,25 @@ export type IGyldigeOppgaveHandlinger =
   | "se-oppgave"
   | "trekk-klage"
   | "send-til-kontroll"
-  | "ferdigstill-klage";
+  | "ferdigstill-klage"
+  | "returner-oppgave-til-meg";
 
 export function OppgaveProvider({
   children,
   oppgave,
   saksbehandler,
 }: PropsWithChildren<IOppgaveProviderType>) {
-  const minOppgave =
-    oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
-    oppgave.tilstand === "UNDER_BEHANDLING";
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   const minBeslutterOppgave =
     oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
     oppgave.tilstand === "UNDER_KONTROLL";
 
   const underKontroll = oppgave.tilstand === "UNDER_KONTROLL";
-  const readonly = !minOppgave || underKontroll || oppgave.tilstand !== "UNDER_BEHANDLING";
+  const readonly =
+    !(minOppgave && oppgave.tilstand === "UNDER_BEHANDLING") ||
+    underKontroll ||
+    oppgave.tilstand !== "UNDER_BEHANDLING";
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, minOppgave);
 
   return (
@@ -113,10 +115,7 @@ function hentGyldigeDagpengerRettOppgaveValg(
     handlinger.push("kontroller-oppgave");
   }
 
-  if (
-    (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") &&
-    minOppgave
-  ) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("utsett-oppgave");
   }
 
@@ -145,6 +144,10 @@ function hentGyldigeDagpengerRettOppgaveValg(
     handlinger.push("avbryt-behandling");
   }
 
+  if (oppgave.tilstand === "KLAR_TIL_KONTROLL" && minOppgave) {
+    handlinger.push("returner-oppgave-til-meg");
+  }
+
   return handlinger;
 }
 
@@ -163,8 +166,12 @@ function hentGyldigeKlageOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage");
+    handlinger.push("utsett-oppgave", "trekk-klage", "ferdigstill-klage");
   }
 
   return handlinger;
@@ -185,8 +192,12 @@ function hentGyldigeInnsendingOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+    handlinger.push("utsett-oppgave");
   }
 
   return handlinger;
@@ -206,8 +217,12 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+    handlinger.push("utsett-oppgave");
   }
 
   return handlinger;

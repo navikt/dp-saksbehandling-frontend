@@ -52,6 +52,8 @@ spec:
       value: "{{dp-rapportering-saksbehandling-frontend_url}}"
     - name: DP_INNTEKT_REDIGERING_FRONTEND_URL
       value: "{{dp-inntekt-redigering-frontend_url}}"
+    - name: DP_AKTIVITETSLOGG_FRONTEND_URL
+      value: "{{dp-aktivitetslogg-frontend_url}}"
     - name: SAF_URL
       value: "{{saf_url}}"
     - name: DP_SOKNAD_ORKESTRATOR_URL
@@ -94,8 +96,8 @@ spec:
       value: "{{githubSha}}"
     - name: UMAMI_TRACKING_ID
       value: "{{umami_tracking_id}}"
-    - name: UMAMI_HOST_URL
-      value: "{{umami_host_url}}"
+    - name: UMAMI_TRACKING_URL
+      value: "{{umami_tracking_url}}"
 
   envFrom:
     - secret: dp-saksbehandling-frontend-unleash-api-token

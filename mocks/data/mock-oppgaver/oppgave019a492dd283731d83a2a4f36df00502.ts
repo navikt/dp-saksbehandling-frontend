@@ -135,6 +135,10 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
       visningsnavn: "Innvilgelse",
       kategori: "SOKNADSRESULTAT",
     },
+    {
+      visningsnavn: "Ettersending(2026-07-21)",
+      kategori: "ETTERSENDING",
+    },
   ],
   tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {

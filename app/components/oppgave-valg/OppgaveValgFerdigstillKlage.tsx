@@ -14,6 +14,7 @@ interface IProps {
   buttonVariant?: ButtonProps["variant"];
   className?: string;
   readOnly?: boolean;
+  label?: string;
 }
 
 export function OppgaveValgFerdigstillKlage({
@@ -22,6 +23,7 @@ export function OppgaveValgFerdigstillKlage({
   buttonSize,
   className,
   readOnly,
+  label,
 }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
@@ -50,7 +52,7 @@ export function OppgaveValgFerdigstillKlage({
         icon={<GavelSoundBlockIcon aria-hidden />}
         className={className ? className : "aksel--font-regular aksel--full-bredde"}
       >
-        Ferdigstill klage
+        {label ? label : "Ferdigstill klage"}
       </Button>
     </div>
   );

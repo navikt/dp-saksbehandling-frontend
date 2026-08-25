@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from "react-router";
 
 import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
+import { ferdigstillBehandlingKlageAction } from "~/server-side-actions/ferdigstill-behandling-klage-action";
 import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
@@ -10,15 +11,13 @@ import { lagreKlageOpplysningAction } from "~/server-side-actions/lagre-klage-op
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
-import { leggTilBarnAction } from "~/server-side-actions/legg-til-barn-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
-import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
+import { opprettRevurderingEtterKlageAction } from "~/server-side-actions/opprett-revurdering-etter-klage-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
-import { slettBarnAction } from "~/server-side-actions/slett-barn-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
@@ -29,6 +28,7 @@ import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
 import { ferdigstillOppfolgingAction } from "./ferdigstill-oppfolging-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
+import { opprettBarnelistePeriodeAction } from "./opprett-barneliste-periode-action";
 import { opprettOppfolgingAction } from "./opprett-oppfolging-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
@@ -90,6 +90,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "ferdigstill-klage":
       return await ferdigstillKlageAction(request, params, formData);
 
+    case "ferdigstill-behandling-klage":
+      return await ferdigstillBehandlingKlageAction(request, params, formData);
+
     case "trekk-klage":
       return await trekkKlageAction(request, params, formData);
 
@@ -99,17 +102,14 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "opprett-behandling":
       return await opprettBehandlingAction(request, formData);
 
+    case "opprett-revurdering-etter-klage":
+      return await opprettRevurderingEtterKlageAction(request, formData);
+
     case "opprett-oppfolging":
       return await opprettOppfolgingAction(request, formData);
 
-    case "slett-barn":
-      return await slettBarnAction(request, formData);
-
-    case "rediger-barn":
-      return await redigerBarnAction(request, params, formData);
-
-    case "legg-til-barn":
-      return await leggTilBarnAction(request, params, formData);
+    case "opprett-barneliste-periode":
+      return await opprettBarnelistePeriodeAction(request, params, formData);
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);

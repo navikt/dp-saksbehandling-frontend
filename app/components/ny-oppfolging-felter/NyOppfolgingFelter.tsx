@@ -33,6 +33,7 @@ export function NyOppfolgingFelter({ form }: { form: FormApi }) {
         error={form.field("beskrivelse").error()}
         resize="vertical"
         label="Beskrivelse"
+        description={"Beskrivelsen vil være synlig for bruker ved innsyn. "}
         size="small"
       />
 

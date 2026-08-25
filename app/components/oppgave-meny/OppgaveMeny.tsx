@@ -8,6 +8,8 @@ import { OppgaveValgSendTilKontroll } from "~/components/oppgave-valg/OppgaveVal
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
 import { useOppgave } from "~/hooks/useOppgave";
 
+import { OppgaveValgReturnerTilMeg } from "../oppgave-valg/OppgaveValgReturnerTilSaksbehandler";
+
 export function OppgaveMeny() {
   const { oppgave, gyldigeOppgaveValg } = useOppgave();
 
@@ -31,6 +33,9 @@ export function OppgaveMeny() {
               switch (valg) {
                 case "legg-tilbake-oppgave":
                   return <OppgaveValgLeggTilbake oppgave={oppgave} />;
+
+                case "returner-oppgave-til-meg":
+                  return <OppgaveValgReturnerTilMeg oppgave={oppgave} />;
 
                 case "rekjor-behandling":
                   return (

@@ -5,6 +5,7 @@ import { useFetcher } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { ManuellBehandlingModal } from "~/components/opprett-behandling/ManuellBehandlingModal";
+import { RevurderingEtterKlageModal } from "~/components/opprett-behandling/RevurderingEtterKlageModal";
 import { RevurderingModal } from "~/components/opprett-behandling/RevurderingModal";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -19,6 +20,7 @@ export function OpprettBehandling() {
   const [openState, setOpenState] = useState(false);
   const manuellBehandlingModal = useRef<HTMLDialogElement>(null);
   const revurderingModal = useRef<HTMLDialogElement>(null);
+  const revurderingEtterKlageModal = useRef<HTMLDialogElement>(null);
   const popoverRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -78,6 +80,16 @@ export function OpprettBehandling() {
           </BodyShort>
 
           <BodyShort size={"small"}>
+            <Button
+              variant={"tertiary-neutral"}
+              size={"xsmall"}
+              onClick={() => revurderingEtterKlageModal.current?.showModal()}
+            >
+              Revurdering etter klage
+            </Button>
+          </BodyShort>
+
+          <BodyShort size={"small"}>
             <LoadingLink
               to={`/person/${personOversikt.person.id}/ny-behandling/klage`}
               asButtonVariant={"tertiary-neutral"}
@@ -99,6 +111,7 @@ export function OpprettBehandling() {
 
       <ManuellBehandlingModal ref={manuellBehandlingModal} />
       <RevurderingModal ref={revurderingModal} />
+      <RevurderingEtterKlageModal ref={revurderingEtterKlageModal} />
     </>
   );
 }

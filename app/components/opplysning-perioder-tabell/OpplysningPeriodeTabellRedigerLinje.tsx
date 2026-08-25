@@ -1,4 +1,4 @@
-import { Button, DatePicker, Table, TextField, useDatepicker } from "@navikt/ds-react";
+import { Button, DatePicker, Table, Textarea, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { add, sub } from "date-fns";
 import { useParams } from "react-router";
@@ -41,6 +41,9 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     },
   });
 
+  const ubegrensetFromDate =
+    props.opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc77";
+
   const forrigePeriodeTilOgMedDato =
     props.opplysning.perioder[props.periodeIndex - 1]?.gyldigTilOgMed;
 
@@ -52,9 +55,10 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       ? new Date(props.periode.gyldigFraOgMed)
       : undefined,
     // Tidligste gylding fra og med dato er forrige periode sin til og med dato + 1 dag
-    fromDate: forrigePeriodeTilOgMedDato
-      ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
-      : undefined,
+    fromDate:
+      forrigePeriodeTilOgMedDato && !ubegrensetFromDate
+        ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
+        : undefined,
     toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : undefined,
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
@@ -142,7 +146,8 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <TextField
+        <Textarea
+          className="pb-2"
           {...periodeForm.field("begrunnelse").getInputProps()}
           size={"small"}
           error={periodeForm.field("begrunnelse").error()}

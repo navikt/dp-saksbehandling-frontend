@@ -15,12 +15,13 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
+import { hentBehandling, hentSak } from "~/models/behandling.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -37,15 +38,22 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
 
-  const sisteDagpengerRettBehandlingId = personOversikt.saker[0]?.oppgaver.find(
-    (oppgave) =>
-      oppgave.behandlingType === "RETT_TIL_DAGPENGER" && oppgave.tilstand === "FERDIG_BEHANDLET",
-  )?.behandlingId;
+  const sisteSak = finnSisteSak(personOversikt.saker);
 
-  let sisteDagpengerRettBehandling;
-  if (sisteDagpengerRettBehandlingId) {
-    sisteDagpengerRettBehandling = await hentBehandling(request, sisteDagpengerRettBehandlingId);
-  }
+  const sisteSakIDpBehandling = sisteSak ? await hentSak(request, sisteSak.id) : undefined;
+
+  const gjetterSisteDagpengerRettBehandlingId =
+    sisteSakIDpBehandling === undefined
+      ? sisteSak?.oppgaver.find(
+          (oppgave) =>
+            oppgave.behandlingType === "RETT_TIL_DAGPENGER" &&
+            oppgave.tilstand === "FERDIG_BEHANDLET",
+        )?.behandlingId
+      : undefined;
+
+  const gjetterSisteBehandling = gjetterSisteDagpengerRettBehandlingId
+    ? await hentBehandling(request, gjetterSisteDagpengerRettBehandlingId)
+    : undefined;
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -54,7 +62,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
-      sisteDagpengerRettBehandling,
+      sisteSak,
+      sisteSakIDpBehandling,
+      gjetterSisteBehandling,
     },
     {
       headers: {
@@ -65,7 +75,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personOversikt, sisteDagpengerRettBehandling, alert } = useLoaderData<typeof loader>();
+  const { personOversikt, sisteSakIDpBehandling, gjetterSisteBehandling, sisteSak, alert } =
+    useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -121,13 +132,13 @@ export default function PersonOversikt() {
           </Tabs.List>
 
           <Tabs.Panel value="siste-sak">
-            {personOversikt.saker[0] && (
-              <SisteSak
-                sak={personOversikt.saker[0]}
-                dagpengerRettBehandling={sisteDagpengerRettBehandling}
-              />
+            {sisteSak && sisteSakIDpBehandling && (
+              <SisteSak sak={sisteSak} sakIDpBehandling={sisteSakIDpBehandling} />
             )}
-            {!personOversikt.saker[0] && (
+            {sisteSak && gjetterSisteBehandling && (
+              <SisteSak sak={sisteSak} gjetterSisteBehandling={gjetterSisteBehandling} />
+            )}
+            {!sisteSak && (
               <div className={"card my-4 p-4"}>
                 <BodyShort>Personen har ingen saker</BodyShort>
               </div>
@@ -165,4 +176,15 @@ export default function PersonOversikt() {
       </div>
     </div>
   );
+}
+
+function finnSisteSak(saker: components["schemas"]["Sak"][]) {
+  return saker
+    .filter(
+      (sak) =>
+        !sak.oppgaver.every((oppgave) =>
+          ["AVBRUTT", "AVBRUTT_MASKINELT"].includes(oppgave.tilstand),
+        ),
+    )
+    .at(0);
 }
