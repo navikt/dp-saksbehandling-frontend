@@ -172,7 +172,6 @@ export function OpplysningPerioderTabell({ opplysning }: IProps) {
           )}
         </Table.Body>
       </Table>
-
       {opplysning.redigerbar && !readonly && (
         <div>
           <Button

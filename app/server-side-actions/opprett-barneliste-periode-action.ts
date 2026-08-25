@@ -18,7 +18,8 @@ export async function opprettBarnelistePeriodeAction(
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, barn, gyldigFraOgMed, begrunnelse, soknadBarnId } = validertSkjema.data;
+  const { behandlingId, barn, gyldigFraOgMed, gyldigTilOgMed, begrunnelse, soknadBarnId } =
+    validertSkjema.data;
   const barnVerdiListe: components["schemas"]["BarnVerdi"][] = barn;
 
   const { data, error } = await lagreOpplysning(
@@ -28,7 +29,7 @@ export async function opprettBarnelistePeriodeAction(
     JSON.stringify({ barn: barnVerdiListe, søknadbarnId: soknadBarnId }),
     begrunnelse ? begrunnelse : "",
     gyldigFraOgMed,
-    undefined,
+    gyldigTilOgMed,
   );
 
   if (error) {

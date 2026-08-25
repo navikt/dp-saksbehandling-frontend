@@ -1,4 +1,4 @@
-import { Button, DatePicker, Textarea, useDatepicker, VStack } from "@navikt/ds-react";
+import { Button, DatePicker, HStack, Textarea, useDatepicker, VStack } from "@navikt/ds-react";
 import { FieldArray, FormProvider, useForm } from "@rvf/react-router";
 import { useLoaderData } from "react-router";
 
@@ -47,32 +47,47 @@ const BarnelisteSkjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Pr
       behandlingId,
       begrunnelse: "",
       gyldigFraOgMed: undefined as string | undefined,
+      gyldigTilOgMed: "" as string | undefined,
       barn: barneliste,
     },
   });
 
+  const onDateChange = (date: Date | undefined, field: "gyldigFraOgMed" | "gyldigTilOgMed") => {
+    if (date) {
+      const dato = formaterTilBackendDato(date);
+      nyBarnelisteForm.field(field).setValue(dato);
+    } else {
+      nyBarnelisteForm.field(field).setValue("");
+    }
+  };
+
   const gyldigFraOgMedDatepicker = useDatepicker({
-    onDateChange: (date: Date | undefined) => {
-      if (date) {
-        const dato = formaterTilBackendDato(date);
-        nyBarnelisteForm.field("gyldigFraOgMed").setValue(dato);
-      } else {
-        nyBarnelisteForm.field("gyldigFraOgMed").setValue("");
-      }
-    },
+    onDateChange: (date: Date | undefined) => onDateChange(date, "gyldigFraOgMed"),
+  });
+  const gyldigTilOgMedDatepicker = useDatepicker({
+    onDateChange: (date: Date | undefined) => onDateChange(date, "gyldigTilOgMed"),
   });
 
   return (
     <FormProvider scope={nyBarnelisteForm.scope()}>
       <form {...nyBarnelisteForm.getFormProps()}>
         <VStack gap="space-8">
-          <DatePicker {...gyldigFraOgMedDatepicker.datepickerProps}>
-            <DatePicker.Input
-              {...gyldigFraOgMedDatepicker.inputProps}
-              error={nyBarnelisteForm.field("gyldigFraOgMed").error()}
-              label="Gyldig fra og med"
-            />
-          </DatePicker>
+          <HStack gap="space-8">
+            <DatePicker {...gyldigFraOgMedDatepicker.datepickerProps}>
+              <DatePicker.Input
+                {...gyldigFraOgMedDatepicker.inputProps}
+                error={nyBarnelisteForm.field("gyldigFraOgMed").error()}
+                label="Gyldig fra og med"
+              />
+            </DatePicker>
+            <DatePicker {...gyldigTilOgMedDatepicker.datepickerProps}>
+              <DatePicker.Input
+                {...gyldigTilOgMedDatepicker.inputProps}
+                error={nyBarnelisteForm.field("gyldigTilOgMed").error()}
+                label="Gyldig til og med"
+              />
+            </DatePicker>
+          </HStack>
           <FieldArray scope={nyBarnelisteForm.scope("barn")}>
             {(barneliste) => {
               return (

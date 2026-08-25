@@ -555,6 +555,7 @@ export function hentValideringForNyBarneperiode() {
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
     soknadBarnId: z.string().optional(),
     gyldigFraOgMed: z.string({ message: "Du må velge en gyldig fra og med dato" }),
+    gyldigTilOgMed: z.string().optional(),
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
     barn: z.array(
       z.object({
