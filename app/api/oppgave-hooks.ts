@@ -1,7 +1,6 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useNavigation } from "react-router";
 
-import type { IAlert } from "~/context/alert-context";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 
 import {
@@ -50,7 +49,7 @@ export function useOppgaveQuery(oppgaveId: string) {
   };
 }
 
-export function useTildelOppgaveMutation(forbiddenAlert?: IAlert) {
+export function useTildelOppgaveMutation() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -87,11 +86,6 @@ export function useTildelOppgaveMutation(forbiddenAlert?: IAlert) {
       });
     },
     onError: (error) => {
-      if (error instanceof ApiError && error.status === 403 && forbiddenAlert) {
-        addAlert(forbiddenAlert);
-        return;
-      }
-
       if (error instanceof ApiError) {
         addAlert({
           variant: "error",

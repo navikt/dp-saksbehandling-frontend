@@ -2,7 +2,6 @@ import { Button, ButtonProps } from "@navikt/ds-react";
 import { ReactNode } from "react";
 
 import { useTildelOppgaveMutation } from "~/api/oppgave-hooks";
-import type { IAlert } from "~/context/alert-context";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -12,7 +11,6 @@ interface IProps {
   icon: ReactNode;
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
-  forbiddenAlert?: IAlert;
 }
 
 export function OppgaveValgBehandle({
@@ -21,9 +19,8 @@ export function OppgaveValgBehandle({
   icon,
   buttonVariant,
   buttonSize,
-  forbiddenAlert,
 }: IProps) {
-  const { mutate, isPending } = useTildelOppgaveMutation(forbiddenAlert);
+  const { mutate, isPending } = useTildelOppgaveMutation();
 
   return (
     <div>

@@ -60,11 +60,6 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                       listeOppgave={listeOppgave}
                       label={"Kontroller oppgave"}
                       icon={<PersonGavelIcon aria-hidden={true} />}
-                      forbiddenAlert={{
-                        variant: "error",
-                        title: "Du kan ikke kontrollere egen behandling",
-                        body: "Oppgaven må kontrolleres av en annen saksbehandler.",
-                      }}
                     />
                   );
 
