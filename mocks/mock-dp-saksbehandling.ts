@@ -94,6 +94,18 @@ export const mockDpSaksbehandling = [
     }
 
     const { oppgaveId } = params;
+    // return response("default").json(
+    //   {
+    //     type: "dagpenger.nav.no/saksbehandling:problem:manglende-tilgang",
+    //     title: "KanIkkeBeslutteEgenSaksbehandling",
+    //     status: 403,
+    //     detail:
+    //       "Ulovlig hendelse SettOppgaveAnsvarHendelse på oppgave i tilstand KLAR_TIL_KONTROLL. Oppgave kan ikke behandles og kontrolleres av samme person. Saksbehandler på oppgaven er Z993622 og kan derfor ikke kontrolleres av Z993622",
+    //     instance: `/oppgave/${oppgaveId}/tildel`,
+    //   },
+    //   { status: 403 },
+    // );
+
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {

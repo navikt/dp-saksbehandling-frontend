@@ -1,6 +1,9 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useNavigation } from "react-router";
 
+import type { IAlert } from "~/context/alert-context";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
+
 import {
   fetchOppgave,
   fetchOppgaver,
@@ -10,6 +13,7 @@ import {
   returnerTilSaksbehandlerFetch,
   tildelOppgaveFetch,
 } from "./oppgave";
+import { ApiError } from "./util";
 
 export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
   [
@@ -46,10 +50,11 @@ export function useOppgaveQuery(oppgaveId: string) {
   };
 }
 
-export function useTildelOppgaveMutation() {
+export function useTildelOppgaveMutation(forbiddenAlert?: IAlert) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const navigation = useNavigation();
+  const { addAlert } = useGlobalAlerts();
 
   const mutation = useMutation({
     mutationFn: tildelOppgaveFetch,
@@ -79,6 +84,28 @@ export function useTildelOppgaveMutation() {
 
       performNavigation()?.then(() => {
         queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+      });
+    },
+    onError: (error) => {
+      if (error instanceof ApiError && error.status === 403 && forbiddenAlert) {
+        addAlert(forbiddenAlert);
+        return;
+      }
+
+      if (error instanceof ApiError) {
+        addAlert({
+          variant: "error",
+          title: error.title || "Kunne ikke åpne oppgave",
+          body: error.detail || error.message,
+          service: error.service,
+        });
+        return;
+      }
+
+      addAlert({
+        variant: "error",
+        title: "Kunne ikke åpne oppgave",
+        body: "Noe gikk galt ved tildeling av oppgaven.",
       });
     },
   });
