@@ -50,6 +50,12 @@ DP_BEHANDLING_TOKEN="enTredjeLangStrengHerFraAccess_token"
 
 Disse tokenene vil vare i en time før du må generere et nytt token.
 
+Med `MICROSOFT_TOKEN` satt i `.env` vil appen bruke din egen ident (hentet fra Microsoft Graph) i stedet for `mockSaksbehandler`.
+
+Scriptet lagrer også innloggingscookien din i `WONDERWALL_SESSION_COOKIE`. Så lenge den er gyldig
+vil dev-serveren automatisk fornye utløpte tokens i bakgrunnen — du trenger vanligvis bare å kjøre
+`pnpm generate-token` én gang per innloggingsøkt, ikke hver time.
+
 ## Manuelt oppdatering av lokalt Azure tokens
 
 Logg på med en testbruker. Hent ut verdien fra `access_token`, rediger `.env` og

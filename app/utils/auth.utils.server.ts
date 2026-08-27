@@ -1,10 +1,11 @@
 import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
 
+import { getLocalToken } from "~/utils/local-token-refresh.server";
 import { logger } from "~/utils/logger.utils";
 
 export async function getSaksbehandlingOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_SAKSBEHANDLING_TOKEN as string;
+    return await getLocalToken("DP_SAKSBEHANDLING_TOKEN");
   }
 
   const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-saksbehandling/.default`;
@@ -13,7 +14,7 @@ export async function getSaksbehandlingOboToken(request: Request) {
 
 export async function getRapporteringPersonregisterOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_RAPPORTERING_PERSONREGISTER_TOKEN as string;
+    return await getLocalToken("DP_RAPPORTERING_PERSONREGISTER_TOKEN");
   }
 
   const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-rapportering-personregister/.default`;
@@ -22,7 +23,7 @@ export async function getRapporteringPersonregisterOboToken(request: Request) {
 
 export async function getBehandlingOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_BEHANDLING_TOKEN as string;
+    return await getLocalToken("DP_BEHANDLING_TOKEN");
   }
 
   const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-behandling/.default`;
@@ -31,7 +32,7 @@ export async function getBehandlingOboToken(request: Request) {
 
 export async function getSoknadOrkestratorOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_SOKNAD_ORKESTRATOR_TOKEN as string;
+    return await getLocalToken("DP_SOKNAD_ORKESTRATOR_TOKEN");
   }
 
   const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-soknad-orkestrator/.default`;
@@ -40,7 +41,7 @@ export async function getSoknadOrkestratorOboToken(request: Request) {
 
 export async function getMicrosoftOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.MICROSOFT_TOKEN as string;
+    return await getLocalToken("MICROSOFT_TOKEN");
   }
 
   const audience = `https://graph.microsoft.com/.default`;

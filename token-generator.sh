@@ -73,6 +73,10 @@ startTokenGenerator() {
   read cookie
   echo -e "\n"
 
+  # Store the cookie itself so the running dev server can silently refresh
+  # expired tokens later without asking you to log in again.
+  generateAndUpdateEnvFile "WONDERWALL_SESSION_COOKIE" "" "$cookie" "true"
+
   configArray=$(jq -r '.[] | @base64' $jsonConfig)
 
   # Loop through config list and create environment variable
@@ -99,6 +103,7 @@ generateAndUpdateEnvFile() {
   env=$1
   url=$2 | tr -d '"'
   cookie=$3
+  rawValue=$4
 
   # Add env key if not exits
   # Example: DP_SAKSBEHANDLING_TOKEN
@@ -108,6 +113,14 @@ generateAndUpdateEnvFile() {
   else
     # Add missing env key
     printf "%s\n" '$a' "${env}" . w | ed -s "$envFile"
+  fi
+
+  # Store the cookie value directly, skip the curl/access_token lookup
+  if [[ "$rawValue" == "true" ]]; then
+    generatedEnv="${env}=${cookie}"
+    printf '%s\n' H ",g/^${env}.*/s//${generatedEnv}/" wq | ed -s "$envFile"
+    echo -e "✅ ${Yellow}${env} ${Cyan}updated"
+    return
   fi
 
   # Store access token in variable
