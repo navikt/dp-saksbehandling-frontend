@@ -2,14 +2,8 @@ import { logger } from "~/utils/logger.utils";
 
 import tokenGeneratorConfig from "../../token-generator.config.json";
 
-interface CachedToken {
-  token: string;
-  exp: number; // sekunder siden epoch
-}
-
-const tokenCache = new Map<string, CachedToken>();
-let pågåendeRefreshAlle: Promise<void> | null = null;
 const EXPIRY_MARGIN_SECONDS = 60;
+let pågåendeRefreshAlle: Promise<void> | null = null;
 
 function decodeJwtExp(token: string): number | null {
   try {
@@ -55,29 +49,23 @@ async function hentTokenMedInnloggingscookie(audienceUrl: string): Promise<strin
 
 // Fornyer automatisk utløpte lokale tokens ved hjelp av innloggingscookien fra `pnpm generate-token`
 export async function getLocalToken(envVar: string): Promise<string> {
-  const cached = tokenCache.get(envVar);
-  if (cached && !erUtløptSnart(cached.exp)) {
-    return cached.token;
-  }
+  const token = process.env[envVar];
+  const exp = token ? decodeJwtExp(token) : null;
 
-  const forrigeToken = process.env[envVar];
-  const forrigeExp = forrigeToken ? decodeJwtExp(forrigeToken) : null;
-
-  if (forrigeToken && forrigeExp && !erUtløptSnart(forrigeExp)) {
-    tokenCache.set(envVar, { token: forrigeToken, exp: forrigeExp });
-    return forrigeToken;
+  if (token && exp && !erUtløptSnart(exp)) {
+    return token;
   }
 
   // Tokenene er utstedt sammen og utløper stort sett samtidig, så vi fornyer alle i ett steg
   // i stedet for å la hvert token trigge sin egen refresh-request etter hvert som det utløper.
   await fornyAlleTokens();
 
-  const oppdatert = tokenCache.get(envVar);
+  const oppdatert = process.env[envVar];
   if (!oppdatert) {
     throw new Error(`Fikk ikke fornyet ${envVar}`);
   }
 
-  return oppdatert.token;
+  return oppdatert;
 }
 
 function fornyAlleTokens(): Promise<void> {
@@ -90,10 +78,7 @@ function fornyAlleTokens(): Promise<void> {
   pågåendeRefreshAlle = (async () => {
     await Promise.all(
       tokenGeneratorConfig.map(async ({ env, url }) => {
-        const token = await hentTokenMedInnloggingscookie(url);
-        const exp = decodeJwtExp(token) ?? Date.now() / 1000 + 3600;
-
-        tokenCache.set(env, { token, exp });
+        process.env[env] = await hentTokenMedInnloggingscookie(url);
       }),
     );
   })();
