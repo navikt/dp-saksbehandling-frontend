@@ -163,7 +163,7 @@ export function OppgaveListe(props: IProps) {
                         data-color={"neutral"}
                         className={"whitespace-nowrap"}
                       >
-                        <Detail>{emneknagg.visningsnavn}</Detail>
+                        <Detail as="span">{emneknagg.visningsnavn}</Detail>
                       </Tag>
                     ))}
                   </Detail>
