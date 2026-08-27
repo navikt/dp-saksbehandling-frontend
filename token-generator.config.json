@@ -8,11 +8,15 @@
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling"
   },
   {
-    "env" : "DP_SOKNAD_ORKESTRATOR_TOKEN",
+    "env": "DP_SOKNAD_ORKESTRATOR_TOKEN",
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-soknad-orkestrator"
   },
   {
-    "env" : "DP_RAPPORTERING_PERSONREGISTER_TOKEN",
+    "env": "DP_RAPPORTERING_PERSONREGISTER_TOKEN",
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering-personregister"
+  },
+  {
+    "env": "MICROSOFT_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=https%3A%2F%2Fgraph.microsoft.com%2F.default"
   }
 ]

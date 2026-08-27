@@ -21,7 +21,7 @@ const cache = new LRUCache<string, ISaksbehandler>({
 });
 
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
-  if (getEnv("IS_LOCALHOST") === "true") {
+  if (getEnv("IS_LOCALHOST") === "true" && !process.env.MICROSOFT_TOKEN) {
     return mockSaksbehandler;
   }
 
@@ -57,7 +57,10 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
 
 async function getNavIdent(request: Request): Promise<string | null> {
   if (getEnv("IS_LOCALHOST") === "true") {
-    return mockSaksbehandler.onPremisesSamAccountName;
+    // Med et ekte MICROSOFT_TOKEN i .env har vi ingen request-header å hente NAVident fra
+    return process.env.MICROSOFT_TOKEN
+      ? "localhost-bruker"
+      : mockSaksbehandler.onPremisesSamAccountName;
   }
 
   const token = getToken(request);
