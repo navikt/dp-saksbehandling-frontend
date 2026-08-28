@@ -17,6 +17,7 @@ import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
+import { hentNorskLandnavn } from "~/utils/land.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -75,7 +76,7 @@ export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
         </BodyShort>
 
         <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
-          Statsborgerskap: <b>{person.statsborgerskap}</b>
+          Statsborgerskap: <b>{hentNorskLandnavn(person.statsborgerskap)}</b>
         </BodyShort>
 
         <Suspense
