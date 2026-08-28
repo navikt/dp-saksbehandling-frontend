@@ -2323,6 +2323,7 @@ export interface components {
             /** Format: date */
             fodselsdato: string;
             alder: number;
+            /** Format ISO-Alpha-3 */
             statsborgerskap?: string;
             kjonn: components["schemas"]["Kjonn"];
             skjermesSomEgneAnsatte: boolean;
