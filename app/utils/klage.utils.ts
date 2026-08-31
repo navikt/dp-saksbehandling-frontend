@@ -8,9 +8,7 @@ export function erMedholdEllerDelvisMedhold(utfall: Utfall): boolean {
 }
 
 export type KlageFerdigstillModus =
-  | "ferdigstill-behandling"
-  | "fullfor-klage"
-  | "ferdigstill-klage";
+  "ferdigstill-behandling" | "fullfor-klage" | "ferdigstill-klage";
 
 export function hentKlageFerdigstillModus(
   utfall: Utfall,
