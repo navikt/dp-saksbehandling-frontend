@@ -9,7 +9,11 @@ export function SakOppgaveListeHeader({ visPersonIdent }: IProps) {
     <Table.Header>
       <Table.Row>
         <Table.ColumnHeader scope="col">
-          <Detail>Dato</Detail>
+          <Detail>Opprettet</Detail>
+        </Table.ColumnHeader>
+
+        <Table.ColumnHeader scope="col">
+          <Detail>Behandlet</Detail>
         </Table.ColumnHeader>
 
         <Table.ColumnHeader scope="col">
