@@ -50,6 +50,11 @@ async function hentTokenMedInnloggingscookie(audienceUrl: string): Promise<strin
 // Fornyer automatisk utløpte lokale tokens ved hjelp av innloggingscookien fra `pnpm generate-token`
 export async function getLocalToken(envVar: string): Promise<string> {
   const token = process.env[envVar];
+
+  if (process.env.USE_MSW === "true") {
+    return token ?? "";
+  }
+
   const exp = token ? decodeJwtExp(token) : null;
 
   if (token && exp && !erUtløptSnart(exp)) {
