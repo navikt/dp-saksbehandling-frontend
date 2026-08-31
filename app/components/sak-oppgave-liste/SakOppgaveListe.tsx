@@ -64,7 +64,7 @@ export function SakOppgaveListe(props: IProps) {
           {greier?.map((greie) => {
             const oppgave = greie.oppgave;
             const { tidspunktOpprettet, tilstand, utsattTilDato } = oppgave;
-            const { førteTil } = greie.behandling;
+            const { førteTil, ferdigstilt } = greie.behandling;
             const dagerIgjenTilUtsattDato = utsattTilDato
               ? differenceInCalendarDays(utsattTilDato, new Date())
               : undefined;
@@ -108,6 +108,12 @@ export function SakOppgaveListe(props: IProps) {
                 <Table.DataCell>
                   <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
                     {formaterTilNorskDato(tidspunktOpprettet)}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
+                    {ferdigstilt ? formaterTilNorskDato(ferdigstilt) : "-"}
                   </Detail>
                 </Table.DataCell>
 
