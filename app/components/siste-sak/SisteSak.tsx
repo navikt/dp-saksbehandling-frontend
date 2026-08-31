@@ -7,7 +7,7 @@ import { components as behandlingComponents } from "../../../openapi/behandling-
 import { components } from "../../../openapi/saksbehandling-typer";
 import { GjeldendeVedtakMedBehandling } from "../gjeldende-vedtak/GjeldendeVedtakMedBehandling";
 import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
-import { BehandlingOppgavePair, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
+import { OppgaveOgBehandling, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
@@ -29,7 +29,7 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
       )
     : sak.oppgaver;
 
-  const sorterteGreier = sakIDpBehandling
+  const oppgaverOgBehandlinger = sakIDpBehandling
     ? sakIDpBehandling.behandlinger
         .map((behandling) => {
           return {
@@ -39,7 +39,10 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
             ),
           };
         })
-        .filter((greie): greie is BehandlingOppgavePair => greie.oppgave !== undefined)
+        .filter(
+          (oppgaveOgBehandling): oppgaveOgBehandling is OppgaveOgBehandling =>
+            oppgaveOgBehandling.oppgave !== undefined,
+        )
     : [];
 
   return (
@@ -67,17 +70,20 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
         <GjeldendeVedtakMedBehandling dagpengerRettBehandling={gjetterSisteBehandling} />
       )}
 
-      {sorterteGreier.length > 0 && (
+      {oppgaverOgBehandlinger.length > 0 && (
         <>
           <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
             Oppgaver knyttet til behandlingsløp
           </Heading>
-          <SakOppgaveListe greier={sorterteGreier} totaltAntallOppgaver={sorterteGreier.length} />
+          <SakOppgaveListe
+            oppgaverOgBehandlinger={oppgaverOgBehandlinger}
+            totaltAntallOppgaver={oppgaverOgBehandlinger.length}
+          />
         </>
       )}
       {oppgaverSomIkkeErIDpBehandling.length > 0 && (
         <>
-          {sorterteGreier.length !== 0 && (
+          {oppgaverOgBehandlinger.length !== 0 && (
             <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
               Frie oppgaver
             </Heading>

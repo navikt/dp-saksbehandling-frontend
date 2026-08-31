@@ -20,13 +20,13 @@ import { components as behandlingComponents } from "../../../openapi/behandling-
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./SakOppgaveListe.module.css";
 
-export interface BehandlingOppgavePair {
+export interface OppgaveOgBehandling {
   behandling: behandlingComponents["schemas"]["BehandlingSammendrag"];
   oppgave: components["schemas"]["OppgaveOversikt"];
 }
 
 interface IProps {
-  greier: BehandlingOppgavePair[];
+  oppgaverOgBehandlinger: OppgaveOgBehandling[];
   totaltAntallOppgaver: number;
   tittel?: string;
   icon?: React.ReactNode;
@@ -36,7 +36,14 @@ interface IProps {
 
 export function SakOppgaveListe(props: IProps) {
   const [selectedNoteKey, setSelectedNoteKey] = useState<string | undefined>();
-  const { greier, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
+  const {
+    oppgaverOgBehandlinger,
+    tittel,
+    icon,
+    totaltAntallOppgaver,
+    lasterOppgaver,
+    visPersonIdent,
+  } = props;
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
 
   return (
@@ -51,7 +58,8 @@ export function SakOppgaveListe(props: IProps) {
 
         {totaltAntallOppgaver > 0 && (
           <Detail textColor="subtle" className={styles.antallOppgaver}>
-            {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || greier.length}`}
+            {!lasterOppgaver &&
+              `Antall oppgaver ${totaltAntallOppgaver || oppgaverOgBehandlinger.length}`}
             {lasterOppgaver && "Laster oppgaver..."}
           </Detail>
         )}
@@ -61,12 +69,11 @@ export function SakOppgaveListe(props: IProps) {
         <SakOppgaveListeHeader visPersonIdent={visPersonIdent} />
 
         <Table.Body>
-          {greier?.map((greie) => {
-            const oppgave = greie.oppgave;
-            const { tidspunktOpprettet, tilstand, utsattTilDato } = oppgave;
-            const { førteTil, ferdigstilt } = greie.behandling;
-            const dagerIgjenTilUtsattDato = utsattTilDato
-              ? differenceInCalendarDays(utsattTilDato, new Date())
+          {oppgaverOgBehandlinger?.map((oppgaveOgBehandling) => {
+            const oppgave = oppgaveOgBehandling.oppgave;
+            const behandling = oppgaveOgBehandling.behandling;
+            const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
+              ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
               : undefined;
 
             const avslagsgrunner = oppgave.emneknagger.filter(
@@ -107,13 +114,13 @@ export function SakOppgaveListe(props: IProps) {
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
                   <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
-                    {formaterTilNorskDato(tidspunktOpprettet)}
+                    {formaterTilNorskDato(oppgave.tidspunktOpprettet)}
                   </Detail>
                 </Table.DataCell>
 
                 <Table.DataCell>
                   <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
-                    {ferdigstilt ? formaterTilNorskDato(ferdigstilt) : "-"}
+                    {behandling.ferdigstilt ? formaterTilNorskDato(behandling.ferdigstilt) : "-"}
                   </Detail>
                 </Table.DataCell>
 
@@ -160,12 +167,12 @@ export function SakOppgaveListe(props: IProps) {
                     as={lasterOppgaver ? Skeleton : "p"}
                     className={"flex gap-2 whitespace-nowrap"}
                   >
-                    {hentOppgaveTilstandTekst(tilstand)}
+                    {hentOppgaveTilstandTekst(oppgave.tilstand)}
                   </Detail>
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                  {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
                     <Tag
                       size={"xsmall"}
                       variant={"outline"}
@@ -178,15 +185,15 @@ export function SakOppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {førteTil && (
+                  {behandling.førteTil && (
                     <Tag
-                      key={førteTil}
+                      key={behandling.førteTil}
                       size={"xsmall"}
                       variant={lasterOppgaver ? "moderate" : "outline"}
-                      data-color={hentFargevariantForSøknadsresultat(førteTil)}
+                      data-color={hentFargevariantForSøknadsresultat(behandling.førteTil)}
                       className={"whitespace-nowrap"}
                     >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{førteTil}</Detail>
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{behandling.førteTil}</Detail>
                     </Tag>
                   )}
                 </Table.DataCell>
@@ -299,7 +306,7 @@ export function SakOppgaveListe(props: IProps) {
 
                 <Table.DataCell>
                   <NoteButton
-                    oppgaveTilstand={tilstand}
+                    oppgaveTilstand={oppgave.tilstand}
                     noteKey={oppgave.oppgaveId}
                     onClick={() => {
                       setSelectedNoteKey(oppgave.oppgaveId);
