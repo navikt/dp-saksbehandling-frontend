@@ -242,8 +242,7 @@ export function formaterOpplysningFormål(formål: components["schemas"]["Formå
 
 export function skalViseOpplysning(
   opplysning:
-    | components["schemas"]["RedigerbareOpplysninger"]
-    | components["schemas"]["Opplysninger"],
+    components["schemas"]["RedigerbareOpplysninger"] | components["schemas"]["Opplysninger"],
   visArvedeOpplysninger: boolean,
 ) {
   if (isRedigerbareOpplysninger(opplysning) && !opplysning.synlig) {
