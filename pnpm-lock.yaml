@@ -63,8 +63,8 @@ importers:
         specifier: 5.2.0
         version: 5.2.0(@types/react@19.2.18)(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@portabletext/editor':
-        specifier: 6.6.2
-        version: 6.6.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
+        specifier: 7.12.1
+        version: 7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts':
         specifier: 2.1.4
         version: 2.1.4
@@ -76,7 +76,7 @@ importers:
         version: 5.0.2
       '@portabletext/toolbar':
         specifier: 9.0.4
-        version: 9.0.4(@portabletext/editor@6.6.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.2.8)
+        version: 9.0.4(@portabletext/editor@7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.2.8)
       '@react-router/node':
         specifier: 8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)
@@ -91,7 +91,7 @@ importers:
         version: 7.22.0
       '@tanstack/react-query':
         specifier: ^5.102.2
-        version: 5.102.5(react@19.2.8)
+        version: 5.102.3(react@19.2.8)
       '@types/umami':
         specifier: ^2.10.1
         version: 2.10.1
@@ -2071,11 +2071,11 @@ packages:
     resolution: {integrity: sha512-BX4LXt3hDU2wI2kufuMT3CNF88atdZuCSB+YXtjUF9hO/sZJhLG/IfK5pWV4GVoRIql9C6f2IBitxRSImG5NQQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/editor@6.6.2':
-    resolution: {integrity: sha512-GFRnB8/LZe4veGl8w/cpozs7QwqkMeR8cJ4oNLUUl+A6p4s9feLYVuXBKch+V0WuNtdAWVVHV1WF5t+a8z4cnQ==}
+  '@portabletext/editor@7.12.1':
+    resolution: {integrity: sha512-Mh22SJV7tfgMiXhejmPQbjEBmlovaDnWhr6eveMCW/jmptRJO74exi2wOemVhMXSdzwGepmzxqo/OOToggQhBg==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     peerDependencies:
-      react: ^19.2.3
+      react: ^19.2.8
 
   '@portabletext/html@1.2.0':
     resolution: {integrity: sha512-4xtdIdGOAdpXv4PfcSLZAoVdOURt4hVLs/bKeXjpQzja3vWgD/A5sscMsElO3zESDXcp5fWZG2s3eJwjLU3i3g==}
@@ -2113,6 +2113,10 @@ packages:
 
   '@portabletext/to-html@5.0.2':
     resolution: {integrity: sha512-w59PcErj5JXUCv9tbV2npqJmcnORTAftCMLp0vc9FnWrXL3C9qYvuB2MQbdHsZEOesF3VmwqUsYUgjm7PX4JTw==}
+    engines: {node: '>=20.19 <22 || >=22.12'}
+
+  '@portabletext/to-html@5.0.3':
+    resolution: {integrity: sha512-62xml8ywsBjsNHfaQsMEZbj5VvJhWcGq5e4PCZpyb5yWl5zxukBRKal42201t5nu2Vt+JEMj9ezKU776C0elrQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
   '@portabletext/toolbar@9.0.4':
@@ -2488,11 +2492,11 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@tanstack/query-core@5.102.5':
-    resolution: {integrity: sha512-RjCmHf9cPRYcH/dpO0Jagw3rxCM1bLzMKKSGzaDkQJADDKGpv5RFjN54IyHSOIPa822AUA7ASOXDjjy1jfyzIA==}
+  '@tanstack/query-core@5.102.3':
+    resolution: {integrity: sha512-5O2VEceonqC4uaTLUGglb0hgPouWCJ4K1ykVWyeV8aThhdNCzwpwu01bYoaRNJ9mgFUXS7Kf9utJ46ysT8m+bw==}
 
-  '@tanstack/react-query@5.102.5':
-    resolution: {integrity: sha512-PyTmSq2nW4MnPuQ/T4hZbH2BYShpgCLSJNwCaPEEYO3RWd9yX611wOMm7etz2SZWVh4N7Azag5iZLMDqYTzfNA==}
+  '@tanstack/react-query@5.102.3':
+    resolution: {integrity: sha512-nHazxUEUQSGJOswGgSL2DI77f2K75WRCowDgaiyEi0ACocZTFKewTv+A/rJfq6QkuE35rVPff1QUT3ClbaePGQ==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -4470,8 +4474,8 @@ packages:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
     engines: {node: '>=0.10.0'}
 
-  markdown-it@14.3.1:
-    resolution: {integrity: sha512-4Ej49aYTDFIQ+uBkfX8GBvJGccoARxxPep+7aWTs55ozbjQJpW9M26Fe53vnGgvLeVzva/amzjQQaQu9w0vMhA==}
+  markdown-it@14.3.0:
+    resolution: {integrity: sha512-RCEsPjR+sr0x+AuYp601tKTkgFG4YEPLCzHST3cQ/fhlJkqAkz1L2/Qbp1j9qw5SBwQHFBoW8+hoN5xssOF0Tw==}
     hasBin: true
 
   math-intrinsics@1.1.0:
@@ -6010,6 +6014,9 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
+  xstate@5.32.5:
+    resolution: {integrity: sha512-ULazi1oe6wGrXl0Frb6otSlkm5HLifbbVTkMk5kkSKqz4TkxJaVpnl6jOJwKeid3ORPxYyZQgNLUSYX9q65SIA==}
+
   xstate@5.32.6:
     resolution: {integrity: sha512-WfA8WNrh6r9osuGwVm+aIPM4jmMW2LKHV1Yv9thYpOtL4HVF/kobh95K/O8v2jDCpDmP2EoY+6uvuqHXCZ6ZLw==}
 
@@ -7225,11 +7232,11 @@ snapshots:
 
   '@js-sdsl/ordered-map@4.4.2': {}
 
-  '@mdit/plugin-alert@0.23.2(markdown-it@14.3.1)':
+  '@mdit/plugin-alert@0.23.2(markdown-it@14.3.0)':
     dependencies:
       '@types/markdown-it': 14.2.0
     optionalDependencies:
-      markdown-it: 14.3.1
+      markdown-it: 14.3.0
 
   '@mswjs/interceptors@0.41.9':
     dependencies:
@@ -8264,19 +8271,19 @@ snapshots:
       - '@types/react'
       - vitest
 
-  '@portabletext/editor@6.6.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)':
+  '@portabletext/editor@7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)':
     dependencies:
       '@portabletext/html': 1.2.0
       '@portabletext/keyboard-shortcuts': 2.1.4
       '@portabletext/markdown': 1.5.0
       '@portabletext/patches': 2.0.6
       '@portabletext/schema': 2.2.4
-      '@portabletext/to-html': 5.0.2
-      '@xstate/react': 6.1.0(@types/react@19.2.18)(react@19.2.8)(xstate@5.32.6)
+      '@portabletext/to-html': 5.0.3
+      '@xstate/react': 6.1.0(@types/react@19.2.18)(react@19.2.8)(xstate@5.32.5)
       debug: 4.4.3(supports-color@5.5.0)
       react: 19.2.8
       scroll-into-view-if-needed: 3.1.0
-      xstate: 5.32.6
+      xstate: 5.32.5
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
@@ -8292,10 +8299,10 @@ snapshots:
 
   '@portabletext/markdown@1.5.0':
     dependencies:
-      '@mdit/plugin-alert': 0.23.2(markdown-it@14.3.1)
+      '@mdit/plugin-alert': 0.23.2(markdown-it@14.3.0)
       '@portabletext/schema': 2.2.4
       '@portabletext/toolkit': 5.0.2
-      markdown-it: 14.3.1
+      markdown-it: 14.3.0
 
   '@portabletext/patches@2.0.6':
     dependencies:
@@ -8323,9 +8330,14 @@ snapshots:
       '@portabletext/toolkit': 5.0.2
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.4(@portabletext/editor@6.6.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.2.8)':
+  '@portabletext/to-html@5.0.3':
     dependencies:
-      '@portabletext/editor': 6.6.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
+      '@portabletext/toolkit': 5.0.2
+      '@portabletext/types': 4.0.2
+
+  '@portabletext/toolbar@9.0.4(@portabletext/editor@7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.2.8)':
+    dependencies:
+      '@portabletext/editor': 7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts': 3.0.0
       '@xstate/react': 6.1.0(@types/react@19.2.18)(react@19.2.8)(xstate@5.32.6)
       react: 19.2.8
@@ -8656,11 +8668,11 @@ snapshots:
       tailwindcss: 4.3.3
       vite: 8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)
 
-  '@tanstack/query-core@5.102.5': {}
+  '@tanstack/query-core@5.102.3': {}
 
-  '@tanstack/react-query@5.102.5(react@19.2.8)':
+  '@tanstack/react-query@5.102.3(react@19.2.8)':
     dependencies:
-      '@tanstack/query-core': 5.102.5
+      '@tanstack/query-core': 5.102.3
       react: 19.2.8
 
   '@tsconfig/node10@1.0.12': {}
@@ -8998,6 +9010,16 @@ snapshots:
   '@whatwg-node/promise-helpers@1.3.2':
     dependencies:
       tslib: 2.8.1
+
+  '@xstate/react@6.1.0(@types/react@19.2.18)(react@19.2.8)(xstate@5.32.5)':
+    dependencies:
+      react: 19.2.8
+      use-isomorphic-layout-effect: 1.2.1(@types/react@19.2.18)(react@19.2.8)
+      use-sync-external-store: 1.6.0(react@19.2.8)
+    optionalDependencies:
+      xstate: 5.32.5
+    transitivePeerDependencies:
+      - '@types/react'
 
   '@xstate/react@6.1.0(@types/react@19.2.18)(react@19.2.8)(xstate@5.32.6)':
     dependencies:
@@ -10798,7 +10820,7 @@ snapshots:
 
   map-cache@0.2.2: {}
 
-  markdown-it@14.3.1:
+  markdown-it@14.3.0:
     dependencies:
       argparse: 2.0.1
       entities: 4.5.0
@@ -12281,6 +12303,8 @@ snapshots:
   xml-name-validator@5.0.0: {}
 
   xmlchars@2.2.0: {}
+
+  xstate@5.32.5: {}
 
   xstate@5.32.6: {}
 
