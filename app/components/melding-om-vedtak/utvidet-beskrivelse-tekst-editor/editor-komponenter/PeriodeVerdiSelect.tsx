@@ -1,11 +1,10 @@
 import { Select, Tag, Tooltip } from "@navikt/ds-react";
 import { useEffect } from "react";
 
+import { components } from "@/openapi/behandling-typer";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
-
-import { components } from "../../../../openapi/behandling-typer";
 
 interface IProps {
   uuid: string;

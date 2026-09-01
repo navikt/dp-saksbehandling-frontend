@@ -1,33 +1,28 @@
-import {
-  BulletListIcon,
-  LinkIcon,
-  NumberListIcon,
-  QuestionmarkDiamondIcon,
-} from "@navikt/aksel-icons";
-import { Alert, Heading, Select, Tooltip } from "@navikt/ds-react";
+import { BulletListIcon, LinkIcon, NumberListIcon } from "@navikt/aksel-icons";
+import { Alert, Heading, Select } from "@navikt/ds-react";
 import { htmlToBlocks } from "@portabletext/block-tools";
 import {
-  BlockAnnotationRenderProps,
-  BlockChildRenderProps,
-  BlockDecoratorRenderProps,
-  BlockListItemRenderProps,
-  BlockStyleRenderProps,
+  defineAnnotation,
+  defineDecorator,
+  defineInlineObject,
   defineSchema,
+  defineTextBlock,
   EditorProvider,
   PortableTextEditable,
 } from "@portabletext/editor";
-import { EventListenerPlugin } from "@portabletext/editor/plugins";
+import { EventListenerPlugin, NodePlugin } from "@portabletext/editor/plugins";
+import { ListIndexProvider } from "@portabletext/plugin-list-index";
 import { toHTML } from "@portabletext/to-html";
 import classnames from "classnames";
-import { ChangeEvent, PropsWithChildren, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-import { BrevPeriodeVerdiSelect } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/PeriodeVerdiSelect";
 import { RikTekstEditorToolbar } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
 import { IOpplysningPeriodeVerdi } from "~/context/melding-om-vedtak-context";
-import { useBehandling } from "~/hooks/useBehandling";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 
+import { ListItemWrapper } from "./editor-komponenter/ListItemWrapper";
+import { RegelmotorOpplysning } from "./editor-komponenter/RegelmotorOpplysning";
 import styles from "./RikTekstEditor.module.css";
 
 export const schemaDefinition = defineSchema({
@@ -135,6 +130,117 @@ function lagHtmlKomponenter(opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[])
   };
 }
 
+const textBlock = defineTextBlock({
+  type: "block",
+  render: ({ attributes, children, node, path }) => {
+    let content = children;
+
+    if (node.style === "h1") {
+      content = (
+        <Heading size={"large"} level={"1"}>
+          {content}
+        </Heading>
+      );
+    }
+
+    if (node.style === "h2") {
+      content = (
+        <Heading size={"medium"} level={"2"}>
+          {content}
+        </Heading>
+      );
+    }
+
+    if (node.style === "h3") {
+      content = (
+        <Heading size={"small"} level={"3"}>
+          {content}
+        </Heading>
+      );
+    }
+
+    if (node.listItem !== undefined) {
+      content = (
+        <ListItemWrapper node={node} path={path}>
+          {content}
+        </ListItemWrapper>
+      );
+    }
+
+    return (
+      <div {...attributes} style={{ marginBlockEnd: "0.5em" }}>
+        {content}
+      </div>
+    );
+  },
+});
+
+const regelmotorOpplysning = defineInlineObject({
+  type: "regelmotorOpplysning",
+  render: ({ node }) => {
+    const value = node as unknown as {
+      opplysningTypeId?: string;
+      navn: string;
+      uuid: string;
+    };
+    return (
+      <RegelmotorOpplysning
+        opplysningTypeId={value.opplysningTypeId}
+        navn={value.navn}
+        uuid={value.uuid}
+      />
+    );
+  },
+});
+
+const regelmotorOpplysningReference = defineInlineObject({
+  type: "regelmotorOpplysningReference",
+  render: ({ node }) => {
+    const value = node as unknown as {
+      _key: string;
+      reference: { opplysningTypeId?: string; navn: string };
+    };
+
+    return (
+      <RegelmotorOpplysning
+        opplysningTypeId={value.reference.opplysningTypeId}
+        navn={value.reference.navn}
+        uuid={value._key}
+      />
+    );
+  },
+});
+
+const strong = defineDecorator({
+  type: "strong",
+  render: (props) => <strong>{props.children}</strong>,
+});
+
+const em = defineDecorator({
+  type: "em",
+  render: (props) => <em>{props.children}</em>,
+});
+
+const underline = defineDecorator({
+  type: "underline",
+  render: (props) => <u>{props.children}</u>,
+});
+
+const link = defineAnnotation({
+  type: "link",
+  render: ({ children }) => <span className={"text-(--ax-text-accent) underline"}>{children}</span>,
+});
+
+const nodes = [
+  textBlock,
+  regelmotorOpplysning,
+  regelmotorOpplysningReference,
+  strong,
+  em,
+  underline,
+  link,
+];
+
 interface IProps {
   tekst: string;
   onChange: (tekst: string, flushDebounce?: boolean) => void;
@@ -217,135 +323,20 @@ export function RikTekstEditor(props: IProps) {
               }
             }}
           />
-          <div
-            className={classnames(styles.editorWrapper, {
-              [styles.editorWrapperReadonly]: props.readOnly,
-            })}
-          >
-            {!props.readOnly && <RikTekstEditorToolbar />}
-            <PortableTextEditable
-              className={"p-2"}
-              readOnly={props.readOnly}
-              renderStyle={renderStyle}
-              renderDecorator={renderDecorator}
-              renderAnnotation={renderAnnotation}
-              renderListItem={renderListItem}
-              renderChild={renderChild}
-            />
-          </div>
+          <ListIndexProvider>
+            <div
+              className={classnames(styles.editorWrapper, {
+                [styles.editorWrapperReadonly]: props.readOnly,
+              })}
+            >
+              {!props.readOnly && <RikTekstEditorToolbar />}
+
+              <NodePlugin nodes={nodes} />
+              <PortableTextEditable className={"p-2"} readOnly={props.readOnly} />
+            </div>
+          </ListIndexProvider>
         </EditorProvider>
       </div>
     </>
   );
-}
-
-function renderDecorator(props: PropsWithChildren<BlockDecoratorRenderProps>) {
-  if (props.value === "strong") {
-    return <strong>{props.children}</strong>;
-  }
-
-  if (props.value === "em") {
-    return <em>{props.children}</em>;
-  }
-
-  if (props.value === "underline") {
-    return <u>{props.children}</u>;
-  }
-
-  return <>{props.children}</>;
-}
-
-function renderStyle(props: PropsWithChildren<BlockStyleRenderProps>) {
-  if (props.schemaType.value === "h1") {
-    return (
-      <Heading size={"large"} level={"1"}>
-        {props.children}
-      </Heading>
-    );
-  }
-
-  if (props.schemaType.value === "h2") {
-    return (
-      <Heading size={"medium"} level={"2"}>
-        {props.children}
-      </Heading>
-    );
-  }
-
-  if (props.schemaType.value === "h3") {
-    return (
-      <Heading size={"small"} level={"3"}>
-        {props.children}
-      </Heading>
-    );
-  }
-
-  return <>{props.children}</>;
-}
-
-// CSSen bestemmer hvordan listeelementer skal se ut
-function renderListItem(props: PropsWithChildren<BlockListItemRenderProps>) {
-  return <>{props.children}</>;
-}
-
-function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) {
-  if (props.schemaType.name === "link") {
-    return <span className={"text-(--ax-text-accent) underline"}>{props.children}</span>;
-  }
-
-  return <>{props.children}</>;
-}
-
-function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
-  const { behandling } = useBehandling();
-
-  // Denne blir generert basert på spørringen regelmotorOpplysningQuery i sanity-queries.ts
-  if (props.schemaType.name === "regelmotorOpplysning") {
-    const value = props.value as unknown as {
-      uuid: string;
-      opplysningTypeId?: string;
-      navn: string;
-    };
-    const opplysning = behandling.opplysninger.find(
-      (opplysning) => opplysning.opplysningTypeId === value?.opplysningTypeId,
-    );
-
-    if (!opplysning) {
-      return (
-        <Tooltip content={`Finner ikke opplysning: ${value?.navn} i denne behandlingen`}>
-          <QuestionmarkDiamondIcon
-            title={`Finner ikke opplysning: ${value?.navn} i denne behandlingen`}
-          />
-        </Tooltip>
-      );
-    }
-
-    return <BrevPeriodeVerdiSelect opplysning={opplysning} uuid={value.uuid} />;
-  }
-
-  if (props.schemaType.name === "regelmotorOpplysningReference") {
-    // Denne blir generert basert på spørringen regelmotorOpplysningQuery i sanity-queries.ts
-    const value = props.value as unknown as {
-      _key: string;
-      reference: { opplysningTypeId: string; navn: string };
-    };
-
-    const opplysning = behandling.opplysninger.find(
-      (opplysning) => opplysning.opplysningTypeId === value?.reference?.opplysningTypeId,
-    );
-
-    if (!opplysning) {
-      return (
-        <Tooltip content={`Finner ikke opplysning: ${value?.reference?.navn} i denne behandlingen`}>
-          <QuestionmarkDiamondIcon
-            title={`Finner ikke opplysning: ${value?.reference?.navn} i denne behandlingen`}
-          />
-        </Tooltip>
-      );
-    }
-
-    return <BrevPeriodeVerdiSelect opplysning={opplysning} uuid={value._key} />;
-  }
-
-  return <>{props.children}</>;
 }
