@@ -29,6 +29,7 @@ updates:
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/"
+    open-pull-requests-limit: 10
     registries: '*'
     schedule:
       interval: "daily"
