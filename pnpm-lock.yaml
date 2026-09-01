@@ -66,8 +66,8 @@ importers:
         specifier: 7.12.1
         version: 7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts':
-        specifier: 2.1.4
-        version: 2.1.4
+        specifier: 3.0.0
+        version: 3.0.0
       '@portabletext/plugin-list-index':
         specifier: ^2.0.4
         version: 2.0.4(@portabletext/editor@7.12.1(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(react@19.2.8)
