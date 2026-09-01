@@ -58,7 +58,7 @@
     "@react-router/node": "8.3.0",
     "@react-router/serve": "8.3.0",
     "@rvf/react-router": "8.2.0",
-    "@sanity/client": "7.22.0",
+    "@sanity/client": "8.2.0",
     "@tanstack/react-query": "^5.102.2",
     "@types/umami": "^2.10.1",
     "canvas-confetti": "1.9.4",
