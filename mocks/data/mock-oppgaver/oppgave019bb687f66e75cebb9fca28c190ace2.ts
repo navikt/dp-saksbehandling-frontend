@@ -4,9 +4,9 @@ export const oppgave019bb687f66e75cebb9fca28c190ace2: components["schemas"]["Opp
   oppgaveId: "019bb687-f66e-75ce-bb9f-ca28c190ace2",
   behandlingId: "019bb687-9786-751e-860b-8a122e5b689f",
   saksbehandler: {
-    ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    ident: "Z993622",
+    fornavn: "F_Z993622",
+    etternavn: "E_Z993622",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -79,7 +79,7 @@ export const oppgave019bb687f66e75cebb9fca28c190ace2: components["schemas"]["Opp
       kategori: "AVBRUTT_GRUNN",
     },
   ],
-  tilstand: "KLAR_TIL_BEHANDLING",
+  tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
