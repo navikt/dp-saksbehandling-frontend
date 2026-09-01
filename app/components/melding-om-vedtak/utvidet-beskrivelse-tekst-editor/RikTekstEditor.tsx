@@ -177,13 +177,12 @@ const textBlock = defineTextBlock({
 
 const regelmotorOpplysning = defineInlineObject({
   type: "regelmotorOpplysning",
-  render: (props) => {
-    const value =
-      (props.node.value as {
-        uuid: string;
-        opplysningTypeId?: string;
-        navn: string;
-      }) ?? {};
+  render: ({ node }) => {
+    const value = node as unknown as {
+      opplysningTypeId?: string;
+      navn: string;
+      uuid: string;
+    };
     return (
       <RegelmotorOpplysning
         opplysningTypeId={value.opplysningTypeId}
@@ -196,8 +195,8 @@ const regelmotorOpplysning = defineInlineObject({
 
 const regelmotorOpplysningReference = defineInlineObject({
   type: "regelmotorOpplysningReference",
-  render: (props) => {
-    const value = props.node.value as {
+  render: ({ node }) => {
+    const value = node as unknown as {
       _key: string;
       reference: { opplysningTypeId?: string; navn: string };
     };
