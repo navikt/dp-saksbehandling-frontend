@@ -50,7 +50,7 @@
     "@opentelemetry/sdk-node": "0.221.0",
     "@opentelemetry/sdk-trace-node": "2.10.0",
     "@portabletext/block-tools": "6.0.0",
-    "@portabletext/editor": "8.0.2",
+    "@portabletext/editor": "8.0.3",
     "@portabletext/keyboard-shortcuts": "3.0.0",
     "@portabletext/plugin-list-index": "^2.0.4",
     "@portabletext/react": "8.0.1",
