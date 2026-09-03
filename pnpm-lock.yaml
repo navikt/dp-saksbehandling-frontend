@@ -90,8 +90,8 @@ importers:
         specifier: 8.2.0
         version: 8.2.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.8))
       '@sanity/client':
-        specifier: 8.2.0
-        version: 8.2.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+        specifier: 8.3.0
+        version: 8.3.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@tanstack/react-query':
         specifier: ^5.102.4
         version: 5.102.4(react@19.2.8)
@@ -2346,12 +2346,8 @@ packages:
   '@rvf/set-get@7.0.3':
     resolution: {integrity: sha512-Ky2uOJ5WpgqVev4W+dNlOIJ2R9b6heHD4PHx7NGI98XanfeH8Pl/m5wE0aZU3d/nD79iOUlZHBn0uxJU/DJF7g==}
 
-  '@sanity/client@8.2.0':
-    resolution: {integrity: sha512-SK2o8uh9ayAYAHJtKvd3r78Y5QHlV6RA1H249rYXtm71rdvp4dVvQyf3E/QtYVaeIhrWufK1Mh7sbX6FDVLtWQ==}
-    engines: {node: '>=22.12.0'}
-
-  '@sanity/client@8.4.0':
-    resolution: {integrity: sha512-rwMtDxH3x9dc8ZiCMRDLStZoCr6MSPrH2LH4NIxWTCZ9Vz5OSgg0RolZy+ccM8p4yzK5lgC9XMF8tF6zsje0gQ==}
+  '@sanity/client@8.3.0':
+    resolution: {integrity: sha512-h4Xk8Xb91vbBpgbLNqQ8Wc37W4rFE4Rc9lcsC01XaEb2dDVp/B5EtvgKCRR5HmVfVcMVyiw4+r+Qmrr+wtjJ/g==}
     engines: {node: '>=22.12.0'}
 
   '@sanity/descriptors@1.3.0':
@@ -3690,8 +3686,8 @@ packages:
     resolution: {integrity: sha512-9fSjSaos/fRIVIp+xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==}
     engines: {node: '>= 0.4'}
 
-  get-it@9.5.2:
-    resolution: {integrity: sha512-n4iCIF3/STaCsEIgestecjGJ3Oa+GEIwMT91HU+5TBHQ8DIpBCS1/BXjaxS5HuYHtVMRVTFDRX2bf3+gP/MOPg==}
+  get-it@9.5.1:
+    resolution: {integrity: sha512-XCVgepH7ROA/VEW4iaorxII3ZqQt7bqNhRNdeOklqwWsl7iGuJCGL7jxkUzcWVpK5zsYr0WaMqeXrIfeL02Uig==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       vitest: '>=2.0.0'
@@ -4558,11 +4554,6 @@ packages:
   nanoid@3.3.18:
     resolution: {integrity: sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
-  nanoid@6.0.1:
-    resolution: {integrity: sha512-3wVS3i51pE2pi1k5FFL/95BGfVS0kSsvDVuGXHOtxox/TywUmtgq+3qiTOTbs9J7KfHaXPiN171k/A6dBnaXFw==}
-    engines: {node: ^22 || ^24 || >=26}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -8422,20 +8413,10 @@ snapshots:
 
   '@rvf/set-get@7.0.3': {}
 
-  '@sanity/client@8.2.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
+  '@sanity/client@8.3.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
       eventsource: 5.1.1
-      get-it: 9.5.2(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
-      nanoid: 6.0.1
-      obug: 2.1.4
-      rxjs: 7.8.2
-    transitivePeerDependencies:
-      - vitest
-
-  '@sanity/client@8.4.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
-    dependencies:
-      eventsource: 5.1.1
-      get-it: 9.5.2(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      get-it: 9.5.1(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       obug: 2.1.4
       rxjs: 7.8.2
     transitivePeerDependencies:
@@ -8457,7 +8438,7 @@ snapshots:
       '@sanity/generate-help-url': 4.0.0
       '@sanity/types': 6.11.0(@types/react@19.2.18)(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       arrify: 3.0.0
-      get-it: 9.5.2(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      get-it: 9.5.1(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       groq-js: 2.0.0
       humanize-list: 1.0.1
       leven: 4.1.0
@@ -8469,7 +8450,7 @@ snapshots:
 
   '@sanity/types@6.11.0(@types/react@19.2.18)(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
-      '@sanity/client': 8.4.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      '@sanity/client': 8.3.0(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@sanity/media-library-types': 1.6.0
       '@types/react': 19.2.18
     transitivePeerDependencies:
@@ -9962,7 +9943,7 @@ snapshots:
       hasown: 2.0.4
       math-intrinsics: 1.1.0
 
-  get-it@9.5.2(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))):
+  get-it@9.5.1(vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.2.2(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))):
     dependencies:
       undici: 7.29.0
     optionalDependencies:
@@ -10787,8 +10768,6 @@ snapshots:
   mute-stream@3.0.0: {}
 
   nanoid@3.3.18: {}
-
-  nanoid@6.0.1: {}
 
   natural-compare@1.4.0: {}
 
