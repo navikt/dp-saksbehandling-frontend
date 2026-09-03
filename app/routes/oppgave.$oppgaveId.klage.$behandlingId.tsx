@@ -1,8 +1,9 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { Alert, Heading, Tabs } from "@navikt/ds-react";
-import { useEffect, useState } from "react";
+import { Alert, Heading, Loader, Tabs } from "@navikt/ds-react";
+import { Suspense, useEffect, useState } from "react";
 import {
   ActionFunctionArgs,
+  Await,
   data,
   LoaderFunctionArgs,
   useActionData,
@@ -21,9 +22,6 @@ import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentKlage, hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
-import { sanityClient } from "~/sanity/sanity.config";
-import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
-import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
@@ -37,14 +35,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [meldingOmVedtak, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all(
-    [
-      hentMeldingOmVedtakHtml(request, params.oppgaveId),
-      hentKlage(request, params.behandlingId),
-      sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
-      sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
-    ],
-  );
+  const klage = await hentKlage(request, params.behandlingId);
+
+  // Kun nødvendig for "melding om vedtak"-fanen, ikke bloker resten av behandlingen på denne
+  const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, params.oppgaveId);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -53,9 +47,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       klage,
-      meldingOmVedtak,
-      sanityBrevMaler,
-      sanityRegelmotorOpplysninger,
+      meldingOmVedtakPromise,
     },
     {
       headers: {
@@ -68,8 +60,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function Oppgave() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { meldingOmVedtak, klage, alert, sanityBrevMaler, sanityRegelmotorOpplysninger } =
-    useLoaderData<typeof loader>();
+  const { klage, alert, meldingOmVedtakPromise } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -119,14 +110,22 @@ export default function Oppgave() {
           </Tabs.Panel>
 
           <Tabs.Panel value="melding-om-vedtak">
-            {klage.utfall.verdi !== "IKKE_SATT" && meldingOmVedtak ? (
-              <MeldingOmVedtakProvider
-                meldingOmVedtak={meldingOmVedtak}
-                sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
-                sanityBrevMaler={sanityBrevMaler}
-              >
-                <MeldingOmVedtakKlage oppgave={oppgave} />
-              </MeldingOmVedtakProvider>
+            {klage.utfall.verdi !== "IKKE_SATT" ? (
+              <Suspense fallback={<Loader size="large" title="Henter melding om vedtak" />}>
+                <Await resolve={meldingOmVedtakPromise}>
+                  {(meldingOmVedtak) =>
+                    meldingOmVedtak ? (
+                      <MeldingOmVedtakProvider meldingOmVedtak={meldingOmVedtak}>
+                        <MeldingOmVedtakKlage />
+                      </MeldingOmVedtakProvider>
+                    ) : (
+                      <Alert size={"small"} variant={"info"} className={"m-2"}>
+                        <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
+                      </Alert>
+                    )
+                  }
+                </Await>
+              </Suspense>
             ) : (
               <Alert size={"small"} variant={"info"} className={"m-2"}>
                 <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>

@@ -3,16 +3,16 @@ import { useEditor, useEditorSelector } from "@portabletext/editor";
 import * as selectors from "@portabletext/editor/selectors";
 import { ReactElement, useRef, useState } from "react";
 
+import { useSanityRegelmotorOpplysningerQuery } from "~/api/sanity-hooks";
 import { schemaDefinition } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 import { useBehandling } from "~/hooks/useBehandling";
-import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 
 import styles from "./RikTekstEditor.module.css";
 
 export function RikTekstEditorToolbar() {
   const { behandling } = useBehandling();
-  const { sanityRegelmotorOpplysninger } = useMeldingOmVedtak();
+  const sanityRegelmotorOpplysninger = useSanityRegelmotorOpplysningerQuery();
   const decoratorButtons = schemaDefinition.decorators.map((decorator) => (
     <DecoratorButton key={decorator.name} {...decorator} />
   ));

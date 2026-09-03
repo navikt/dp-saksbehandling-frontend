@@ -17,12 +17,6 @@ export async function fetchOppgaver(searchParams: URLSearchParams) {
   return apiGet<OppgaveListeData>(url);
 }
 
-export async function fetchOppgave(oppgaveId: string) {
-  const url = `/api/oppgave/${oppgaveId}`;
-  console.info("fetching oppgave with url:", url);
-  return apiGet<Oppgave>(url);
-}
-
 interface TildelOppgavePayload {
   oppgaveId: string;
   behandlingId: string;
