@@ -4,13 +4,10 @@ import { isDefined } from "~/utils/type-guards";
 
 import { fetchJournalpost, JournalpostResponse } from "./journalpost";
 
-export const journalpostQueryKey = (journalpostId: string) =>
-  ["journalpost", journalpostId] as const;
-
 export function useJournalposterQuery(journalpostIder: string[]) {
   return useQueries({
     queries: journalpostIder.map((journalpostId) => ({
-      queryKey: journalpostQueryKey(journalpostId),
+      queryKey: ["journalpost", journalpostId],
       queryFn: () => fetchJournalpost(journalpostId),
     })),
     combine: (results) => {
