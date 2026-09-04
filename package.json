@@ -131,7 +131,7 @@
   },
   "optionalDependencies": {
     "@esbuild/linux-x64": "0.28.2",
-    "@rollup/rollup-linux-x64-musl": "4.63.0"
+    "@rollup/rollup-linux-x64-musl": "4.63.1"
   },
   "engines": {
     "node": "26"
