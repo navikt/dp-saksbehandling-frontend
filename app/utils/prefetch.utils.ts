@@ -16,7 +16,7 @@ export const prefetchDataForRoute = async (
       `?${convertToQueryParamString(mineOppgaverDefaultParams)}`,
     );
 
-    // Let errors be stored in the query cache (no try/catch here)
+    // Let errors be stored in the query cache
     await queryClient
       .query({
         queryKey: oppgaverQueryKey(mineOppgaverParams),
