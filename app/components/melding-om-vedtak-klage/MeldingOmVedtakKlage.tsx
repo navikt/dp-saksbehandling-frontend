@@ -7,20 +7,17 @@ import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVe
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
 import { UtvidedeBeskrivelser } from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
-import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 import { OppgaveValgFerdigstillKlage } from "../oppgave-valg/OppgaveValgFerdigstillKlage";
 import styles from "./MeldingOmVedtakKlage.module.css";
 
-interface IProps {
-  oppgave: saksbehandlingComponents["schemas"]["Oppgave"];
-}
-
-export function MeldingOmVedtakKlage({ oppgave }: IProps) {
+export function MeldingOmVedtakKlage() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
+  const { oppgave } = useOppgave();
   const { utvidedeBeskrivelser, meldingOmVedtak } = useMeldingOmVedtak();
 
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
