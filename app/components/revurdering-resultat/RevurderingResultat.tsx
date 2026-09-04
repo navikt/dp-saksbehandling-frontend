@@ -1,9 +1,12 @@
-import { BulletListIcon } from "@navikt/aksel-icons";
-import { Heading, InfoCard, List, Table } from "@navikt/ds-react";
+import { BulletListIcon, ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
+import { Button, Heading, InfoCard, List } from "@navikt/ds-react";
+import { useState } from "react";
 
+import {
+  ANTALL_PERIODER_SOM_VISES,
+  PerioderTabell,
+} from "~/components/revurdering-resultat/PerioderTabell";
 import { useBehandling } from "~/hooks/useBehandling";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -11,6 +14,7 @@ const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
+  const [utvidTabell, setUtvidTabell] = useState(false);
 
   const relevanteHendelsestyper: components["schemas"]["Hendelse"]["type"][] = [
     "Omgjøring",
@@ -57,6 +61,11 @@ export function RevurderingResultat() {
   const harPengesammenligning =
     pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling;
 
+  const maksAntallPerioder = Math.max(
+    pengerSomSkalUtbetalesForrigeBehandling?.perioder.length ?? 0,
+    pengerSomSkalUtbetalesDenneBehandling?.perioder.length ?? 0,
+  );
+
   if (omgjøringBegrunnelser.length === 0 && !harPengesammenligning) {
     return null;
   }
@@ -85,62 +94,36 @@ export function RevurderingResultat() {
               <div className={"flex gap-4"}>
                 <div className={"flex-1"}>
                   <Heading size={"xsmall"}>Før</Heading>
-                  <Table size={"small"} zebraStripes={true}>
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Utbetales</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                      {pengerSomSkalUtbetalesForrigeBehandling.perioder.map((periode) => (
-                        <Table.Row key={periode.id}>
-                          <Table.DataCell>
-                            {periode.gyldigFraOgMed
-                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                              : "--"}{" "}
-                            –{" "}
-                            {periode.gyldigTilOgMed
-                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                              : "--"}
-                          </Table.DataCell>
-                          <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
-                        </Table.Row>
-                      ))}
-                    </Table.Body>
-                  </Table>
+                  <PerioderTabell
+                    perioder={pengerSomSkalUtbetalesForrigeBehandling.perioder}
+                    utvidet={utvidTabell}
+                  />
                 </div>
 
                 <div className={"flex-1"}>
                   <Heading size={"xsmall"}>Etter</Heading>
-                  <Table size={"small"} zebraStripes={true}>
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Utbetales</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                      {pengerSomSkalUtbetalesDenneBehandling.perioder.map((periode) => (
-                        <Table.Row key={periode.id}>
-                          <Table.DataCell>
-                            {periode.gyldigFraOgMed
-                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                              : "--"}{" "}
-                            –{" "}
-                            {periode.gyldigTilOgMed
-                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                              : "--"}
-                          </Table.DataCell>
-                          <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
-                        </Table.Row>
-                      ))}
-                    </Table.Body>
-                  </Table>
+                  <PerioderTabell
+                    perioder={pengerSomSkalUtbetalesDenneBehandling.perioder}
+                    utvidet={utvidTabell}
+                  />
                 </div>
               </div>
+
+              {maksAntallPerioder > ANTALL_PERIODER_SOM_VISES && (
+                <div>
+                  <Button
+                    variant={"tertiary"}
+                    size={"small"}
+                    aria-expanded={utvidTabell}
+                    icon={
+                      utvidTabell ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />
+                    }
+                    onClick={() => setUtvidTabell(!utvidTabell)}
+                  >
+                    {utvidTabell ? "Vis færre perioder" : `Vis alle ${maksAntallPerioder} perioder`}
+                  </Button>
+                </div>
+              )}
             </>
           )}
         </div>
