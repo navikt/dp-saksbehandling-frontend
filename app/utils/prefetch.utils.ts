@@ -17,17 +17,17 @@ export const prefetchDataForRoute = async (
     );
 
     // Let errors be stored in the query cache (no try/catch here)
-    await queryClient.prefetchQuery({
+    await queryClient.query({
       queryKey: oppgaverQueryKey(mineOppgaverParams),
       queryFn: () => hentOppgaver(request, mineOppgaverParams),
     });
   } else if (url.pathname.startsWith("/alle-oppgaver")) {
-    await queryClient.prefetchQuery({
+    await queryClient.query({
       queryKey: oppgaverQueryKey(url.searchParams),
       queryFn: () => hentOppgaver(request, url.searchParams),
     });
   } else if (url.pathname === "/") {
-    await queryClient.prefetchQuery({
+    await queryClient.query({
       queryKey: oppgaverQueryKey(url.searchParams),
       queryFn: () => hentOppgaver(request, url.searchParams),
     });
