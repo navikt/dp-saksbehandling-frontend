@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
+import { noop, QueryClient } from "@tanstack/react-query";
 
 import { oppgaverQueryKey } from "~/api/oppgave-hooks";
 import { hentOppgaver } from "~/models/saksbehandling.server";
@@ -17,20 +17,26 @@ export const prefetchDataForRoute = async (
     );
 
     // Let errors be stored in the query cache (no try/catch here)
-    await queryClient.prefetchQuery({
-      queryKey: oppgaverQueryKey(mineOppgaverParams),
-      queryFn: () => hentOppgaver(request, mineOppgaverParams),
-    });
+    await queryClient
+      .query({
+        queryKey: oppgaverQueryKey(mineOppgaverParams),
+        queryFn: () => hentOppgaver(request, mineOppgaverParams),
+      })
+      .catch(noop);
   } else if (url.pathname.startsWith("/alle-oppgaver")) {
-    await queryClient.prefetchQuery({
-      queryKey: oppgaverQueryKey(url.searchParams),
-      queryFn: () => hentOppgaver(request, url.searchParams),
-    });
+    await queryClient
+      .query({
+        queryKey: oppgaverQueryKey(url.searchParams),
+        queryFn: () => hentOppgaver(request, url.searchParams),
+      })
+      .catch(noop);
   } else if (url.pathname === "/") {
-    await queryClient.prefetchQuery({
-      queryKey: oppgaverQueryKey(url.searchParams),
-      queryFn: () => hentOppgaver(request, url.searchParams),
-    });
+    await queryClient
+      .query({
+        queryKey: oppgaverQueryKey(url.searchParams),
+        queryFn: () => hentOppgaver(request, url.searchParams),
+      })
+      .catch(noop);
   }
   return queryClient;
 };
