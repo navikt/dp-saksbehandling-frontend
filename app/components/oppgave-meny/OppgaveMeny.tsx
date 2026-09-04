@@ -6,12 +6,14 @@ import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeg
 import { OppgaveValgRekjørBehandling } from "~/components/oppgave-valg/OppgaveValgRekjørBehandling";
 import { OppgaveValgSendTilKontroll } from "~/components/oppgave-valg/OppgaveValgSendTilKontroll";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 
 import { OppgaveValgReturnerTilMeg } from "../oppgave-valg/OppgaveValgReturnerTilSaksbehandler";
 
 export function OppgaveMeny() {
   const { oppgave, gyldigeOppgaveValg } = useOppgave();
+  const { behandling } = useBehandling();
 
   return (
     <>
@@ -48,8 +50,11 @@ export function OppgaveMeny() {
                 case "utsett-oppgave":
                   return <OppgaveValgSettPåVent oppgave={oppgave} />;
 
+                // Dette er et valg for å sende oppgaver som egentlig ikke krever totrinnskontroll til kontroll f.eks ved opplæring. Hvis oppgaven krever totrinnskontroll skal vanlig flyt følges og denne knappen skal ikke brukes da den gir grunner for totrinnskontroll som ikke er gyldige.
                 case "send-til-kontroll":
-                  return <OppgaveValgSendTilKontroll oppgave={oppgave} />;
+                  return behandling.kreverTotrinnskontroll ? undefined : (
+                    <OppgaveValgSendTilKontroll oppgave={oppgave} />
+                  );
 
                 case "avbryt-behandling":
                   return (
