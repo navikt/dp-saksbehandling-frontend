@@ -1,5 +1,7 @@
+import { Alert, Heading, Loader } from "@navikt/ds-react";
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
+import { useVurderingerQuery } from "~/api/behandling-hooks";
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
@@ -13,14 +15,22 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function AvklaringerOgVurderinger() {
-  const { behandling, vurderinger } = useBehandling();
+  const { behandling } = useBehandling();
+  const { data: vurderinger, isPending, error } = useVurderingerQuery(behandling.behandlingId);
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className="flex flex-col gap-4">
       <Avklaringer avklaringer={behandling.avklaringer} behandlingId={behandling.behandlingId} />
-      <EndretOpplysninger vurderinger={vurderinger} />
+      {isPending && <Loader size="large" title="Henter vurderinger" />}
+      {error && (
+        <Alert variant="error">
+          <Heading size="small">Kunne ikke hente vurderinger</Heading>
+          <p>{error.message}</p>
+        </Alert>
+      )}
+      {vurderinger && <EndretOpplysninger vurderinger={vurderinger} />}
     </div>
   );
 }
