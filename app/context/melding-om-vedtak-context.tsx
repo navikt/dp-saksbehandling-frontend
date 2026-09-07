@@ -2,15 +2,12 @@ import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
 
 import { IAlert } from "~/context/alert-context";
-import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../openapi/saksbehandling-typer";
 
 interface IMeldingOmVedtakContext {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
-  sanityBrevMaler: ISanityBrevMal[];
-  sanityRegelmotorOpplysninger: ISanityRegelmotorOpplysning[];
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
   oppdaterUtvidetBeskrivelse: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
   opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[];
@@ -29,8 +26,6 @@ export const MeldingOmVedtakContext = createContext<IMeldingOmVedtakContext | un
 export function MeldingOmVedtakProvider(
   props: PropsWithChildren<{
     meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
-    sanityBrevMaler: ISanityBrevMal[];
-    sanityRegelmotorOpplysninger: ISanityRegelmotorOpplysning[];
   }>,
 ) {
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
@@ -80,8 +75,6 @@ export function MeldingOmVedtakProvider(
   return (
     <MeldingOmVedtakContext.Provider
       value={{
-        sanityBrevMaler: props.sanityBrevMaler,
-        sanityRegelmotorOpplysninger: props.sanityRegelmotorOpplysninger,
         meldingOmVedtak: props.meldingOmVedtak,
         utvidedeBeskrivelser,
         oppdaterUtvidetBeskrivelse,

@@ -16,6 +16,7 @@ import { toHTML } from "@portabletext/to-html";
 import classnames from "classnames";
 import { ChangeEvent, useState } from "react";
 
+import { useSanityBrevMalerQuery } from "~/api/sanity-hooks";
 import { RikTekstEditorToolbar } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
 import { IOpplysningPeriodeVerdi } from "~/context/melding-om-vedtak-context";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
@@ -248,7 +249,8 @@ interface IProps {
 }
 
 export function RikTekstEditor(props: IProps) {
-  const { opplysningPeriodeVerdier, sanityBrevMaler } = useMeldingOmVedtak();
+  const { opplysningPeriodeVerdier } = useMeldingOmVedtak();
+  const sanityBrevMaler = useSanityBrevMalerQuery();
   const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
   // @ts-expect-error // Det er feil i typene fra Sanity.
   const initialBlocks = htmlToBlocks(props.tekst, blockContentType);

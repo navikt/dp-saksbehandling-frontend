@@ -14,9 +14,6 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
-import { sanityClient } from "~/sanity/sanity.config";
-import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
-import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -27,19 +24,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [meldingOmVedtak, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
-    hentMeldingOmVedtakHtml(request, params.oppgaveId),
-    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
-    sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
-  ]);
+  const meldingOmVedtak = await hentMeldingOmVedtakHtml(request, params.oppgaveId);
 
-  return { sanityBrevMaler, sanityRegelmotorOpplysninger, meldingOmVedtak };
+  return { meldingOmVedtak };
 }
 
 export default function Vedtak() {
   const location = useLocation();
-  const { sanityBrevMaler, sanityRegelmotorOpplysninger, meldingOmVedtak } =
-    useLoaderData<typeof loader>();
+  const { meldingOmVedtak } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -51,11 +43,7 @@ export default function Vedtak() {
         </Heading>
 
         {meldingOmVedtak && (
-          <MeldingOmVedtakProvider
-            meldingOmVedtak={meldingOmVedtak}
-            sanityBrevMaler={sanityBrevMaler}
-            sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
-          >
+          <MeldingOmVedtakProvider meldingOmVedtak={meldingOmVedtak}>
             <MeldingOmVedtak />
           </MeldingOmVedtakProvider>
         )}

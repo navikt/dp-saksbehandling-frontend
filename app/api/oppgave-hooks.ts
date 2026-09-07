@@ -4,10 +4,8 @@ import { useNavigate, useNavigation } from "react-router";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 
 import {
-  fetchOppgave,
   fetchOppgaver,
   leggTilbakeOppgaveFetch,
-  Oppgave,
   OppgaveListeData,
   returnerTilSaksbehandlerFetch,
   tildelOppgaveFetch,
@@ -34,18 +32,6 @@ export function useOppgaverQuery(searchParams: URLSearchParams) {
     oppgaver: data?.oppgaver ?? [],
     totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
     isLoading,
-  };
-}
-
-export function useOppgaveQuery(oppgaveId: string) {
-  const { data, isFetching } = useQuery<Oppgave>({
-    queryKey: ["oppgave", oppgaveId],
-    queryFn: async () => fetchOppgave(oppgaveId),
-  });
-
-  return {
-    oppgave: data ?? ({} as Oppgave),
-    isFetching,
   };
 }
 
