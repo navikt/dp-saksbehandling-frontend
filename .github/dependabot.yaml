@@ -53,3 +53,12 @@ updates:
       graphql-codegen:
         patterns:
           - "@graphql-codegen*"
+    ignore:
+      - dependency-name: "@react-router/node"
+        versions: "8.3.1"
+      - dependency-name: "@react-router/serve"
+        versions: "8.3.1"
+      - dependency-name: "@react-router/dev"
+        versions: "8.3.1"
+      - dependency-name: "@react-router/fs-routes"
+        versions: "8.3.1"
