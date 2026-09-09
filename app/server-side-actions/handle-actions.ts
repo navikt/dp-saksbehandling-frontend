@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from "react-router";
 
+import { avbrytKlageAction } from "~/server-side-actions/avbryt-klage-action";
 import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { ferdigstillBehandlingKlageAction } from "~/server-side-actions/ferdigstill-behandling-klage-action";
@@ -20,7 +21,6 @@ import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-a
 import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
-import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
@@ -93,8 +93,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "ferdigstill-behandling-klage":
       return await ferdigstillBehandlingKlageAction(request, params, formData);
 
-    case "trekk-klage":
-      return await trekkKlageAction(request, params, formData);
+    case "avbryt-klage":
+      return await avbrytKlageAction(request, params, formData);
 
     case "opprett-klage":
       return await opprettKlageAction(request, formData);

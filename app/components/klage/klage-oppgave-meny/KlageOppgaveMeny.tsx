@@ -1,11 +1,11 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { ActionMenu, Button } from "@navikt/ds-react";
 
+import { OppgaveValgAvbrytKlage } from "~/components/oppgave-valg/OppgaveValgAvbrytKlage";
 import { OppgaveValgFerdigstillBehandlingKlage } from "~/components/oppgave-valg/OppgaveValgFerdigstillBehandlingKlage";
 import { OppgaveValgFerdigstillKlage } from "~/components/oppgave-valg/OppgaveValgFerdigstillKlage";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
-import { OppgaveValgTrekkKlage } from "~/components/oppgave-valg/OppgaveValgTrekkKlage";
 import { IGyldigeOppgaveHandlinger } from "~/context/oppgave-context";
 import { useOppgave } from "~/hooks/useOppgave";
 import { hentKlageFerdigstillModus } from "~/utils/klage.utils";
@@ -20,7 +20,7 @@ function KlageOppgaveMeny({ klage }: IProps) {
   const { gyldigeOppgaveValg, oppgave } = useOppgave();
 
   const relevanteOppgaveValg = gyldigeOppgaveValg.filter((valg) =>
-    ["legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage"].includes(valg),
+    ["legg-tilbake-oppgave", "utsett-oppgave", "avbryt-klage", "ferdigstill-klage"].includes(valg),
   );
 
   return (
@@ -58,17 +58,33 @@ function renderOppgaveValg(
   switch (valg) {
     case "legg-tilbake-oppgave":
       return (
-        <OppgaveValgLeggTilbake oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
+        <OppgaveValgLeggTilbake
+          key={valg}
+          oppgave={oppgave}
+          buttonVariant={"tertiary"}
+          buttonSize={"small"}
+        />
       );
 
     case "utsett-oppgave":
       return (
-        <OppgaveValgSettPåVent oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
+        <OppgaveValgSettPåVent
+          key={valg}
+          oppgave={oppgave}
+          buttonVariant={"tertiary"}
+          buttonSize={"small"}
+        />
       );
 
-    case "trekk-klage":
+    case "avbryt-klage":
       return (
-        <OppgaveValgTrekkKlage oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
+        <OppgaveValgAvbrytKlage
+          key={valg}
+          behandlingId={klage.behandlingId}
+          lovligeAvbrytAarsaker={klage.lovligeAvbrytAarsaker}
+          buttonVariant={"tertiary"}
+          buttonSize={"small"}
+        />
       );
 
     case "ferdigstill-klage": {
@@ -77,6 +93,7 @@ function renderOppgaveValg(
       if (modus === "ferdigstill-behandling") {
         return (
           <OppgaveValgFerdigstillBehandlingKlage
+            key={valg}
             oppgave={oppgave}
             buttonSize={"small"}
             buttonVariant={"primary"}
@@ -86,6 +103,7 @@ function renderOppgaveValg(
 
       return (
         <OppgaveValgFerdigstillKlage
+          key={valg}
           oppgave={oppgave}
           buttonSize={"small"}
           buttonVariant={"primary"}

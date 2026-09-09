@@ -368,12 +368,16 @@ function hentValideringForNorskDato() {
     );
 }
 
-export function hentValideringForTrekkKlage() {
+export function hentValideringAvbrytKlage() {
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AvbrytKlageAarsak"][] = [
+    "FLERE_KLAGER",
+    "TRUKKET_KLAGE",
+    "ANNET",
+  ];
   return z.object({
-    _action: z.literal("trekk-klage"),
-    ident: z.string().min(1, "Det mangler ident i skjema"),
+    _action: z.literal("avbryt-klage"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    aktivtOppgaveSok: z.string(),
+    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
 }
 

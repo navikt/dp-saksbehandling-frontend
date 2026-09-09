@@ -96,7 +96,7 @@ const OPPGAVER_MUTATING_ACTIONS = new Set([
   "avbryt-oppgave",
   "fatt-vedtak",
   "rekjor-behandling",
-  "trekk-klage",
+  "avbryt-klage",
   "ferdigstill-klage",
   "ferdigstill-innsending",
   "ferdigstill-oppfolging",
