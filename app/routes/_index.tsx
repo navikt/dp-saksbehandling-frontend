@@ -19,7 +19,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/index.module.css";
@@ -73,7 +73,7 @@ export default function Saksbehandling() {
   const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
   );
   const { setAktivtOppgaveSok } = useSaksbehandler();
@@ -131,20 +131,21 @@ export default function Saksbehandling() {
             variant="primary"
             size="small"
             type="submit"
-            loading={isLoading}
-            disabled={isLoading}
+            loading={isFetching}
+            disabled={isFetching}
           >
             Neste oppgave
           </Button>
         </Form>
 
         <div className={"card"}>
-          <OppgaveListe
+          <OppgaveTable
             tittel={"Oppgaver til behandling"}
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isLoading}
+            excludedColumns={["personIdent", "beslutter", "utsattTilDato"]}
+            henterOppgaver={isFetching}
           />
         </div>
       </main>

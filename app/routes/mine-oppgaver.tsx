@@ -13,7 +13,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -69,7 +69,7 @@ export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
 
-  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
   );
 
@@ -87,13 +87,12 @@ export default function Saksbehandling() {
 
       <main>
         <div className={"card"}>
-          <OppgaveListe
+          <OppgaveTable
             tittel={"Mine oppgaver"}
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
-            visPersonIdent={true}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isLoading}
+            henterOppgaver={isFetching}
           />
         </div>
       </main>

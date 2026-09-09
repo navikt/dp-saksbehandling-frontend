@@ -45,6 +45,9 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
         <Table.ColumnHeader scope="col" sortable sortKey="saksbehandler">
           <Detail>Saksbehandler</Detail>
         </Table.ColumnHeader>
+        <Table.ColumnHeader scope="col" sortable sortKey="beslutter">
+          <Detail>Beslutter</Detail>
+        </Table.ColumnHeader>
 
         <Table.ColumnHeader scope="col"></Table.ColumnHeader>
 

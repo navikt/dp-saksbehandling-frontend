@@ -15,7 +15,7 @@ import { OppgaveFilterSaksbehandler } from "~/components/oppgave-filter/OppgaveF
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -67,7 +67,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
   );
   useHandleAlertMessages(alert);
@@ -89,12 +89,13 @@ export default function Saksbehandling() {
 
       <main>
         <div className={"card"}>
-          <OppgaveListe
+          <OppgaveTable
             tittel={"Alle oppgaver"}
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isLoading}
+            excludedColumns={["personIdent"]}
+            henterOppgaver={isFetching}
           />
         </div>
       </main>
