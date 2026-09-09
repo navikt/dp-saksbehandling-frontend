@@ -8,7 +8,6 @@ import { components } from "../../openapi/behandling-typer";
 interface IBehandlingContextType {
   behandling: components["schemas"]["Behandling"];
   forrigeBehandling?: components["schemas"]["Behandling"];
-  vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
   prøvingsdatoOpplysning?: components["schemas"]["RedigerbareOpplysninger"];
   sistePrøvingsdato?: Date;
   visArvedeOpplysninger: boolean;
@@ -18,7 +17,6 @@ interface IBehandlingContextType {
 interface IBehandlingProviderType {
   behandling: components["schemas"]["Behandling"];
   forrigeBehandling?: components["schemas"]["Behandling"];
-  vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
 }
 
 export const BehandlingContext = createContext<IBehandlingContextType | undefined>(undefined);
@@ -27,7 +25,6 @@ export function BehandlingProvider({
   children,
   behandling,
   forrigeBehandling,
-  vurderinger,
 }: PropsWithChildren<IBehandlingProviderType>) {
   const [visArvedeOpplysninger, setVisArvedeOpplysninger] = useState(false);
   const prøvingsdatoOpplysning = behandling.opplysninger.find(
@@ -43,7 +40,6 @@ export function BehandlingProvider({
       value={{
         behandling,
         forrigeBehandling,
-        vurderinger,
         prøvingsdatoOpplysning,
         sistePrøvingsdato:
           harPrøvingsdato && isDatoVerdi(sistePrøvingsdatoOpplysningperiode.verdi)
