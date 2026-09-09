@@ -108,6 +108,8 @@ export function OppgaveFattVedtak() {
 
 function hentTagFargeForForslag(forslag: components["schemas"]["Avgj\u00F8relse"]): AkselColor {
   switch (forslag) {
+    case "Opphør":
+      return "danger";
     case "Innvilgelse":
       return "success";
     case "Avslag":

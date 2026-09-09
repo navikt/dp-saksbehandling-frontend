@@ -31,7 +31,7 @@ export type IGyldigeOppgaveHandlinger =
   | "behandle-oppgave"
   | "kontroller-oppgave"
   | "se-oppgave"
-  | "trekk-klage"
+  | "avbryt-klage"
   | "send-til-kontroll"
   | "ferdigstill-klage"
   | "returner-oppgave-til-meg";
@@ -171,7 +171,7 @@ function hentGyldigeKlageOppgaveValg(
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("utsett-oppgave", "trekk-klage", "ferdigstill-klage");
+    handlinger.push("utsett-oppgave", "avbryt-klage", "ferdigstill-klage");
   }
 
   return handlinger;

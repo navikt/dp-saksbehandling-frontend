@@ -379,8 +379,8 @@ export const mockDpSaksbehandling = [
     return response(404).json(get404Error("/klage/{behandlingId}/ferdigstill"));
   }),
 
-  // Trekk en klage med behandlingId
-  http.put(`/klage/{behandlingId}/trekk`, async ({ response, params }) => {
+  // Avbryt en klage med behandlingId
+  http.post(`/klage/{behandlingId}/avbryt`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -394,7 +394,7 @@ export const mockDpSaksbehandling = [
       return response(204).empty();
     }
 
-    return response(404).json(get404Error("/klage/{behandlingId}/trekk"));
+    return response(404).json(get404Error("/klage/{behandlingId}/avbryt"));
   }),
 
   // Lagre opplysning på klage

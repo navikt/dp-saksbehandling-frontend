@@ -438,7 +438,7 @@ export interface paths {
                     antallOppgaver?: number;
                     side?: number;
                     /** @description Feltet oppgaver sorteres på */
-                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "utsattTil";
+                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "beslutter" | "utsattTil";
                     /** @description Sorteringsrekkefølge for oppgaver */
                     sortering?: "ASC" | "DESC";
                 };
@@ -1822,6 +1822,73 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/klage/{behandlingId}/avbryt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Avbryt klage */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["AvbrytKlage"];
+                };
+            };
+            responses: {
+                /** @description Klagen er avbrutt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Klagen kan ikke avbrytes i denne tilstanden */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/klage/{behandlingId}": {
         parameters: {
             query?: never;
@@ -2135,6 +2202,73 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/behandling/{behandlingId}/flytt-til-ny-sak": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Flytter en behandling til en ny sak */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["PersonIdent"];
+                };
+            };
+            responses: {
+                /** @description Behandlingen ble flyttet til ny sak */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Behandlingen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Behandlingen har allerede ført til en ny sak */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/siste-dagpenger-sak": {
         parameters: {
             query?: never;
@@ -2323,7 +2457,6 @@ export interface components {
             /** Format: date */
             fodselsdato: string;
             alder: number;
-            /** Format ISO-Alpha-3 */
             statsborgerskap?: string;
             kjonn: components["schemas"]["Kjonn"];
             skjermesSomEgneAnsatte: boolean;
@@ -2353,6 +2486,8 @@ export interface components {
             behandlingId: string;
             personIdent: string;
             behandlerIdent?: string;
+            saksbehandlerIdent?: string;
+            beslutterIdent?: string;
             /** Format: date-time */
             tidspunktOpprettet: string;
             behandlingType: components["schemas"]["BehandlingType"];
@@ -2513,6 +2648,11 @@ export interface components {
         };
         /** @enum {string} */
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "INGEN_BEHANDLING" | "ANNET";
+        AvbrytKlage: {
+            aarsak: components["schemas"]["AvbrytKlageAarsak"];
+        };
+        /** @enum {string} */
+        AvbrytKlageAarsak: "FLERE_KLAGER" | "TRUKKET_KLAGE" | "ANNET";
         ReturnerTilSaksbehandling: {
             aarsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"];
         };
@@ -2646,6 +2786,8 @@ export interface components {
             /** @enum {string} */
             tilstand: "BEHANDLES" | "BEHANDLING_UTFORT" | "OVERSEND_KLAGEINSTANS" | "BEHANDLES_AV_KLAGEINSTANS" | "FERDIGSTILT" | "AVBRUTT";
             klageinstansBehandling?: components["schemas"]["KlageinstansBehandling"];
+            /** @description Årsaker til at klagen avbrytes */
+            lovligeAvbrytAarsaker: components["schemas"]["AvbrytKlageAarsak"][];
         };
         TekstVerdi: {
             verdi: string;

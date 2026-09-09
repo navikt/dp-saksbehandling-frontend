@@ -172,6 +172,7 @@ export const klage: components["schemas"]["Klage"] = {
   },
   behandlingOpplysninger,
   utfallOpplysninger: synligeUtfallOpplysninger("OPPRETTHOLDELSE"),
+  lovligeAvbrytAarsaker: ["FLERE_KLAGER", "TRUKKET_KLAGE", "ANNET"],
   klageinstansBehandling: {
     behandlingId: "0199390e-35aa-7f47-9e95-2c384bcb2e93",
     utfall: {

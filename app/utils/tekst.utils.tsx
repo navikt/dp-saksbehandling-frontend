@@ -76,6 +76,21 @@ export function hentTekstForAvbrytÅrsak(
   }
 }
 
+export function hentTekstForAvbrytKlageÅrsak(
+  avbrytÅrsak: saksbehandlingComponents["schemas"]["AvbrytKlageAarsak"],
+): string {
+  switch (avbrytÅrsak) {
+    case "FLERE_KLAGER":
+      return "Flere klager";
+    case "TRUKKET_KLAGE":
+      return "Trukket klage";
+    case "ANNET":
+      return "Annet";
+    default:
+      return avbrytÅrsak;
+  }
+}
+
 export function hentUtløstAvTekstForVisning(
   utløstAv: components["schemas"]["UtlostAvType"],
   medIkon?: boolean,

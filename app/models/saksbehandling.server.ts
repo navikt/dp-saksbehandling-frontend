@@ -209,10 +209,15 @@ export async function ferdigstillBehandlingKlage(request: Request, behandlingId:
   });
 }
 
-export async function trekkKlage(request: Request, behandlingId: string) {
+export async function avbrytKlage(
+  request: Request,
+  behandlingId: string,
+  aarsak: components["schemas"]["AvbrytKlageAarsak"],
+) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/klage/{behandlingId}/trekk", {
+  return await saksbehandlerClient.POST("/klage/{behandlingId}/avbryt", {
     headers: getHeaders(onBehalfOfToken),
+    body: { aarsak },
     params: {
       path: { behandlingId },
     },

@@ -1089,7 +1089,131 @@ export interface paths {
         trace?: never;
     };
 }
-export type webhooks = Record<string, never>;
+export interface webhooks {
+    "s\u00F8knadsbehandling_ferdig": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Publiseres når en behandling av en søknad er ferdigstilt
+         * @description Tynn hendelse med henvisning til søknadId og utfallet av behandlingen (avgjørelse og rettighetsperioder). Publiseres på rapid-topicet, ikke via HTTP.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["SoknadsbehandlingFerdig"];
+                };
+            };
+            responses: {
+                /** @description Meldingen er mottatt */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "s\u00F8knadsbehandling_avbrutt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Publiseres når en behandling av en søknad avbrytes uten å bli ferdigstilt
+         * @description Tynn hendelse med henvisning til søknadId og eventuell årsak. Publiseres på rapid-topicet, ikke via HTTP.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["SoknadsbehandlingAvbrutt"];
+                };
+            };
+            responses: {
+                /** @description Meldingen er mottatt */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    behandlingsresultat: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Publiseres når en behandling er ferdigstilt, med resultatet av behandlingen
+         * @description Fullstendig behandlingsresultat (opplysninger, utbetalinger, avgjørelse m.m.), publisert på rapid-topicet av `PersonMediator`. Samme schema (`Behandlingsresultat`) brukes også som respons for `GET /behandling/{behandlingId}/behandlingsresultat` i HTTP-API-et — Kafka- meldingen og HTTP-responsen er alltid i sync fordi begge genereres fra samme fabrikt-DTO.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Behandlingsresultat"];
+                };
+            };
+            responses: {
+                /** @description Meldingen er mottatt */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
 export interface components {
     schemas: {
         Rekjoring: {
@@ -1243,7 +1367,7 @@ export interface components {
             forslagOm: components["schemas"]["Avgj\u00F8relse"];
         };
         /** @enum {string} */
-        "Avgj\u00F8relse": "Innvilgelse" | "Avslag" | "Stans" | "Gjenopptak" | "Endring";
+        "Avgj\u00F8relse": "Innvilgelse" | "Avslag" | "Stans" | "Gjenopptak" | "Endring" | "Opphør";
         /** @enum {string} */
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
         /** @enum {string} */
@@ -1744,6 +1868,12 @@ export interface components {
             /** Format: date */
             tilOgMed?: string;
         };
+        LukketPeriode: {
+            /** Format: date */
+            fraOgMed: string;
+            /** Format: date */
+            tilOgMed: string;
+        };
         /** @description En periode hvor brukeren har fått vurdert sin rett på dagpenger og utfallet av vurderingen */
         Rettighetsperiode: {
             /**
@@ -1790,6 +1920,25 @@ export interface components {
              * @description Når hendelsen skjedde på utsiden av vårt system
              */
             skjedde: string;
+        };
+        /** @description Tynn Kafka-melding publisert (ikke en del av HTTP-API-et) når en behandling av en søknad er ferdigstilt, med henvisning til søknadId og utfallet av behandlingen. */
+        SoknadsbehandlingFerdig: {
+            ident: string;
+            /** Format: uuid */
+            behandlingId: string;
+            /** Format: uuid */
+            "s\u00F8knadId": string;
+            "f\u00F8rteTil": components["schemas"]["Avgj\u00F8relse"];
+            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+        };
+        /** @description Tynn Kafka-melding publisert (ikke en del av HTTP-API-et) når en behandling av en søknad avbrytes uten å bli ferdigstilt, med henvisning til søknadId og eventuell årsak. */
+        SoknadsbehandlingAvbrutt: {
+            ident: string;
+            /** Format: uuid */
+            behandlingId: string;
+            /** Format: uuid */
+            "s\u00F8knadId": string;
+            "\u00E5rsak"?: string;
         };
         FerietilleggKvittering: {
             antallBestilt: number;
@@ -1842,7 +1991,7 @@ export interface components {
              * @description Til og med dato for gjeldende rettighetsperiode, hvis den er avsluttet
              */
             tilOgMed?: string;
-            sisteMeldeperiode?: components["schemas"]["Periode"];
+            sisteMeldeperiode?: components["schemas"]["LukketPeriode"];
             /** @description Antall gjenstående dager med rett på dagpenger */
             "gjenst\u00E5endeDager"?: number;
             /**
@@ -1867,7 +2016,7 @@ export interface components {
             "f\u00F8rteTil"?: components["schemas"]["Avgj\u00F8relse"];
         };
         /** @enum {string} */
-        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode" | "Er ilagt tidsbegrenset bortfall av dagpenger" | "Er ilagt sanskjonsperiode ved selvforskyldt arbeidsløshet" | "Tre påfølgende meldeperioder uten tilstrekkelig tap av arbeidstid § 10-4 annet ledd" | "Oppfyller kravet til eksport";
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode" | "Er ilagt tidsbegrenset bortfall av dagpenger" | "Er ilagt sanskjonsperiode ved selvforskyldt arbeidsløshet" | "Tre påfølgende meldeperioder uten tilstrekkelig tap av arbeidstid § 10-4 annet ledd" | "Oppfyller kravet til eksport" | "Oppfyller medlemmets opplysningsplikt";
     };
     responses: never;
     parameters: never;
