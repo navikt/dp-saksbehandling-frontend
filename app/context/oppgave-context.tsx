@@ -34,7 +34,8 @@ export type IGyldigeOppgaveHandlinger =
   | "avbryt-klage"
   | "send-til-kontroll"
   | "ferdigstill-klage"
-  | "returner-oppgave-til-meg";
+  | "returner-oppgave-til-meg"
+  | "flytt-behandling-til-ny-sak";
 
 export function OppgaveProvider({
   children,
@@ -117,10 +118,8 @@ function hentGyldigeDagpengerRettOppgaveValg(
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("utsett-oppgave");
-  }
-
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("send-til-kontroll");
+    handlinger.push("flytt-behandling-til-ny-sak");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") {

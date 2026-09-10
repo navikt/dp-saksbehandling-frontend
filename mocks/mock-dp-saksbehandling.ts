@@ -602,4 +602,14 @@ export const mockDpSaksbehandling = [
 
     return response(200).json(mockStatistikkOppgaveTypeV2);
   }),
+
+  http.post("/behandling/{behandlingId}/flytt-til-ny-sak", async ({ response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(201).empty();
+  }),
 ];

@@ -587,3 +587,18 @@ export async function hentAlleEmneknagger(request: Request) {
     `Uhåndtert feil i hentAlleEmneknagger(). ${response.status} - ${response.statusText}`,
   );
 }
+
+export async function flyttBehandlingTilNySak(
+  request: Request,
+  behandlingId: string,
+  personIdent: string,
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.POST("/behandling/{behandlingId}/flytt-til-ny-sak", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident: personIdent },
+    params: {
+      path: { behandlingId },
+    },
+  });
+}

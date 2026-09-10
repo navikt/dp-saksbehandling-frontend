@@ -2,6 +2,7 @@ import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { ActionMenu, Button } from "@navikt/ds-react";
 
 import { OppgaveValgAvbryt } from "~/components/oppgave-valg/OppgaveValgAvbryt";
+import { OppgaveValgFlyttBehandlingTilNySak } from "~/components/oppgave-valg/OppgaveValgFlyttBehandlingTilNySak";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { OppgaveValgRekjørBehandling } from "~/components/oppgave-valg/OppgaveValgRekjørBehandling";
 import { OppgaveValgSendTilKontroll } from "~/components/oppgave-valg/OppgaveValgSendTilKontroll";
@@ -49,6 +50,9 @@ export function OppgaveMeny() {
 
                 case "utsett-oppgave":
                   return <OppgaveValgSettPåVent oppgave={oppgave} />;
+
+                case "flytt-behandling-til-ny-sak":
+                  return <OppgaveValgFlyttBehandlingTilNySak oppgave={oppgave} />;
 
                 // Dette er et valg for å sende oppgaver som egentlig ikke krever totrinnskontroll til kontroll f.eks ved opplæring. Hvis oppgaven krever totrinnskontroll skal vanlig flyt følges og denne knappen skal ikke brukes da den gir grunner for totrinnskontroll som ikke er gyldige.
                 case "send-til-kontroll":
