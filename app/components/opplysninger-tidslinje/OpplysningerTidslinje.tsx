@@ -36,6 +36,7 @@ import {
   formaterOpplysningVerdi,
   skalViseOpplysning,
 } from "~/utils/opplysning.utils";
+import { isTekstVerdi } from "~/utils/type-guards";
 
 interface TimelinePin {
   date: Date;
@@ -271,7 +272,19 @@ export function OpplysningerTidslinje(props: IProps) {
                     </div>
                     <div>
                       <Detail textColor={"subtle"}>Verdi</Detail>
-                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
+                      {opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
+                        <Link
+                          href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${opplysning.opplysningTypeId}&behandlingId=${behandling.behandlingId}`}
+                          target="_blank"
+                        >
+                          Inntektsredigering <ExternalLinkIcon aria-hidden />
+                        </Link>
+                      )}
+                      {opplysning.datatype !== "inntekt" && (
+                        <BodyShort size={"small"}>
+                          {formaterOpplysningVerdi(periode.verdi)}
+                        </BodyShort>
+                      )}
                     </div>
                   </div>
                 </Timeline.Period>
