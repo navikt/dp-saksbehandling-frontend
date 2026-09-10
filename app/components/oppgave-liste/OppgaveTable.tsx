@@ -132,14 +132,10 @@ export function OppgaveTable({
               );
             case "rettighet":
               return (
-                <Detail>
-                  <div className="flex flex-wrap gap-2">
-                    {renderTags(
-                      tagsInCategory(value, "RETTIGHET"),
-                      () => "neutral",
-                      !!henterOppgaver,
-                    )}
-                  </div>
+                <Detail as={detailAs} className="flex flex-wrap gap-2">
+                  {tagsInCategory(value, "RETTIGHET")
+                    .map((tag) => tag.visningsnavn)
+                    .join(", ")}
                 </Detail>
               );
             case "personIdent":
@@ -158,13 +154,7 @@ export function OppgaveTable({
               if (value.tilstand !== "PAA_VENT" || !value.utsattTilDato) return null;
               const dager = differenceInCalendarDays(value.utsattTilDato, new Date());
               return (
-                <Tag
-                  size="xsmall"
-                  variant={henterOppgaver ? "moderate" : "outline"}
-                  data-color="brand-magenta"
-                >
-                  <Detail as={detailAs}>{`${dager} ${dager === 1 ? "dag" : "dager"} igjen`}</Detail>
-                </Tag>
+                <Detail as={detailAs}>{`${dager} ${dager === 1 ? "dag" : "dager"} igjen`}</Detail>
               );
             }
             case "utfall":
