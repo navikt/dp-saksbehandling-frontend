@@ -7,13 +7,13 @@ import { useState } from "react";
 import { GenericTable, type TableColumn } from "~/components/generic-table/GenericTable";
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
 import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
+import { renderOppgaveArsakTags } from "~/components/oppgave-table/oppgave-table.utils";
 import { OppgaveTablePaginering } from "~/components/oppgave-table/OppgaveTablePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 import {
   hentFargevariantForSøknadsresultat,
-  hentFargevariantForUdefinertEmneknagg,
   hentOppgaveTilstandTekst,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
@@ -22,10 +22,11 @@ import type { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveTable.module.css";
 
 type Oppgave = components["schemas"]["OppgaveOversikt"];
+
 const renderTags = (
   tags: Oppgave["emneknagger"],
   getColor: (tag: Oppgave["emneknagger"][number]) => AkselColor,
-  isLoading: boolean,
+  isLoading = false,
 ) => (
   <>
     {tags.map((tag) => (
@@ -80,7 +81,7 @@ export function OppgaveTable({
   excludedColumns = [],
   tittel,
   icon,
-  henterOppgaver,
+  henterOppgaver = false,
 }: OppgaveTableProps) {
   const [selectedNoteKey, setSelectedNoteKey] = useState<string>();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
@@ -123,11 +124,7 @@ export function OppgaveTable({
               return (
                 <Detail as={detailAs} className="flex items-center gap-2">
                   {hentUtløstAvTekstForVisning(value.utlostAv, true)}
-                  {renderTags(
-                    tagsInCategory(value, "GJENOPPTAK"),
-                    () => "neutral",
-                    !!henterOppgaver,
-                  )}
+                  {renderTags(tagsInCategory(value, "GJENOPPTAK"), () => "neutral", henterOppgaver)}
                 </Detail>
               );
             case "rettighet":
@@ -161,46 +158,12 @@ export function OppgaveTable({
               return renderTags(
                 tagsInCategory(value, "SOKNADSRESULTAT"),
                 (tag) => hentFargevariantForSøknadsresultat(tag.visningsnavn),
-                !!henterOppgaver,
+                henterOppgaver,
               );
             case "arsak":
               return (
                 <div className="flex flex-wrap gap-2">
-                  {renderTags(
-                    tagsInCategory(value, "AVSLAGSGRUNN"),
-                    () => "danger",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "AVBRUTT_GRUNN"),
-                    () => "warning",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "PAA_VENT"),
-                    () => "brand-magenta",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "OPPFOLGING_ARSAK"),
-                    () => "meta-purple",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "BEHANDLET_HENDELSE_TYPE"),
-                    () => "meta-lime",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "UDEFINERT"),
-                    (tag) => hentFargevariantForUdefinertEmneknagg(tag.visningsnavn) ?? "neutral",
-                    !!henterOppgaver,
-                  )}
-                  {renderTags(
-                    tagsInCategory(value, "ETTERSENDING"),
-                    () => "info",
-                    !!henterOppgaver,
-                  )}
+                  {renderOppgaveArsakTags(value, henterOppgaver)}
                 </div>
               );
             case "saksbehandler":

@@ -7,7 +7,7 @@ import { components as behandlingComponents } from "../../../openapi/behandling-
 import { components } from "../../../openapi/saksbehandling-typer";
 import { GjeldendeVedtakMedBehandling } from "../gjeldende-vedtak/GjeldendeVedtakMedBehandling";
 import { OppgaveTable } from "../oppgave-table/OppgaveTable";
-import { OppgaveOgBehandling, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
+import { SakOppgaveTable, type SakOppgaveTableRow } from "../oppgave-table/SakOppgaveTable";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
@@ -40,7 +40,7 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
           };
         })
         .filter(
-          (oppgaveOgBehandling): oppgaveOgBehandling is OppgaveOgBehandling =>
+          (oppgaveOgBehandling): oppgaveOgBehandling is SakOppgaveTableRow =>
             oppgaveOgBehandling.oppgave !== undefined,
         )
     : [];
@@ -55,7 +55,6 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
         >
           <FolderFileIcon aria-hidden /> Siste sak
         </Heading>
-
         <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
           SakID:
         </BodyShort>
@@ -75,7 +74,7 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
           <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
             Oppgaver knyttet til behandlingsløp
           </Heading>
-          <SakOppgaveListe
+          <SakOppgaveTable
             oppgaverOgBehandlinger={oppgaverOgBehandlinger}
             totaltAntallOppgaver={oppgaverOgBehandlinger.length}
           />
