@@ -19,7 +19,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
-import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
+import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/index.module.css";

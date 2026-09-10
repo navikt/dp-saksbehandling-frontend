@@ -6,7 +6,7 @@ import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
 import { GjeldendeVedtakMedBehandling } from "../gjeldende-vedtak/GjeldendeVedtakMedBehandling";
-import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "../oppgave-table/OppgaveTable";
 import { OppgaveOgBehandling, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
@@ -88,9 +88,10 @@ export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IPro
               Frie oppgaver
             </Heading>
           )}
-          <OppgaveListe
+          <OppgaveTable
             oppgaver={oppgaverSomIkkeErIDpBehandling}
             totaltAntallOppgaver={oppgaverSomIkkeErIDpBehandling.length}
+            excludedColumns={["personIdent"]}
           />
         </>
       )}

@@ -15,7 +15,7 @@ import { OppgaveFilterSaksbehandler } from "~/components/oppgave-filter/OppgaveF
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
-import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
+import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";

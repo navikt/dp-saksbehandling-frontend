@@ -7,7 +7,7 @@ import { useState } from "react";
 import { GenericTable, type TableColumn } from "~/components/generic-table/GenericTable";
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
 import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
-import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
+import { OppgaveTablePaginering } from "~/components/oppgave-table/OppgaveTablePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
@@ -19,7 +19,7 @@ import {
 } from "~/utils/tekst.utils";
 
 import type { components } from "../../../openapi/saksbehandling-typer";
-import styles from "./OppgaveListe.module.css";
+import styles from "./OppgaveTable.module.css";
 
 type Oppgave = components["schemas"]["OppgaveOversikt"];
 const renderTags = (
@@ -220,7 +220,7 @@ export function OppgaveTable({
           }
         }}
       </GenericTable>
-      <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
+      <OppgaveTablePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       {selectedNoteKey && (
         <NoteModal onClose={() => setSelectedNoteKey(undefined)} noteKey={selectedNoteKey} />
       )}

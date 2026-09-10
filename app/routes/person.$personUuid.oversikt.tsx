@@ -16,7 +16,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { components } from "@/openapi/saksbehandling-typer";
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
@@ -102,11 +102,12 @@ export default function PersonOversikt() {
         </div>
 
         <div className={"card"}>
-          <OppgaveListe
+          <OppgaveTable
             tittel={"Oppgaver til behandling"}
             icon={<PencilWritingIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaverTilBehandling}
             totaltAntallOppgaver={oppgaverTilBehandling.length}
+            excludedColumns={["personIdent", "beslutter", "utsattTilDato"]}
           />
         </div>
 
@@ -151,11 +152,12 @@ export default function PersonOversikt() {
 
           <Tabs.Panel value="alle-oppgaver">
             <div className={"card mt-4"}>
-              <OppgaveListe
+              <OppgaveTable
                 tittel={"Alle oppgaver"}
                 icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
                 oppgaver={personOversikt.oppgaver}
                 totaltAntallOppgaver={personOversikt.oppgaver.length}
+                excludedColumns={["personIdent"]}
               />
             </div>
           </Tabs.Panel>
@@ -166,11 +168,12 @@ export default function PersonOversikt() {
         </Heading>
 
         <div className={"card"}>
-          <OppgaveListe
+          <OppgaveTable
             tittel={"Ferietillegg"}
             icon={<ParasolBeachIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={ferietilleggOppgaver}
             totaltAntallOppgaver={ferietilleggOppgaver.length}
+            excludedColumns={["personIdent"]}
           />
         </div>
       </div>

@@ -5,7 +5,7 @@ interface IProps {
   totaltAntallOppgaver: number;
 }
 
-export function OppgaveListePaginering({ totaltAntallOppgaver }: IProps) {
+export function OppgaveTablePaginering({ totaltAntallOppgaver }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const antallOppgaverPerSide = searchParams.get("antallOppgaver")
     ? parseInt(searchParams.get("antallOppgaver") as string)
