@@ -326,7 +326,15 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.behandlerIdent}</Detail>}
+                  {
+                    <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                      {oppgave.saksbehandlerIdent}
+                    </Detail>
+                  }
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.beslutterIdent}</Detail>}
                 </Table.DataCell>
 
                 <Table.DataCell>

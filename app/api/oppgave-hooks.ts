@@ -22,7 +22,7 @@ export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
   ] as const;
 
 export function useOppgaverQuery(searchParams: URLSearchParams) {
-  const { data, isLoading } = useQuery<OppgaveListeData>({
+  const { data, isLoading, isFetching } = useQuery<OppgaveListeData>({
     queryKey: oppgaverQueryKey(searchParams),
     queryFn: () => fetchOppgaver(searchParams),
     placeholderData: keepPreviousData,
@@ -32,6 +32,7 @@ export function useOppgaverQuery(searchParams: URLSearchParams) {
     oppgaver: data?.oppgaver ?? [],
     totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
     isLoading,
+    isFetching,
   };
 }
 
@@ -98,12 +99,18 @@ export function useTildelOppgaveMutation() {
 
 export function useLeggTilbakeOppgaveMutation() {
   const queryClient = useQueryClient();
+  const { addAlert } = useGlobalAlerts();
 
   const mutation = useMutation({
     mutationFn: leggTilbakeOppgaveFetch,
     onSuccess: () => {
       // Invalidate cache after mutation settles
       queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+      addAlert({
+        variant: "success",
+        title: "Oppgave lagt tilbake",
+        body: "Oppgaven er nå lagt tilbake til saksbehandler.",
+      });
     },
   });
 
