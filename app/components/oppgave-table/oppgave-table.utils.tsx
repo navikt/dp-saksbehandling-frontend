@@ -8,7 +8,7 @@ import type { components } from "../../../openapi/saksbehandling-typer";
 type Oppgave = components["schemas"]["OppgaveOversikt"];
 type Emneknagg = Oppgave["emneknagger"][number];
 
-function renderTags(
+export function renderTags(
   tags: Oppgave["emneknagger"],
   getColor: (tag: Emneknagg) => AkselColor,
   isLoading = false,
@@ -30,7 +30,7 @@ function renderTags(
   );
 }
 
-function tagsInCategory(oppgave: Oppgave, kategori: string) {
+export function tagsInCategory(oppgave: Oppgave, kategori: string) {
   return oppgave.emneknagger.filter((tag) => tag.kategori === kategori);
 }
 

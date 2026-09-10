@@ -1,12 +1,15 @@
 import { Detail, Heading, Tag } from "@navikt/ds-react";
-import type { AkselColor } from "@navikt/ds-react/types/theme";
 import { differenceInCalendarDays } from "date-fns";
 import { useState } from "react";
 
 import { GenericTable, type TableColumn } from "~/components/generic-table/GenericTable";
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
 import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
-import { renderOppgaveArsakTags } from "~/components/oppgave-table/oppgave-table.utils";
+import {
+  renderOppgaveArsakTags,
+  renderTags,
+  tagsInCategory,
+} from "~/components/oppgave-table/oppgave-table.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import {
   hentFargevariantForSøknadsresultat,
@@ -21,31 +24,6 @@ import styles from "./OppgaveTable.module.css";
 export interface SakOppgaveTableRow {
   behandling: behandlingComponents["schemas"]["BehandlingSammendrag"];
   oppgave: components["schemas"]["OppgaveOversikt"];
-}
-
-type Oppgave = components["schemas"]["OppgaveOversikt"];
-
-const renderTags = (
-  tags: Oppgave["emneknagger"],
-  getColor: (tag: Oppgave["emneknagger"][number]) => AkselColor,
-) => (
-  <>
-    {tags.map((tag) => (
-      <Tag
-        key={tag.visningsnavn}
-        size="xsmall"
-        variant="outline"
-        data-color={getColor(tag)}
-        className="whitespace-nowrap"
-      >
-        <Detail as="span">{tag.visningsnavn}</Detail>
-      </Tag>
-    ))}
-  </>
-);
-
-function tagsInCategory(oppgave: Oppgave, kategori: string) {
-  return oppgave.emneknagger.filter((tag) => tag.kategori === kategori);
 }
 
 const columns = {
