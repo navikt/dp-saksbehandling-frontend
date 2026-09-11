@@ -69,8 +69,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       '@portabletext/plugin-list-index':
-        specifier: ^2.0.5
-        version: 2.0.5(@portabletext/editor@8.1.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(react@19.2.8)
+        specifier: ^2.0.6
+        version: 2.0.6(@portabletext/editor@8.1.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(react@19.2.8)
       '@portabletext/react':
         specifier: 8.0.1
         version: 8.0.1(react@19.2.8)
@@ -2281,11 +2281,11 @@ packages:
     resolution: {integrity: sha512-3RbeVhdQRThYSMbP8v2jjVxAumB5I/tE8W6g8nMvW7epjWAkmRXQcSHr6MEQXWbSbLZJAAjBCKIkWzvlv2lLUw==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/plugin-list-index@2.0.5':
-    resolution: {integrity: sha512-mfftBS/CtjuFCLOh5eejGNgWp61+XlGMpAqp43NR6WV9GN25SNUSowitl4c/2Ry0jA7v3YHHzxp40mI8OXdkNQ==}
+  '@portabletext/plugin-list-index@2.0.6':
+    resolution: {integrity: sha512-x5rrzg5TUoVDNuIa0QZYMmNiru+q7u9oTXpX4JNXwoIVkFjtN7Bvr8WsbkvWTv4HpAPewTvxFGU09Bgn8notiQ==}
     engines: {node: '>=22.12'}
     peerDependencies:
-      '@portabletext/editor': ^8.1.1
+      '@portabletext/editor': ^8.1.2
       react: ^19.2
 
   '@portabletext/react@8.0.1':
@@ -8575,7 +8575,7 @@ snapshots:
     dependencies:
       '@sanity/diff-match-patch': 3.2.0
 
-  '@portabletext/plugin-list-index@2.0.5(@portabletext/editor@8.1.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(react@19.2.8)':
+  '@portabletext/plugin-list-index@2.0.6(@portabletext/editor@8.1.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0))(react@19.2.8)':
     dependencies:
       '@portabletext/editor': 8.1.2(@types/react@19.2.18)(react@19.2.8)(supports-color@5.5.0)
       react: 19.2.8
