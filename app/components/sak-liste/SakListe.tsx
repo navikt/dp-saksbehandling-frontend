@@ -3,7 +3,7 @@ import { BodyShort, CopyButton, ExpansionCard } from "@navikt/ds-react";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
-import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
+import { OppgaveTable } from "../oppgave-table/OppgaveTable";
 
 interface IProps {
   saker: components["schemas"]["Sak"][];
@@ -60,7 +60,11 @@ export function SakListe({ saker }: IProps) {
                 <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
               </div>
 
-              <OppgaveListe oppgaver={sak.oppgaver} totaltAntallOppgaver={sak.oppgaver.length} />
+              <OppgaveTable
+                oppgaver={sak.oppgaver}
+                totaltAntallOppgaver={sak.oppgaver.length}
+                excludedColumns={["personIdent"]}
+              />
             </ExpansionCard.Content>
           </ExpansionCard>
         );

@@ -13,7 +13,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
-import { OppgaveTable } from "~/components/oppgave-liste/OppgaveTable";
+import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
