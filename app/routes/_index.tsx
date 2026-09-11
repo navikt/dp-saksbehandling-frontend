@@ -41,15 +41,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
-  if (!url.search) {
-    let appended = false;
+  /** Om searchParams har en param som ikke er "_routes". _routes blir lagt til av React Router ved single fetch */
+  const harRelevanteParams = [...url.searchParams.keys()].some((key) => key !== "_routes");
+  if (!harRelevanteParams) {
     for (const { key, value } of oppgaverTilBehandlingDefaultParams) {
-      appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
+      appendSearchParamIfNotExists(url.searchParams, key, value);
     }
+    url.searchParams.delete("_routes");
 
-    if (appended) {
-      return redirect(url.toString());
-    }
+    throw redirect(`/${url.search}`);
   }
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -77,6 +77,7 @@ export default function Saksbehandling() {
     new URLSearchParams(search),
   );
   const { setAktivtOppgaveSok } = useSaksbehandler();
+
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -94,7 +95,6 @@ export default function Saksbehandling() {
     valgteTilstander.every((v) => tidskritiskeOppgaver.tilstand === v) &&
     valgteUtløstAv.length > 0 &&
     valgteUtløstAv.every((v) => tidskritiskeOppgaver.utlostAv.includes(v));
-
   useEffect(() => {
     setAktivtOppgaveSok(searchParams.toString());
   }, [searchParams]);

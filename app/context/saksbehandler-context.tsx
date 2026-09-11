@@ -2,6 +2,7 @@ import { Theme } from "@navikt/ds-react";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 interface ISaksbehandlerContext {
+  /** Det forige søket som ble brukt i oppgaver til behandling */
   aktivtOppgaveSok: string;
   setAktivtOppgaveSok: (sok: string) => void;
   skjulSensitiveOpplysninger: boolean;
