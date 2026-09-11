@@ -11,8 +11,8 @@ import {
 interface IOppgaveContextType {
   oppgave: components["schemas"]["Oppgave"];
   gyldigeOppgaveValg: IGyldigeOppgaveHandlinger[];
-  minOppgave: boolean;
-  minBeslutterOppgave: boolean;
+  erSaksbehandler: boolean;
+  erBeslutter: boolean;
   underKontroll: boolean;
   readonly: boolean;
 }
@@ -42,26 +42,26 @@ export function OppgaveProvider({
   oppgave,
   saksbehandler,
 }: PropsWithChildren<IOppgaveProviderType>) {
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const erSaksbehandler = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
-  const minBeslutterOppgave =
+  const erBeslutter =
     oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
     oppgave.tilstand === "UNDER_KONTROLL";
 
   const underKontroll = oppgave.tilstand === "UNDER_KONTROLL";
   const readonly =
-    !(minOppgave && oppgave.tilstand === "UNDER_BEHANDLING") ||
+    !(erSaksbehandler && oppgave.tilstand === "UNDER_BEHANDLING") ||
     underKontroll ||
     oppgave.tilstand !== "UNDER_BEHANDLING";
-  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, minOppgave);
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, erSaksbehandler, erBeslutter);
 
   return (
     <OppgaveContext.Provider
       value={{
         oppgave,
         gyldigeOppgaveValg,
-        minOppgave,
-        minBeslutterOppgave,
+        erSaksbehandler,
+        erBeslutter,
         underKontroll,
         readonly,
       }}
@@ -75,28 +75,29 @@ export function hentGyldigeOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
+  erBeslutter: boolean,
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
   if (
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
     oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler)
   ) {
     handlinger.push("behandle-oppgave");
   }
 
   switch (oppgave.behandlingType) {
     case "RETT_TIL_DAGPENGER":
-      return hentGyldigeDagpengerRettOppgaveValg(oppgave, minOppgave, handlinger);
+      return hentGyldigeDagpengerRettOppgaveValg(oppgave, erSaksbehandler, erBeslutter, handlinger);
     case "KLAGE":
-      return hentGyldigeKlageOppgaveValg(oppgave, minOppgave, handlinger);
+      return hentGyldigeKlageOppgaveValg(oppgave, erSaksbehandler, handlinger);
     case "INNSENDING":
-      return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave, handlinger);
+      return hentGyldigeInnsendingOppgaveValg(oppgave, erSaksbehandler, handlinger);
     case "TILBAKEKREVING":
-      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, minOppgave, handlinger);
+      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, erSaksbehandler, handlinger);
     case "OPPFØLGING":
-      return hentGyldigeOppfolgingValg(oppgave, minOppgave, handlinger);
+      return hentGyldigeOppfolgingValg(oppgave, erSaksbehandler, handlinger);
     default:
       return [];
   }
@@ -106,17 +107,18 @@ function hentGyldigeDagpengerRettOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
+  erBeslutter: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
   if (
     oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
-    (oppgave.tilstand === "UNDER_KONTROLL" && minOppgave)
+    (oppgave.tilstand === "UNDER_KONTROLL" && erBeslutter)
   ) {
     handlinger.push("kontroller-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler) {
     handlinger.push("utsett-oppgave");
     handlinger.push("send-til-kontroll");
     handlinger.push("flytt-behandling-til-ny-sak");
@@ -133,17 +135,17 @@ function hentGyldigeDagpengerRettOppgaveValg(
   if (
     oppgave.tilstand === "FERDIG_BEHANDLET" ||
     oppgave.tilstand === "AVBRUTT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave) ||
-    (oppgave.tilstand === "UNDER_KONTROLL" && !minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler) ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && !erBeslutter)
   ) {
     handlinger.push("se-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler) {
     handlinger.push("avbryt-behandling");
   }
 
-  if (oppgave.tilstand === "KLAR_TIL_KONTROLL" && minOppgave) {
+  if (oppgave.tilstand === "KLAR_TIL_KONTROLL" && erSaksbehandler) {
     handlinger.push("returner-oppgave-til-meg");
   }
 
@@ -154,13 +156,13 @@ function hentGyldigeKlageOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
   if (
     oppgave.tilstand === "FERDIG_BEHANDLET" ||
     oppgave.tilstand === "AVBRUTT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler)
   ) {
     handlinger.push("se-oppgave");
   }
@@ -169,7 +171,7 @@ function hentGyldigeKlageOppgaveValg(
     handlinger.push("legg-tilbake-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler) {
     handlinger.push("utsett-oppgave", "avbryt-klage", "ferdigstill-klage");
   }
 
@@ -180,13 +182,13 @@ function hentGyldigeInnsendingOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
   if (
     oppgave.tilstand === "FERDIG_BEHANDLET" ||
     oppgave.tilstand === "AVBRUTT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler)
   ) {
     handlinger.push("se-oppgave");
   }
@@ -195,7 +197,7 @@ function hentGyldigeInnsendingOppgaveValg(
     handlinger.push("legg-tilbake-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler) {
     handlinger.push("utsett-oppgave");
   }
 
@@ -206,12 +208,12 @@ function hentGyldigeTilbakekrevingOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
   if (
     ["FERDIG_BEHANDLET", "AVBRUTT"].includes(oppgave.tilstand) ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler)
   ) {
     handlinger.push("se-oppgave");
   }
@@ -220,7 +222,7 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     handlinger.push("legg-tilbake-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && erSaksbehandler) {
     handlinger.push("utsett-oppgave");
   }
 
@@ -231,19 +233,19 @@ function hentGyldigeOppfolgingValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
-  minOppgave: boolean,
+  erSaksbehandler: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
   if (
     ["FERDIG_BEHANDLET", "AVBRUTT", "PAA_VENT"].includes(oppgave.tilstand) ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler)
   ) {
     handlinger.push("se-oppgave");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING") {
     handlinger.push("legg-tilbake-oppgave");
-    if (minOppgave) {
+    if (erSaksbehandler) {
       handlinger.push("utsett-oppgave");
     }
   }

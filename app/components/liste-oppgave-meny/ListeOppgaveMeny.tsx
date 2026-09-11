@@ -21,8 +21,10 @@ interface IProps {
 
 export function ListeOppgaveMeny({ listeOppgave }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const minOppgave = listeOppgave.behandlerIdent === saksbehandler.onPremisesSamAccountName;
-  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(listeOppgave, minOppgave);
+  const erSaksbehandler =
+    listeOppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
+  const erBeslutter = listeOppgave.beslutterIdent === saksbehandler.onPremisesSamAccountName;
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(listeOppgave, erSaksbehandler, erBeslutter);
 
   return (
     <>
