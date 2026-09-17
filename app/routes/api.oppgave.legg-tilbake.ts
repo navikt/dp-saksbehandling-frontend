@@ -1,6 +1,6 @@
 import { components } from "@/openapi/saksbehandling-typer";
 import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 
 export type LeggTilbakeOppgaveResponse = {
   data: components["schemas"]["LeggTilbakeOppgave"];
@@ -24,5 +24,10 @@ export async function action({ request }: { request: Request }) {
     title: "Oppgave lagt tilbake i køen 📥",
   });
 
-  return result;
+  return new Response(JSON.stringify(result), {
+    headers: {
+      "Content-Type": "application/json",
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }

@@ -6,7 +6,9 @@ import { isBarneliste, isRedigerbareOpplysninger } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
 import { logger } from "./logger.utils";
-
+export function formaterPeriodeMedUke(fom: string, tom: string) {
+  return `Uke ${getISOWeek(fom)} - ${getISOWeek(tom)} (${formaterTilNorskDato(fom)} - ${formaterTilNorskDato(tom)})`;
+}
 export function formaterOpplysningVerdi(
   opplysningsverdi: components["schemas"]["Opplysningsverdi"],
 ) {
@@ -28,7 +30,7 @@ export function formaterOpplysningVerdi(
     case "boolsk":
       return opplysningsverdi.verdi ? "Ja" : "Nei";
     case "periode":
-      return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
+      return formaterPeriodeMedUke(opplysningsverdi.fom, opplysningsverdi.tom);
     case "barn":
       if (isBarneliste(opplysningsverdi)) {
         return opplysningsverdi.søknadBarnId ?? "Mangler søknadBarnId";
