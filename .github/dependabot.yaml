@@ -38,6 +38,12 @@ updates:
     cooldown:
       default-days: 7
     groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
       # Group all react-router dependencies together
       react-router:
         patterns:
