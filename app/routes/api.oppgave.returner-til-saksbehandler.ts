@@ -1,5 +1,5 @@
 import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 
 export async function action({ request }: { request: Request }) {
   const { oppgaveId, årsak } = await request.json();
@@ -19,5 +19,10 @@ export async function action({ request }: { request: Request }) {
     title: "Oppgave returnert til saksbehandling 📥",
   });
 
-  return result;
+  return new Response(JSON.stringify(result), {
+    headers: {
+      "Content-Type": "application/json",
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }
