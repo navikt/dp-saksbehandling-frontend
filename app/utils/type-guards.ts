@@ -6,6 +6,25 @@ import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 import { components as behandlingComponents, components } from "../../openapi/behandling-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
+export function isHttpProblem(
+  value: unknown,
+): value is
+  | saksbehandlingComponents["schemas"]["HttpProblem"]
+  | behandlingComponents["schemas"]["HttpProblem"] {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const problem = value as Record<string, unknown>;
+
+  return (
+    typeof problem.type === "string" &&
+    typeof problem.title === "string" &&
+    typeof problem.status === "number" &&
+    typeof problem.instance === "string"
+  );
+}
+
 export function isOppgaveOversikt(
   oppgave:
     | saksbehandlingComponents["schemas"]["OppgaveOversikt"]

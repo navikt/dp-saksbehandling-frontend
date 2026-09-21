@@ -2,6 +2,8 @@ import { Alert, BodyLong, Heading, InternalHeader, Theme } from "@navikt/ds-reac
 import type { JSX } from "react";
 import { isRouteErrorResponse, Link } from "react-router";
 
+import { HTML_RESPONSE_STATUS_TEXT } from "~/utils/html-response.utils";
+
 interface IProps {
   meta: JSX.Element;
   links: JSX.Element;
@@ -36,6 +38,17 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 export function ErrorMessageComponent({ error }: { error: unknown }) {
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
+    if (error.statusText === HTML_RESPONSE_STATUS_TEXT && typeof error.data === "string") {
+      return (
+        <iframe
+          className="m-4 min-h-[600px] w-[calc(100%-2rem)] border-0"
+          title="Feilmelding fra tjenesten"
+          sandbox=""
+          srcDoc={error.data}
+        />
+      );
+    }
+
     return (
       <Alert className={"m-4"} variant="error">
         <Heading spacing size="medium" level="1">

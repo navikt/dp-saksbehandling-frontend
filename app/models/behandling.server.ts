@@ -4,6 +4,8 @@ import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
+import { handleHtmlResponse } from "~/utils/html-response.utils";
+import { isHttpProblem } from "~/utils/type-guards";
 
 import { components, paths } from "../../openapi/behandling-typer";
 
@@ -54,7 +56,11 @@ export async function hentBehandling(request: Request, behandlingId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
@@ -144,7 +150,11 @@ export async function hentVurderinger(request: Request, behandlingId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(
@@ -170,7 +180,11 @@ export async function hentSak(request: Request, sakId: string) {
       return undefined;
     }
 
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentSak(). ${response.status} - ${response.statusText}`);

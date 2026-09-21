@@ -36,6 +36,7 @@ export default function OppgaveLayout() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
+  console.log("asd", error);
   return (
     <div className="main overflow-scroll overflow-y-auto">
       <ErrorMessageComponent error={error} />

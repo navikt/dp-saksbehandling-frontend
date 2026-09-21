@@ -6,7 +6,8 @@ import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHttpProblemAlert, handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
-import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
+import { handleHtmlResponse } from "~/utils/html-response.utils";
+import { isHttpProblem, parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
 import { components, paths } from "../../openapi/saksbehandling-typer";
 
@@ -31,7 +32,11 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentOppgaver(). ${response.status} - ${response.statusText}`);
@@ -46,12 +51,17 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
     },
   });
 
+  console.log(response, data, error);
   if (data) {
     return data;
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
@@ -71,7 +81,11 @@ export async function hentInnsending(request: Request, behandlingId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
@@ -91,7 +105,11 @@ export async function hentOppfolging(request: Request, behandlingId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentOppfolging(). ${response.status} - ${response.statusText}`);
@@ -144,7 +162,11 @@ export async function hentTilbakekreving(request: Request, behandlingId: string)
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(
@@ -183,7 +205,11 @@ export async function hentKlage(request: Request, behandlingId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentKlage(). ${response.status} - ${response.statusText}`);
@@ -436,7 +462,11 @@ export async function sokPerson(request: Request, ident: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
@@ -456,7 +486,11 @@ export async function hentPersonOversikt(request: Request, personId: string) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
@@ -563,7 +597,11 @@ export async function hentStatistikk(request: Request, urlSearchParams: URLSearc
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(`Uhåndtert feil i hentStatistikk(). ${response.status} - ${response.statusText}`);
@@ -580,7 +618,11 @@ export async function hentAlleEmneknagger(request: Request) {
   }
 
   if (error) {
-    handleHttpProblem(error);
+    if (isHttpProblem(error)) {
+      handleHttpProblem(error);
+    }
+
+    handleHtmlResponse(error, response.status);
   }
 
   throw new Error(
