@@ -12,7 +12,9 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
+import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useOppgave } from "~/hooks/useOppgave";
 import { hentTilbakekreving } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -32,10 +34,13 @@ export default function Tilbakekreving() {
   const { tilbakekreving } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const { oppgave } = useOppgave();
 
   return (
     <div className={"flex gap-4"}>
-      <OppgaveOversikt />
+      <BeslutterNotatProvider notat={oppgave.notat}>
+        <OppgaveOversikt />
+      </BeslutterNotatProvider>
       <div
         className={"card flex flex-1 flex-col items-center justify-center gap-4 p-4 text-center"}
       >

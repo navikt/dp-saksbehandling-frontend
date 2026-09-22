@@ -95,7 +95,12 @@ export function hentGyldigeOppgaveValg(
     case "INNSENDING":
       return hentGyldigeInnsendingOppgaveValg(oppgave, erSaksbehandler, handlinger);
     case "TILBAKEKREVING":
-      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, erSaksbehandler, handlinger);
+      return hentGyldigeTilbakekrevingOppgaveValg(
+        oppgave,
+        erSaksbehandler,
+        erBeslutter,
+        handlinger,
+      );
     case "OPPFØLGING":
       return hentGyldigeOppfolgingValg(oppgave, erSaksbehandler, handlinger);
     default:
@@ -209,8 +214,16 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   erSaksbehandler: boolean,
+  erBeslutter: boolean,
   handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
+  if (
+    oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && erBeslutter)
+  ) {
+    handlinger.push("kontroller-oppgave");
+  }
+
   if (
     ["FERDIG_BEHANDLET", "AVBRUTT"].includes(oppgave.tilstand) ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && !erSaksbehandler)
