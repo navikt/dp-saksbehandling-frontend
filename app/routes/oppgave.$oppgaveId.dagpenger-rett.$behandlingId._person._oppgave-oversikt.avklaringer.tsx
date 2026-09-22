@@ -22,7 +22,7 @@ export default function AvklaringerOgVurderinger() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Avklaringer avklaringer={behandling.avklaringer} behandlingId={behandling.behandlingId} />
+      <Avklaringer avklaringer={behandling.avklaringer} />
       {isPending && <Loader size="large" title="Henter vurderinger" />}
       {error && (
         <Alert variant="error">

@@ -6,11 +6,10 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   avklaringer: components["schemas"]["Avklaring"][];
-  behandlingId: string;
 }
 
-export function Avklaringer(props: IProps) {
-  const avklaringer = props.avklaringer.filter(
+export function Avklaringer({ avklaringer }: IProps) {
+  const avklaringerSomGjelder = avklaringer.filter(
     (avklaring) =>
       avklaring.status === "Åpen" || (avklaring.status === "Avklart" && !avklaring.maskinelt),
   );
@@ -19,10 +18,10 @@ export function Avklaringer(props: IProps) {
     <div className={"card p-4"}>
       <Heading size={"small"}> Hva som må sjekkes</Heading>
 
-      {avklaringer.length === 0 && <BodyShort>Det er ingen avklaringer</BodyShort>}
+      {avklaringerSomGjelder.length === 0 && <BodyShort>Det er ingen avklaringer</BodyShort>}
       <div className={"mt-2 flex flex-col gap-2"}>
-        {avklaringer.map((avklaring) => (
-          <Avklaring avklaring={avklaring} behandlingId={props.behandlingId} key={avklaring.id} />
+        {avklaringerSomGjelder.map((avklaring) => (
+          <Avklaring avklaring={avklaring} key={avklaring.id} />
         ))}
       </div>
     </div>

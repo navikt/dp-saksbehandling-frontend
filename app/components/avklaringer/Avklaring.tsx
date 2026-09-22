@@ -18,24 +18,28 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   avklaring: components["schemas"]["Avklaring"];
-  behandlingId: string;
 }
 
-export function Avklaring(props: IProps) {
+export function Avklaring({ avklaring }: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
+  const { prøvingsdatoOpplysning } = useBehandling();
+  const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
+  const prøvingsdato = konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode!.verdi);
   const { oppgaveId, behandlingId } = useTypeSafeParams();
   const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(
-    underKontroll && !!props.avklaring?.begrunnelse,
+    underKontroll && !!avklaring?.begrunnelse,
   );
   const avklaringForm = useForm({
     method: "post",
@@ -45,39 +49,40 @@ export function Avklaring(props: IProps) {
     onSubmitSuccess: () => setÅpenAvklaring(false),
     defaultValues: {
       _action: "kvitter-avklaring",
-      behandlingId: props.behandlingId,
-      avklaringId: props.avklaring.id,
-      begrunnelse: props.avklaring.begrunnelse,
+      behandlingId: behandlingId,
+      avklaringId: avklaring.id,
+      begrunnelse: avklaring.begrunnelse,
     },
   });
 
-  const kanRedigereBegrunnelse = props.avklaring.kanKvitteres && !props.avklaring.maskinelt;
+  const kanRedigereBegrunnelse = avklaring.kanKvitteres && !avklaring.maskinelt;
 
   return (
     <ExpansionCard
-      key={props.avklaring.id}
+      key={avklaring.id}
       className={"expansion--subtil"}
-      aria-label={props.avklaring.tittel}
+      aria-label={avklaring.tittel}
       size={"small"}
       open={åpenAvklaring}
       onToggle={() => {
-        window.umami.track(!åpenAvklaring ? "Vis avklaring" : "Skjul avklaring", {
-          "avklaring-id": props.avklaring.id,
-        });
         setÅpenAvklaring(!åpenAvklaring);
+        window.umami.track(!åpenAvklaring ? "Vis avklaring" : "Skjul avklaring", {
+          "avklaring-id": avklaring.id,
+        });
       }}
-      data-color={hentAvklaringFarge(props.avklaring)}
+      data-color={hentAvklaringFarge(avklaring)}
     >
       <ExpansionCard.Header className={"flex items-center"}>
         <HStack wrap={false} gap="space-12" align="center">
-          <div>{hentStatusIcon(props.avklaring)}</div>
+          <div>{hentStatusIcon(avklaring)}</div>
           <div>
             <BodyShort size={"small"} weight={"semibold"}>
-              {props.avklaring.tittel}
+              {avklaring.tittel}{" "}
+              {avklaring.kode === "SjekkPrøvingsdato" ? "(" + prøvingsdato + ")" : ""}
             </BodyShort>
 
-            {(props.avklaring.status === "Avklart" || props.avklaring.status === "Avbrutt") && (
-              <Detail>{hentAvklartAvTekst(props.avklaring)}</Detail>
+            {(avklaring.status === "Avklart" || avklaring.status === "Avbrutt") && (
+              <Detail>{hentAvklartAvTekst(avklaring)}</Detail>
             )}
           </div>
         </HStack>
@@ -85,9 +90,9 @@ export function Avklaring(props: IProps) {
 
       <ExpansionCard.Content>
         <div className={"flex flex-col gap-4"}>
-          <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
+          <BodyLong size={"small"}>{avklaring.beskrivelse}</BodyLong>
 
-          {props.avklaring.regelsett.map((regelsett) => (
+          {avklaring.regelsett.map((regelsett) => (
             <LoadingLink
               key={regelsett.id}
               to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
@@ -107,10 +112,10 @@ export function Avklaring(props: IProps) {
                   label="Begrunnelse"
                 />
 
-                {props.avklaring.sistEndret && (
+                {avklaring.sistEndret && (
                   <Detail>
-                    Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
-                    {props.avklaring.avklartAv?.ident}
+                    Sist endret {formaterTilNorskDato(avklaring.sistEndret, true)}{" "}
+                    {avklaring.avklartAv?.ident}
                   </Detail>
                 )}
               </div>
@@ -123,7 +128,7 @@ export function Avklaring(props: IProps) {
                   onClick={() => avklaringForm.submit()}
                   disabled={readonly}
                   data-umami-event="Lagre avklaring"
-                  data-umami-event-avklaring-id={props.avklaring.id}
+                  data-umami-event-avklaring-id={avklaring.id}
                 >
                   Lagre
                 </Button>
