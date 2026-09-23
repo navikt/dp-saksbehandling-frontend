@@ -49,7 +49,7 @@
     "@opentelemetry/auto-instrumentations-node": "0.80.0",
     "@opentelemetry/sdk-node": "0.222.0",
     "@opentelemetry/sdk-trace-node": "2.11.0",
-    "@portabletext/block-tools": "6.0.0",
+    "@portabletext/block-tools": "6.0.1",
     "@portabletext/editor": "8.1.5",
     "@portabletext/keyboard-shortcuts": "3.0.0",
     "@portabletext/plugin-list-index": "^2.0.7",
