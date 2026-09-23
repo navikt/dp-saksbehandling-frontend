@@ -78,8 +78,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       '@portabletext/toolbar':
-        specifier: 9.0.8
-        version: 9.0.8(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)
+        specifier: 9.0.10
+        version: 9.0.10(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)
       '@react-router/node':
         specifier: 8.4.0
         version: 8.4.0(react-router@8.4.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(typescript@6.0.3)
@@ -2129,11 +2129,11 @@ packages:
     resolution: {integrity: sha512-kMqr55pJDBsIyOHLeVccFMFfJxSdozS+A1TeYhiihIinSDhb6ibUxpQIpg0B1n54vZJJW8rDs+QayP3vQqLKUg==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/toolbar@9.0.8':
-    resolution: {integrity: sha512-iE1K9J2BCORoW9q7DmcrPHTBDfjnXM+WX3XcVJn29kgM7Yf1UyOLoAuo0KZBlLiFS65a+gLedPJ6RJ8jWb+E0A==}
+  '@portabletext/toolbar@9.0.10':
+    resolution: {integrity: sha512-jgXOUH0zgLsjdZLfoPmmZXWneUkvY6yHC4wEYeSHlVL0W+HegZmrquyJuF478dlOAVReEij4zU3JJ85cNq6JwQ==}
     engines: {node: '>=22.12'}
     peerDependencies:
-      '@portabletext/editor': ^8.1.3
+      '@portabletext/editor': ^8.1.5
       react: ^19.2.8
 
   '@portabletext/toolkit@6.0.0':
@@ -8265,7 +8265,7 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.8(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)':
+  '@portabletext/toolbar@9.0.10(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)':
     dependencies:
       '@portabletext/editor': 8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts': 3.0.0
