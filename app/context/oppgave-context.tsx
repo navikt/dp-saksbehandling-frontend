@@ -231,7 +231,7 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
-  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") {
     handlinger.push("legg-tilbake-oppgave");
   }
 
