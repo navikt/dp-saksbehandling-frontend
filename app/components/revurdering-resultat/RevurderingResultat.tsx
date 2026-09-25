@@ -2,15 +2,20 @@ import { BulletListIcon, ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-ic
 import { Button, Heading, InfoCard, List } from "@navikt/ds-react";
 import { useState } from "react";
 
-import {
-  ANTALL_PERIODER_SOM_VISES,
-  PerioderTabell,
-} from "~/components/revurdering-resultat/PerioderTabell";
+import { GenericTable } from "~/components/generic-table/GenericTable";
 import { useBehandling } from "~/hooks/useBehandling";
+import { formaterOpplysningVerdi, formaterPeriodeMedUke } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 const omgjøringRegelsettId = "Nzc0ODQwNzYy";
+const ANTALL_PERIODER_SOM_VISES = 5;
+
+const tableColumns = {
+  periode: { header: "Periode" },
+  eldreVerdi: { header: "Før" },
+  nyVerdi: { header: "Ny" },
+} as const;
 
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
@@ -58,22 +63,31 @@ export function RevurderingResultat() {
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
 
-  const harPengesammenligning =
-    pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling;
-
   const maksAntallPerioder = Math.max(
     pengerSomSkalUtbetalesForrigeBehandling?.perioder.length ?? 0,
     pengerSomSkalUtbetalesDenneBehandling?.perioder.length ?? 0,
   );
 
-  if (omgjøringBegrunnelser.length === 0 && !harPengesammenligning) {
+  if (!pengerSomSkalUtbetalesDenneBehandling) {
     return null;
   }
+
+  const alleTableValues = pengerSomSkalUtbetalesDenneBehandling.perioder.map((periode, index) => ({
+    id: periode.id,
+    gyldigFraOgMed: periode.gyldigFraOgMed,
+    gyldigTilOgMed: periode.gyldigTilOgMed,
+    eldreVerdi: pengerSomSkalUtbetalesForrigeBehandling?.perioder[index]?.verdi,
+    nyVerdi: periode.verdi,
+  }));
+
+  const tableValues = utvidTabell
+    ? alleTableValues
+    : alleTableValues.slice(0, ANTALL_PERIODER_SOM_VISES);
 
   return (
     <InfoCard data-color="info">
       <InfoCard.Header icon={<BulletListIcon aria-hidden />}>
-        <InfoCard.Title>Resultat av revurdering</InfoCard.Title>
+        <InfoCard.Title>Betalingsoversikt</InfoCard.Title>
       </InfoCard.Header>
       <InfoCard.Content>
         <div className={"flex flex-col gap-4"}>
@@ -88,26 +102,29 @@ export function RevurderingResultat() {
             </>
           )}
 
-          {harPengesammenligning && (
+          {pengerSomSkalUtbetalesDenneBehandling && (
             <>
               <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
-              <div className={"flex gap-4"}>
-                <div className={"flex-1"}>
-                  <Heading size={"xsmall"}>Før</Heading>
-                  <PerioderTabell
-                    perioder={pengerSomSkalUtbetalesForrigeBehandling.perioder}
-                    utvidet={utvidTabell}
-                  />
-                </div>
 
-                <div className={"flex-1"}>
-                  <Heading size={"xsmall"}>Etter</Heading>
-                  <PerioderTabell
-                    perioder={pengerSomSkalUtbetalesDenneBehandling.perioder}
-                    utvidet={utvidTabell}
-                  />
-                </div>
-              </div>
+              <GenericTable
+                columns={tableColumns}
+                data={tableValues}
+                getRowKey={(value) => value.id}
+                defaultColumn="periode"
+              >
+                {(columnKey, value) => {
+                  switch (columnKey) {
+                    case "periode":
+                      return value.gyldigFraOgMed && value.gyldigTilOgMed
+                        ? formaterPeriodeMedUke(value.gyldigFraOgMed, value.gyldigTilOgMed)
+                        : "--";
+                    case "eldreVerdi":
+                      return value.eldreVerdi ? formaterOpplysningVerdi(value.eldreVerdi) : "--";
+                    case "nyVerdi":
+                      return formaterOpplysningVerdi(value.nyVerdi);
+                  }
+                }}
+              </GenericTable>
 
               {maksAntallPerioder > ANTALL_PERIODER_SOM_VISES && (
                 <div>
