@@ -127,3 +127,13 @@ Github token er utdatert.
 13. Trykk `Configure SSO`
 14. Trykk `Authorize` på `navikt`
 15. Ferdig!
+
+
+## Ut i prod
+På github gå til actions og finn riktig "Bygg og deploy"
+Vent til den er ferdig med "Deploy til dev-gcp"
+Trykk på "Deploy til prod-gcp"
+
+For å finne riktig action for siste versjon av master:
+Gå til "Code"
+Trykk på ikon ved siden av comit-melding øverst
