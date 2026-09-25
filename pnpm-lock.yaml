@@ -30,8 +30,8 @@ importers:
         specifier: 9.4.0
         version: 9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mui/x-charts':
-        specifier: 9.13.0
-        version: 9.13.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@mui/system@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 9.14.0
+        version: 9.14.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@mui/system@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@navikt/aksel-icons':
         specifier: 8.16.2
         version: 8.16.2
@@ -88,7 +88,7 @@ importers:
         version: 8.3.0(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(supports-color@5.5.0)(typescript@6.0.3)
       '@rvf/react-router':
         specifier: 8.2.0
-        version: 8.2.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))
+        version: 8.2.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@sanity/client':
         specifier: 8.6.2
         version: 8.6.2(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.0)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
@@ -227,7 +227,7 @@ importers:
         version: 6.10.2(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))
       eslint-plugin-prettier:
         specifier: ^5.5.6
-        version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0)))(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))(prettier@3.9.7)
+        version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0)))(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))(prettier@3.9.8)
       eslint-plugin-react:
         specifier: 7.37.5
         version: 7.37.5(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))
@@ -265,11 +265,11 @@ importers:
         specifier: 13.1.3
         version: 13.1.3
       prettier:
-        specifier: 3.9.7
-        version: 3.9.7
+        specifier: 3.9.8
+        version: 3.9.8
       prettier-plugin-tailwindcss:
         specifier: 0.8.1
-        version: 0.8.1(prettier@3.9.7)
+        version: 0.8.1(prettier@3.9.8)
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -1397,8 +1397,8 @@ packages:
   '@mui/x-charts-vendor@9.13.0':
     resolution: {integrity: sha512-Pp3lTklKjQX0SEobj8qbdgWEH2KXFMjAmUYUYT/DSDogXyNZmMIsyiCaN3stroQ2QZ30BaTa4fL0K/RVzNGnBA==}
 
-  '@mui/x-charts@9.13.0':
-    resolution: {integrity: sha512-jpvIYoWISUQRrKz1/yu00SSU+bbyPo6rT/fhTQd0BTo07qxm4ZQ9Pseg9+WXztNVVhbzt4fsVElCcTxDyQocqw==}
+  '@mui/x-charts@9.14.0':
+    resolution: {integrity: sha512-10YMiD0XEnqoolMTegjFHy5qDOnmh95qXwUwTQPjVmKsYEQRcDDIvr4KY/y+UT7+ZOwMUGRXqxuS3X8HuDh+9Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -1413,14 +1413,14 @@ packages:
       '@emotion/styled':
         optional: true
 
-  '@mui/x-internal-gestures@9.13.0':
-    resolution: {integrity: sha512-GbjgDPLAZeVUu9ng09wS9oEzZlkRQQ5xi1355muG+UX+Ot5VLNqPQmv8PPIXt0HxpfaN67kF1YJpQBLIzOsj/g==}
+  '@mui/x-internal-gestures@9.14.0':
+    resolution: {integrity: sha512-JmpByr4Dho5AI811QlLSiKTa1+yp61m5BHE2SsQzLC6y8kGcerzDHoae0JHZkirnbHWs4unvEjs7GK1/bgdQ8g==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@mui/x-internals@9.13.0':
-    resolution: {integrity: sha512-TAxYhWSQR351zhUO709ShsGlvbI9RSsh6zIn99tLmkxKav+QFoxAlullzd79dQOxjUsau6spw/hmYcB+zLGipQ==}
+  '@mui/x-internals@9.14.0':
+    resolution: {integrity: sha512-m4XkKIihP+uWvz18BgSOHtwxCBWtE3Qi2X9hZUdEGW5mk50umziYaCLn9B/3cT9qBU7LirEC8agqpWxDSYjaNw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2973,8 +2973,8 @@ packages:
     resolution: {integrity: sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==}
     engines: {node: '>= 0.8'}
 
-  bezier-easing@3.0.1:
-    resolution: {integrity: sha512-vvvg10Anq7py0+KkIqlwJpUVdde9Z8kSzeUzAkQNYAJdA3mZnLG9r9ExdwtjcASCYER6UkNHdBNHHMnVimnU7A==}
+  bezier-easing@3.1.0:
+    resolution: {integrity: sha512-o8E/9YIVAzS6S2i5Icp/DUjQXiP9ma6viSef0b8LpyTvoJw/al+jMhH8tllA18n8VY9M0J1CeWqNs2Ym5PSjOQ==}
 
   bidi-js@1.1.0:
     resolution: {integrity: sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==}
@@ -4974,8 +4974,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier@3.9.7:
-    resolution: {integrity: sha512-T3mF5P7HFzZVLDQuCUNtJj6WK1pcpLMweMNUVwGb01bLNkH9AkKxtZvmInw8K6bnn2O3d6/5RHl6zSHiBAD0Og==}
+  prettier@3.9.8:
+    resolution: {integrity: sha512-WRFq3Wn3WId7LLROfMLdH7xaFr2jR62wU8nLO6rQUOLOxNZUviyJQs1M0iIhLexSFy+L+w0ch66wtoO2jRjG0A==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -5760,6 +5760,11 @@ packages:
 
   use-sync-external-store@1.6.0:
     resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  use-sync-external-store@1.7.0:
+    resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -7371,29 +7376,29 @@ snapshots:
       flatqueue: 3.1.0
       internmap: 2.0.3
 
-  '@mui/x-charts@9.13.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@mui/system@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@mui/x-charts@9.14.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@mui/system@9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@mui/material': 9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mui/system': 9.4.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)
       '@mui/utils': 9.4.0(@types/react@19.3.0)(react@19.3.0)
       '@mui/x-charts-vendor': 9.13.0
-      '@mui/x-internal-gestures': 9.13.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@mui/x-internals': 9.13.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      bezier-easing: 3.0.1
+      '@mui/x-internal-gestures': 9.14.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@mui/x-internals': 9.14.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      bezier-easing: 3.1.0
       clsx: 2.1.1
       prop-types: 15.8.1
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       reselect: 5.2.0
-      use-sync-external-store: 1.6.0(react@19.3.0)
+      use-sync-external-store: 1.7.0(react@19.3.0)
     optionalDependencies:
       '@emotion/react': 11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
       '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
     transitivePeerDependencies:
       - '@types/react'
 
-  '@mui/x-internal-gestures@9.13.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@mui/x-internal-gestures@9.14.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@base-ui/utils': 0.3.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -7402,7 +7407,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@mui/x-internals@9.13.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@mui/x-internals@9.14.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@base-ui/utils': 0.3.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -7410,7 +7415,7 @@ snapshots:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       reselect: 5.2.0
-      use-sync-external-store: 1.6.0(react@19.3.0)
+      use-sync-external-store: 1.7.0(react@19.3.0)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -8455,7 +8460,7 @@ snapshots:
       pathe: 2.0.3
       picocolors: 1.1.1
       pkg-types: 2.3.1
-      prettier: 3.9.7
+      prettier: 3.9.8
       react-refresh: 0.18.0
       react-router: 8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       semver: 7.8.5
@@ -8559,22 +8564,22 @@ snapshots:
   '@rollup/rollup-linux-x64-musl@4.63.3':
     optional: true
 
-  '@rvf/core@8.1.1(@types/react@19.3.0)(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))':
+  '@rvf/core@8.1.1(@types/react@19.3.0)(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))':
     dependencies:
       '@rvf/set-get': 7.0.2
       hotscript: 1.0.13
       immer: 10.2.0
       react: 19.3.0
       react-tracked: 2.0.1(react@19.3.0)(scheduler@0.28.0)
-      zustand: 5.0.14(@types/react@19.3.0)(immer@10.2.0)(react@19.3.0)(use-sync-external-store@1.6.0(react@19.3.0))
+      zustand: 5.0.14(@types/react@19.3.0)(immer@10.2.0)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
     transitivePeerDependencies:
       - '@types/react'
       - scheduler
       - use-sync-external-store
 
-  '@rvf/react-router@8.2.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))':
+  '@rvf/react-router@8.2.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))':
     dependencies:
-      '@rvf/react': 8.1.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))
+      '@rvf/react': 8.1.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@rvf/set-get': 7.0.3
       react: 19.3.0
       react-router: 8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -8584,9 +8589,9 @@ snapshots:
       - scheduler
       - use-sync-external-store
 
-  '@rvf/react@8.1.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))':
+  '@rvf/react@8.1.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))':
     dependencies:
-      '@rvf/core': 8.1.1(@types/react@19.3.0)(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.6.0(react@19.3.0))
+      '@rvf/core': 8.1.1(@types/react@19.3.0)(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@rvf/set-get': 7.0.2
       '@standard-schema/spec': 1.1.0
       react: 19.3.0
@@ -9165,7 +9170,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.1.2
 
-  bezier-easing@3.0.1: {}
+  bezier-easing@3.1.0: {}
 
   bidi-js@1.1.0:
     dependencies:
@@ -9761,10 +9766,10 @@ snapshots:
       safe-regex-test: 1.1.0
       string.prototype.includes: 2.0.1
 
-  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0)))(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))(prettier@3.9.7):
+  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0)))(eslint@10.10.0(jiti@2.7.0)(supports-color@5.5.0))(prettier@3.9.8):
     dependencies:
       eslint: 10.10.0(jiti@2.7.0)(supports-color@5.5.0)
-      prettier: 3.9.7
+      prettier: 3.9.8
       prettier-linter-helpers: 1.0.1
       synckit: 0.11.13
     optionalDependencies:
@@ -11227,11 +11232,11 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-tailwindcss@0.8.1(prettier@3.9.7):
+  prettier-plugin-tailwindcss@0.8.1(prettier@3.9.8):
     dependencies:
-      prettier: 3.9.7
+      prettier: 3.9.8
 
-  prettier@3.9.7: {}
+  prettier@3.9.8: {}
 
   proc-log@6.1.0: {}
 
@@ -12046,6 +12051,10 @@ snapshots:
     dependencies:
       react: 19.3.0
 
+  use-sync-external-store@1.7.0(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+
   usehooks-ts@3.1.1(react@19.3.0):
     dependencies:
       lodash.debounce: 4.0.8
@@ -12280,9 +12289,9 @@ snapshots:
 
   zod@4.6.5: {}
 
-  zustand@5.0.14(@types/react@19.3.0)(immer@10.2.0)(react@19.3.0)(use-sync-external-store@1.6.0(react@19.3.0)):
+  zustand@5.0.14(@types/react@19.3.0)(immer@10.2.0)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)):
     optionalDependencies:
       '@types/react': 19.3.0
       immer: 10.2.0
       react: 19.3.0
-      use-sync-external-store: 1.6.0(react@19.3.0)
+      use-sync-external-store: 1.7.0(react@19.3.0)
