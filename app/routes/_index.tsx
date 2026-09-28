@@ -20,8 +20,8 @@ import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterSt
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
+import { setAktivtOppgaveSok, useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -70,13 +70,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
   const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
   );
-  const { setAktivtOppgaveSok } = useSaksbehandler();
 
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);

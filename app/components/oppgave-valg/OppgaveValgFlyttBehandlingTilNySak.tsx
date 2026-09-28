@@ -2,7 +2,7 @@ import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { hentValideringForFlyttBehandlingTilNySak } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -24,7 +24,7 @@ export function OppgaveValgFlyttBehandlingTilNySak({
   readOnly,
 }: IProps) {
   const { pathname } = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   const flyttBehandlingTilNySakForm = useForm({
     method: "post",

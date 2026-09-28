@@ -10,6 +10,7 @@ import { Ghosts } from "~/components/høytid-og-morro/halloween/Ghosts";
 import { Adventslys } from "~/components/høytid-og-morro/jul/Adventslys";
 import { Paaske } from "~/components/høytid-og-morro/paaske/Paaske";
 import { Valentines } from "~/components/høytid-og-morro/valentines/Valentines";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { useFeatureFlags } from "~/hooks/useFeatureFlags";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import type { ISaksbehandler } from "~/models/microsoft.server";
@@ -25,7 +26,8 @@ interface IProps {
 }
 
 export function HeaderMeny({ saksbehandler }: IProps) {
-  const { aktivtOppgaveSok, tema, setTema } = useSaksbehandler();
+  const { tema, setTema } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
   const { featureFlags } = useFeatureFlags();
 
   const defaultMineOppgaverSearchParams = new URLSearchParams();
