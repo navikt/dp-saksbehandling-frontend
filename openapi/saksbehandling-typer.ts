@@ -2980,7 +2980,7 @@ export interface components {
             /** Format: uuid */
             tilbakekrevingBehandlingId: string;
             /** Format: date-time */
-            sakOpprettet: string;
+            opprettet: string;
             /** Format: date */
             varselSendt?: string;
             behandlingsstatus: components["schemas"]["TilbakekrevingBehandlingStatus"];
@@ -3092,7 +3092,7 @@ export interface components {
             beholdOppgaven: boolean;
         };
         /** @enum {string} */
-        TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
+        TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_FORHÅNDSVARSEL" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
         TilbakekrevingPeriode: {
             /** Format: date */
             fom: string;

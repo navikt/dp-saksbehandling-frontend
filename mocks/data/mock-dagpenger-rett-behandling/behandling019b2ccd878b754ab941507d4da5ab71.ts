@@ -24,6 +24,10 @@ export const behandling019b2ccd878b754ab941507d4da5ab71: components["schemas"]["
   sistEndret: "2025-12-17T15:54:51.407261",
   kreverTotrinnskontroll: false,
   tilstand: "Ferdig",
+  opprettetAv: {
+    ident: "dp-sak",
+    type: "System",
+  },
   avklaringer: [
     {
       id: "019b2ccd-878b-754a-b941-507d4da5ab6f",

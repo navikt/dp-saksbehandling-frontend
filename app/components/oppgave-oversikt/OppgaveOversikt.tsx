@@ -25,6 +25,7 @@ import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorik
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
@@ -46,6 +47,7 @@ export function OppgaveOversikt(props: IProps) {
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
+  const { behandling } = useBehandling();
 
   const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
     ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
@@ -108,6 +110,14 @@ export function OppgaveOversikt(props: IProps) {
                   label={"Opprettet"}
                   verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
                 />
+
+                {behandling.opprettetAv && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Opprettet av"}
+                    verdi={`${behandling.opprettetAv.ident} (${behandling.opprettetAv.type})`}
+                  />
+                )}
 
                 <VerdiMedTittel
                   visBorder={true}
