@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
+import { Behandlingsoversikt } from "~/components/rett-på-dagpenger/Behandlingsoversikt";
 import { RevurderingResultat } from "~/components/revurdering-resultat/RevurderingResultat";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -20,7 +20,7 @@ export default function Behandle() {
       {/* RevurderingResultat viser seg selv kun når omgjøring-regelsettet faktisk finnes,
           uavhengig av om behandlingen ble utløst av en manuell omgjøring eller et korrigert meldekort */}
       <RevurderingResultat />
-      <RettPåDagpenger />
+      <Behandlingsoversikt />
     </div>
   );
 }

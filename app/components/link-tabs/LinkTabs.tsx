@@ -78,7 +78,7 @@ function getTabs(
     !erFerietillegg
       ? {
           url: `${baseUrl}/behandle`,
-          label: "Forslag til vedtak",
+          label: "Behandlingsoversikt",
           icon: <GavelSoundBlockIcon aria-hidden />,
         }
       : undefined,
