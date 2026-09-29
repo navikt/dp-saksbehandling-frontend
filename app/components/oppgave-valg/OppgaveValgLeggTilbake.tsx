@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { z } from "zod";
 
 import { useLeggTilbakeOppgaveMutation } from "~/api/oppgave-hooks";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { hentTekstForLeggTilbakeÅrsak } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -21,7 +21,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
   const modalRef = useRef<HTMLDialogElement>(null);
   const params = useParams();
   const navigate = useNavigate();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   const { mutate, isPending } = useLeggTilbakeOppgaveMutation();
 

@@ -17,9 +17,9 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { Kaffepause } from "~/components/kaffepause/Kaffepause";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useOppgave } from "~/hooks/useOppgave";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -49,7 +49,7 @@ export default function NesteOppgave() {
   const { oppgave } = useOppgave();
   const [kaffepause, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 

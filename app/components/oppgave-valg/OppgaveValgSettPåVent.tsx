@@ -5,7 +5,7 @@ import { add } from "date-fns";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringSettOppgavePåVent } from "~/utils/validering.util";
 
@@ -19,7 +19,7 @@ interface IProps {
 
 export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const utsettOppgaveForm = useForm({

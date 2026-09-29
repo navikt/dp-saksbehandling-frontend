@@ -2,9 +2,6 @@ import { Theme } from "@navikt/ds-react";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 interface ISaksbehandlerContext {
-  /** Det forige søket som ble brukt i oppgaver til behandling */
-  aktivtOppgaveSok: string;
-  setAktivtOppgaveSok: (sok: string) => void;
   skjulSensitiveOpplysninger: boolean;
   setSkjulSensitiveOpplysninger: (verdi: boolean) => void;
   tema: Tema;
@@ -16,7 +13,6 @@ type Tema = "light" | "dark";
 export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefined>(undefined);
 
 export function SaksbehandlerProvider({ children }: PropsWithChildren) {
-  const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>("");
   const [tema, setTema] = useState<Tema>("light");
   const [skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -48,8 +44,6 @@ export function SaksbehandlerProvider({ children }: PropsWithChildren) {
   return (
     <SaksbehandlerContext.Provider
       value={{
-        aktivtOppgaveSok,
-        setAktivtOppgaveSok,
         skjulSensitiveOpplysninger,
         setSkjulSensitiveOpplysninger,
         tema,

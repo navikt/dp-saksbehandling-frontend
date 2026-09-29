@@ -4,7 +4,7 @@ import { Form, useLocation } from "react-router";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForFerdigstillOppgave, NyBehandlingType } from "~/utils/validering.util";
@@ -24,7 +24,7 @@ export function FerdigstillOppgaveSkjema({
 }: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   const ferdigstillSkjema = useForm({
     method: "post",

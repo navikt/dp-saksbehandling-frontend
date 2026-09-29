@@ -3,7 +3,7 @@ import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { hentValideringForFerdigstillKlage } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -26,7 +26,7 @@ export function OppgaveValgFerdigstillKlage({
   label,
 }: IProps) {
   const { pathname } = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   const ferdigstillKlageForm = useForm({
     method: "post",
