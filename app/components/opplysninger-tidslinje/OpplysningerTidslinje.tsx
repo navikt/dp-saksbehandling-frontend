@@ -57,6 +57,7 @@ interface IProps {
   rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
   visAllePerioder?: boolean;
   relevantForResultat?: boolean;
+  førsteFraOgMedDato?: string;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -66,7 +67,11 @@ export function OpplysningerTidslinje(props: IProps) {
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(behandling, props.eksternTidslinjeNavigeringState);
+  } = useTidslinjeNavigeringState(
+    behandling,
+    props.eksternTidslinjeNavigeringState,
+    props.førsteFraOgMedDato,
+  );
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();

@@ -120,7 +120,7 @@ function hentTilbakeKnappTilstand(
 ) {
   const forSlagTilVedtakTilstand = {
     path: "behandle",
-    label: "Forslag til vedtak",
+    label: "Behandlingsoversikt",
   };
 
   // Rett på dagpenger opplysning
