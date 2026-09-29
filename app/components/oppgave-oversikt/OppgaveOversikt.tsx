@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
+import { components as behandlingComponents } from "@/openapi/behandling-typer";
 import { components } from "@/openapi/saksbehandling-typer";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
@@ -25,7 +26,6 @@ import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorik
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
-import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
@@ -40,6 +40,7 @@ import { NoteButton, NoteModal } from "../note-button/NoteButton";
 
 interface IProps {
   klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
+  opprettetAv?: behandlingComponents["schemas"]["Oppretter"];
 }
 
 export function OppgaveOversikt(props: IProps) {
@@ -47,7 +48,6 @@ export function OppgaveOversikt(props: IProps) {
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
-  const { behandling } = useBehandling();
 
   const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
     ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
@@ -111,11 +111,11 @@ export function OppgaveOversikt(props: IProps) {
                   verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
                 />
 
-                {behandling.opprettetAv && (
+                {props.opprettetAv && (
                   <VerdiMedTittel
                     visBorder={true}
                     label={"Opprettet av"}
-                    verdi={`${behandling.opprettetAv.ident} (${behandling.opprettetAv.type})`}
+                    verdi={`${props.opprettetAv.ident} (${props.opprettetAv.type})`}
                   />
                 )}
 

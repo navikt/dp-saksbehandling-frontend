@@ -3,6 +3,7 @@ import { ActionFunctionArgs, Outlet } from "react-router";
 import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
+import { useBehandling } from "~/hooks/useBehandling";
 import { handleActions } from "~/server-side-actions/handle-actions";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -10,9 +11,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function BehandlingLayout() {
+  const { behandling } = useBehandling();
   return (
     <div className={"flex gap-4"}>
-      <OppgaveOversikt />
+      <OppgaveOversikt opprettetAv={behandling.opprettetAv} />
       <div className={"flex-1"}>
         <main>
           <div className={"card p-4"}>
