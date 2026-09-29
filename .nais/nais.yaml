@@ -70,14 +70,14 @@ spec:
     - name: SAF_AUDIENCE
       value: "{{saf_audience}}"
     - name: PDL_AUDIENCE
-      value: "{{PDL_audience}}"
+      value: "{{pdl_audience}}"
 
     - name: SANITY_PROJECT_ID
-      value: {{sanity_project_id}}
+      value: "{{sanity_project_id}}"
     - name: SANITY_ACCESS_TOKEN
-      value: {{sanity_access_token}}
+      value: "{{sanity_access_token}}"
     - name: SANITY_DATASET
-      value: {{sanity_dataset}}
+      value: "{{sanity_dataset}}"
 
     - name: OTEL_METRICS_EXPORTER
       value: otlp
