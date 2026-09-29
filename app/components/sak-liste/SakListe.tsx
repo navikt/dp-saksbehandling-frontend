@@ -1,15 +1,17 @@
 import { BodyShort, CopyButton, ExpansionCard } from "@navikt/ds-react";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import { OppgaveTable } from "../oppgave-table/OppgaveTable";
 
 interface IProps {
   saker: components["schemas"]["Sak"][];
+  skjulMeldekortOppgaver: boolean;
 }
 
-export function SakListe({ saker }: IProps) {
+export function SakListe({ saker, skjulMeldekortOppgaver }: IProps) {
   return (
     <>
       {saker.length === 0 && (
@@ -24,6 +26,7 @@ export function SakListe({ saker }: IProps) {
         const forsteIdGruppe = idGrupper.join("-");
         const førsteOppgave = sak.oppgaver.at(0);
         const sisteOppgave = sak.oppgaver.at(-1);
+        const synligeOppgaver = filtrerMeldekortOppgaver(sak.oppgaver, skjulMeldekortOppgaver);
 
         return (
           <ExpansionCard
@@ -61,8 +64,8 @@ export function SakListe({ saker }: IProps) {
               </div>
 
               <OppgaveTable
-                oppgaver={sak.oppgaver}
-                totaltAntallOppgaver={sak.oppgaver.length}
+                oppgaver={synligeOppgaver}
+                totaltAntallOppgaver={synligeOppgaver.length}
                 excludedColumns={["personIdent"]}
               />
             </ExpansionCard.Content>
