@@ -221,14 +221,14 @@ importers:
         specifier: 6.0.2
         version: 6.0.2(@types/react@19.3.0)(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.0)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@portabletext/editor':
-        specifier: 8.1.5
-        version: 8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
+        specifier: 8.1.6
+        version: 8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts':
         specifier: 3.0.0
         version: 3.0.0
       '@portabletext/plugin-list-index':
         specifier: ^2.0.9
-        version: 2.0.9(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(react@19.3.0)
+        version: 2.0.9(@portabletext/editor@8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(react@19.3.0)
       '@portabletext/react':
         specifier: 8.0.1
         version: 8.0.1(react@19.3.0)
@@ -237,7 +237,7 @@ importers:
         version: 6.0.0
       '@portabletext/toolbar':
         specifier: 9.0.10
-        version: 9.0.10(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)
+        version: 9.0.10(@portabletext/editor@8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)
       '@react-router/node':
         specifier: 8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(typescript@6.0.3)
@@ -2302,8 +2302,8 @@ packages:
     resolution: {integrity: sha512-V/87M9Sx7nL8ede4I7C+yfQgcFBx+X4MyrefsjH+nSA/lmfx2vs6tYmpvQVfsYEQqoqV0sVG55aKza/Jj3ZQiA==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/editor@8.1.5':
-    resolution: {integrity: sha512-yaKh8srEZ8uf0HtYk/x5iS0hXxsWX5pm1ZaGC2x8UrBqCzGngHfbwk5wogb7vuGI0gbJRK+gz2Rn1Q3jtRPxdg==}
+  '@portabletext/editor@8.1.6':
+    resolution: {integrity: sha512-ltQeU1QwrEqgT0teYkXJTh+M/82DFncLZzkyB4Nx3kg4st1ZKBRd4GBZXv1TF8gd2pilHyYyL4cB2XbIiJhl0Q==}
     engines: {node: '>=22.12'}
     peerDependencies:
       react: ^19.2.8
@@ -2316,8 +2316,8 @@ packages:
     resolution: {integrity: sha512-YsK/3mkFEVHs021S9EGA885p6eIe3XzFcARKD7scqtNaPBz7y579XXoa78kXe6XBLgiuKmB8eU3/Ucdnvi5SCA==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/patches@3.0.0':
-    resolution: {integrity: sha512-3RbeVhdQRThYSMbP8v2jjVxAumB5I/tE8W6g8nMvW7epjWAkmRXQcSHr6MEQXWbSbLZJAAjBCKIkWzvlv2lLUw==}
+  '@portabletext/patches@3.0.1':
+    resolution: {integrity: sha512-sxlLodf85hjbqCZjLEff3wTKDWoUhFTk2Eoxh8b6wG/H3/t3Re32bSSSDmzietUJTYRkwtfClH0mh7Bfpqyt/w==}
     engines: {node: '>=22.12'}
 
   '@portabletext/plugin-list-index@2.0.9':
@@ -2595,8 +2595,8 @@ packages:
     resolution: {integrity: sha512-S2KYYGRUVZy+FDjPp3meoyczbCjobSQvZcgNayo3oYlYS9Qz0E+6RezGxi/KOb6iF52Oir3LEXp9SVfIgEwNjg==}
     engines: {node: '>=18.0.0'}
 
-  '@sanity/diff-match-patch@3.2.0':
-    resolution: {integrity: sha512-4hPADs0qUThFZkBK/crnfKKHg71qkRowfktBljH2UIxGHHTxIzt8g8fBiXItyCjxkuNy+zpYOdRMifQNv8+Yww==}
+  '@sanity/diff-match-patch@3.2.1':
+    resolution: {integrity: sha512-Ll3BPOn9aPGeBUOFDZpKk0IObL+NI4tNq7VyOKj680xd+iCtfjnbcZZU0vpj94XozVGE0Zf+0FoYWXk2xJgZCg==}
     engines: {node: '>=18.18'}
 
   '@sanity/generate-help-url@4.0.0':
@@ -8498,11 +8498,11 @@ snapshots:
       - '@types/react'
       - vitest
 
-  '@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)':
+  '@portabletext/editor@8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)':
     dependencies:
       '@portabletext/html': 2.0.0
       '@portabletext/keyboard-shortcuts': 3.0.0
-      '@portabletext/patches': 3.0.0
+      '@portabletext/patches': 3.0.1
       '@portabletext/schema': 3.0.0
       '@portabletext/to-html': 6.0.0
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.0)(xstate@5.32.6)
@@ -8521,13 +8521,13 @@ snapshots:
 
   '@portabletext/keyboard-shortcuts@3.0.0': {}
 
-  '@portabletext/patches@3.0.0':
+  '@portabletext/patches@3.0.1':
     dependencies:
-      '@sanity/diff-match-patch': 3.2.0
+      '@sanity/diff-match-patch': 3.2.1
 
-  '@portabletext/plugin-list-index@2.0.9(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(react@19.3.0)':
+  '@portabletext/plugin-list-index@2.0.9(@portabletext/editor@8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(react@19.3.0)':
     dependencies:
-      '@portabletext/editor': 8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
+      '@portabletext/editor': 8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
       react: 19.3.0
 
   '@portabletext/react@8.0.1(react@19.3.0)':
@@ -8552,9 +8552,9 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.10(@portabletext/editor@8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)':
+  '@portabletext/toolbar@9.0.10(@portabletext/editor@8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.3.0)(react@19.3.0)':
     dependencies:
-      '@portabletext/editor': 8.1.5(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
+      '@portabletext/editor': 8.1.6(@types/react@19.3.0)(react@19.3.0)(supports-color@5.5.0)
       '@portabletext/keyboard-shortcuts': 3.0.0
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.0)(xstate@5.32.6)
       react: 19.3.0
@@ -8774,7 +8774,7 @@ snapshots:
     dependencies:
       sha256-uint8array: 0.10.7
 
-  '@sanity/diff-match-patch@3.2.0': {}
+  '@sanity/diff-match-patch@3.2.1': {}
 
   '@sanity/generate-help-url@4.0.0': {}
 
