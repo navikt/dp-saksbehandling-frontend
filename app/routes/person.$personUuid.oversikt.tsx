@@ -5,7 +5,8 @@ import {
   ParasolBeachIcon,
   PencilWritingIcon,
 } from "@navikt/aksel-icons";
-import { BodyShort, Heading, Tabs } from "@navikt/ds-react";
+import { BodyShort, Heading, Switch, Tabs } from "@navikt/ds-react";
+import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
@@ -25,6 +26,7 @@ import { hentBehandling, hentSak } from "~/models/behandling.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
@@ -78,6 +80,8 @@ export default function PersonOversikt() {
   const { personOversikt, sisteSakIDpBehandling, gjetterSisteBehandling, sisteSak, alert } =
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
+  const [skjulMeldekortOppgaver, setSkjulMeldekortOppgaver] = useState(false);
+
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
@@ -92,7 +96,7 @@ export default function PersonOversikt() {
   );
 
   const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver);
-
+  const alleOppgaver = filtrerMeldekortOppgaver(personOversikt.oppgaver, skjulMeldekortOppgaver);
   return (
     <div className="main">
       <div className={`${styles.container}`}>
@@ -116,28 +120,45 @@ export default function PersonOversikt() {
         </Heading>
 
         <Tabs defaultValue="siste-sak" size="small" className={"mt-2"}>
-          <Tabs.List>
-            <Tabs.Tab value="siste-sak" label="Siste sak" icon={<FolderFileIcon aria-hidden />} />
+          <div className={"flex items-center justify-between"}>
+            <Tabs.List>
+              <Tabs.Tab value="siste-sak" label="Siste sak" icon={<FolderFileIcon aria-hidden />} />
 
-            <Tabs.Tab
-              value="tidligere-saker"
-              label="Tidligere saker og oppgaver"
-              icon={<ArchiveIcon aria-hidden />}
-            />
+              <Tabs.Tab
+                value="tidligere-saker"
+                label="Tidligere saker og oppgaver"
+                icon={<ArchiveIcon aria-hidden />}
+              />
 
-            <Tabs.Tab
-              value="alle-oppgaver"
-              label="Alle oppgaver"
-              icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
-            />
-          </Tabs.List>
+              <Tabs.Tab
+                value="alle-oppgaver"
+                label="Alle oppgaver"
+                icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
+              />
+            </Tabs.List>
+            <Switch
+              checked={skjulMeldekortOppgaver}
+              size={"small"}
+              onChange={(e) => setSkjulMeldekortOppgaver(e.target.checked)}
+            >
+              Skjul meldekort
+            </Switch>
+          </div>
 
           <Tabs.Panel value="siste-sak">
             {sisteSak && sisteSakIDpBehandling && (
-              <SisteSak sak={sisteSak} sakIDpBehandling={sisteSakIDpBehandling} />
+              <SisteSak
+                sak={sisteSak}
+                sakIDpBehandling={sisteSakIDpBehandling}
+                skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+              />
             )}
             {sisteSak && gjetterSisteBehandling && (
-              <SisteSak sak={sisteSak} gjetterSisteBehandling={gjetterSisteBehandling} />
+              <SisteSak
+                sak={sisteSak}
+                gjetterSisteBehandling={gjetterSisteBehandling}
+                skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+              />
             )}
             {!sisteSak && (
               <div className={"card my-4 p-4"}>
@@ -147,7 +168,10 @@ export default function PersonOversikt() {
           </Tabs.Panel>
 
           <Tabs.Panel value="tidligere-saker">
-            <SakListe saker={personOversikt.saker} />
+            <SakListe
+              saker={personOversikt.saker}
+              skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+            />
           </Tabs.Panel>
 
           <Tabs.Panel value="alle-oppgaver">
@@ -155,8 +179,8 @@ export default function PersonOversikt() {
               <OppgaveTable
                 tittel={"Alle oppgaver"}
                 icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
-                oppgaver={personOversikt.oppgaver}
-                totaltAntallOppgaver={personOversikt.oppgaver.length}
+                oppgaver={alleOppgaver}
+                totaltAntallOppgaver={alleOppgaver.length}
                 excludedColumns={["personIdent"]}
               />
             </div>

@@ -2,6 +2,7 @@ import { FolderFileIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
 
 import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
+import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -13,35 +14,44 @@ interface IProps {
   sak: components["schemas"]["Sak"];
   sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
   gjetterSisteBehandling?: behandlingComponents["schemas"]["Behandling"];
+  skjulMeldekortOppgaver: boolean;
 }
 
-export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IProps) {
+export function SisteSak({
+  sak,
+  sakIDpBehandling,
+  gjetterSisteBehandling,
+  skjulMeldekortOppgaver,
+}: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
 
-  const oppgaverSomIkkeErIDpBehandling = sakIDpBehandling
-    ? sak.oppgaver.filter(
-        (oppgave) =>
-          !sakIDpBehandling?.behandlinger.find(
-            (behandling) => behandling.behandlingId === oppgave.behandlingId,
-          ),
-      )
-    : sak.oppgaver;
+  const oppgaverSomIkkeErIDpBehandling = filtrerMeldekortOppgaver(
+    sakIDpBehandling
+      ? sak.oppgaver.filter(
+          (oppgave) =>
+            !sakIDpBehandling?.behandlinger.find(
+              (behandling) => behandling.behandlingId === oppgave.behandlingId,
+            ),
+        )
+      : sak.oppgaver,
+    skjulMeldekortOppgaver,
+  );
 
   const oppgaverOgBehandlinger = sakIDpBehandling
     ? sakIDpBehandling.behandlinger
-        .map((behandling) => {
-          return {
-            behandling,
-            oppgave: sak.oppgaver.find(
-              (oppgave) => oppgave.behandlingId === behandling.behandlingId,
-            ),
-          };
-        })
+        .map((behandling) => ({
+          behandling,
+          oppgave: sak.oppgaver.find((oppgave) => oppgave.behandlingId === behandling.behandlingId),
+        }))
         .filter(
           (oppgaveOgBehandling): oppgaveOgBehandling is SakOppgaveTableRow =>
             oppgaveOgBehandling.oppgave !== undefined,
+        )
+        .filter(
+          (oppgaveOgBehandling) =>
+            !skjulMeldekortOppgaver || oppgaveOgBehandling.oppgave.utlostAv !== "MELDEKORT",
         )
     : [];
 
