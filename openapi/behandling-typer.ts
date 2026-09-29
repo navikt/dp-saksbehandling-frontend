@@ -1354,6 +1354,8 @@ export interface components {
             "f\u00F8rteTil": components["schemas"]["Avgj\u00F8relse"];
         };
         Behandling: components["schemas"]["Behandlingskonvolutt"] & {
+            /** @description Aktøren som opprettet behandlingen, hvis oppretteren er kjent */
+            opprettetAv?: components["schemas"]["Oppretter"];
             kreverTotrinnskontroll: boolean;
             tilstand: components["schemas"]["BehandlingTilstand"];
             avklaringer: components["schemas"]["Avklaring"][];
@@ -1416,6 +1418,8 @@ export interface components {
             avklartAv?: components["schemas"]["Saksbehandler"];
             /** @description Hvilke regelsett avklaringen påvirker */
             regelsett: components["schemas"]["RegelsettMeta"][];
+            /** @description Opplysninger som utløste at avklaringen ble (gjen)åpnet */
+            opplysninger?: components["schemas"]["OpplysningsId"][];
         };
         Opplysningstype: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -1655,6 +1659,11 @@ export interface components {
             bekreftet: components["schemas"]["OpplysningsId"][];
         };
         Saksbehandler: {
+            ident: string;
+        };
+        Oppretter: {
+            /** @enum {string} */
+            type: "Saksbehandler" | "System";
             ident: string;
         };
         /**

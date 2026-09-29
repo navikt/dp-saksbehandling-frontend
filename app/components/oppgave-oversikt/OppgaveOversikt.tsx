@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
+import { components as behandlingComponents } from "@/openapi/behandling-typer";
 import { components } from "@/openapi/saksbehandling-typer";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
@@ -39,6 +40,7 @@ import { NoteButton, NoteModal } from "../note-button/NoteButton";
 
 interface IProps {
   klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
+  opprettetAv?: behandlingComponents["schemas"]["Oppretter"];
 }
 
 export function OppgaveOversikt(props: IProps) {
@@ -108,6 +110,14 @@ export function OppgaveOversikt(props: IProps) {
                   label={"Opprettet"}
                   verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
                 />
+
+                {props.opprettetAv && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Opprettet av"}
+                    verdi={`${props.opprettetAv.ident} (${props.opprettetAv.type})`}
+                  />
+                )}
 
                 <VerdiMedTittel
                   visBorder={true}
