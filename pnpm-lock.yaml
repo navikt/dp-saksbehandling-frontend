@@ -248,8 +248,8 @@ importers:
         specifier: 8.2.0
         version: 8.2.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-router@8.3.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@sanity/client':
-        specifier: 8.6.2
-        version: 8.6.2(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+        specifier: 8.7.0
+        version: 8.7.0(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@tanstack/react-query':
         specifier: ^5.103.2
         version: 5.103.2(react@19.3.0)
@@ -2554,6 +2554,10 @@ packages:
     resolution: {integrity: sha512-e/rKvOxMy3hP+4p1fdVfONKrdmlNQQyjzHai/cQYPTe/CLLsxVQZWcPsXOq+rgZ3gitxXHtqx1H4nrYmBG97Qg==}
     engines: {node: '>=22.12.0'}
 
+  '@sanity/client@8.7.0':
+    resolution: {integrity: sha512-bzec0hVvvr+K6o9+0qc32eXGeV26wAx2QeB0M4lwTUwXQYIWWkuxEP+HABoi2nj11fG2SJskvbgaiV/XBBUNNg==}
+    engines: {node: '>=22.12.0'}
+
   '@sanity/descriptors@1.3.0':
     resolution: {integrity: sha512-S2KYYGRUVZy+FDjPp3meoyczbCjobSQvZcgNayo3oYlYS9Qz0E+6RezGxi/KOb6iF52Oir3LEXp9SVfIgEwNjg==}
     engines: {node: '>=18.0.0'}
@@ -3688,8 +3692,16 @@ packages:
     resolution: {integrity: sha512-+DHvQ1wLO//MK+1OZgcuXCbZFKgu3YjKPJt7n98rxX8vezL0ni+7s3ZQiM8bJkUEOk7MsuCycrPLj0FzUNf7Og==}
     engines: {node: '>=22.12'}
 
+  eventsource-parser@4.1.1:
+    resolution: {integrity: sha512-zaWNqeSLeyzEAAt2Q6aDBRDRk/VnPmsKqvToyGvv6aahvLv71A4Jw7jG93Hckf11zXurbqgsffvpSgKPoeU1Qw==}
+    engines: {node: '>=22.12'}
+
   eventsource@5.1.1:
     resolution: {integrity: sha512-onrlI7l612Ee3xnBqZNTq4djf6Fho/0yIpO/rYjRG/FzjMyPJquNx9SS3QyjglnVFxwxrube1XmX41zB+0Rdgw==}
+    engines: {node: '>=22.12.0'}
+
+  eventsource@5.1.2:
+    resolution: {integrity: sha512-VJnwqqp+fOT3WDkjnUy49Zuyh48+kH0JdJApZkslrRQyx35zIZJeJYJl0+a+LrTzh5TFv6MdmXnBDv71UXFyWQ==}
     engines: {node: '>=22.12.0'}
 
   exit-hook@5.1.0:
@@ -3867,6 +3879,15 @@ packages:
 
   get-it@9.5.4:
     resolution: {integrity: sha512-LXbU86HfKWzssHTTsQtUphDh5RB9ilOvncCPPDjaJTbli8zPIJBv4KA9EMB/Wv8GfPXy0dpulfRJzd76n7c3bg==}
+    engines: {node: '>=22.12.0'}
+    peerDependencies:
+      vitest: '>=2.0.0'
+    peerDependenciesMeta:
+      vitest:
+        optional: true
+
+  get-it@9.6.1:
+    resolution: {integrity: sha512-uxMgcolbhJTz8f/cOHLcgde3A0gwqv5p6m8OJ2WJqn7NBi79krofZdp95FD0+7N9UUpmAe76vIEX3kDFijRahg==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       vitest: '>=2.0.0'
@@ -5827,6 +5848,10 @@ packages:
 
   undici@7.29.0:
     resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
+    engines: {node: '>=20.18.1'}
+
+  undici@7.30.0:
+    resolution: {integrity: sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==}
     engines: {node: '>=20.18.1'}
 
   undici@8.10.2:
@@ -8687,6 +8712,15 @@ snapshots:
     transitivePeerDependencies:
       - vitest
 
+  '@sanity/client@8.7.0(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
+    dependencies:
+      eventsource: 5.1.2
+      get-it: 9.6.1(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      obug: 3.0.0
+      rxjs: 7.8.2
+    transitivePeerDependencies:
+      - vitest
+
   '@sanity/descriptors@1.3.0':
     dependencies:
       sha256-uint8array: 0.10.7
@@ -9961,9 +9995,15 @@ snapshots:
 
   eventsource-parser@4.1.0: {}
 
+  eventsource-parser@4.1.1: {}
+
   eventsource@5.1.1:
     dependencies:
       eventsource-parser: 4.1.0
+
+  eventsource@5.1.2:
+    dependencies:
+      eventsource-parser: 4.1.1
 
   exit-hook@5.1.0: {}
 
@@ -10174,6 +10214,12 @@ snapshots:
   get-it@9.5.4(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))):
     dependencies:
       undici: 7.29.0
+    optionalDependencies:
+      vitest: 5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
+
+  get-it@9.6.1(vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))):
+    dependencies:
+      undici: 7.30.0
     optionalDependencies:
       vitest: 5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.1)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.0(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
 
@@ -12069,6 +12115,8 @@ snapshots:
   undici-types@8.3.0: {}
 
   undici@7.29.0: {}
+
+  undici@7.30.0: {}
 
   undici@8.10.2: {}
 
