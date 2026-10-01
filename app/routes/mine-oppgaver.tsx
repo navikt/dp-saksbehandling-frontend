@@ -81,7 +81,7 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
-        <SwitchFilter param="kunTildelteOppgaver">Vis kun mine tildelte oppgaver</SwitchFilter>
+        <SwitchFilter param="kunTildelteOppgaver">Kun mine tildelte oppgaver</SwitchFilter>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />

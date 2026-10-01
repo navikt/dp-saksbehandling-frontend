@@ -78,7 +78,7 @@ export default function Saksbehandling() {
       <nav className={styles.venstreMeny}>
         <OppgaveFilterSaksbehandler />
         <div>
-          <SwitchFilter param="kunTildelteOppgaver">Vis kun tildelte oppgaver</SwitchFilter>
+          <SwitchFilter param="kunTildelteOppgaver">Kun tildelte oppgaver</SwitchFilter>
           <SwitchFilter param="harDpSak">Kun personer med sak i DP-sak</SwitchFilter>
         </div>
         <OppgaveFilterDato />
