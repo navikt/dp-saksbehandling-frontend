@@ -23,7 +23,7 @@ export function renderTags(
           data-color={getColor(tag)}
           className="whitespace-nowrap"
         >
-          <Detail as={isLoading ? Skeleton : "p"}>{tag.visningsnavn}</Detail>
+          <Detail as={isLoading ? Skeleton : "span"}>{tag.visningsnavn}</Detail>
         </Tag>
       ))}
     </>
