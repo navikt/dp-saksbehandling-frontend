@@ -76,15 +76,15 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
+        <OppgaveFilterSaksbehandler />
         <div>
-          <SwitchFilter param="mineOppgaver">Vis kun mine oppgaver</SwitchFilter>
+          <SwitchFilter param="kunTildelteOppgaver">Vis kun tildelte oppgaver</SwitchFilter>
           <SwitchFilter param="harDpSak">Kun personer med sak i DP-sak</SwitchFilter>
         </div>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
         <EmneknaggFilter />
-        <OppgaveFilterSaksbehandler />
       </nav>
 
       <main>
