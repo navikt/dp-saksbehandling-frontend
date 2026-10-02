@@ -1,5 +1,6 @@
 import { BulletListIcon, ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
-import { Button, Heading, InfoCard, List } from "@navikt/ds-react";
+import { Button, Heading, InfoCard, List, Radio, RadioGroup } from "@navikt/ds-react";
+import { compareAsc } from "date-fns";
 import { useState } from "react";
 
 import { GenericTable } from "~/components/generic-table/GenericTable";
@@ -20,6 +21,7 @@ const tableColumns = {
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
   const [utvidTabell, setUtvidTabell] = useState(false);
+  const [sortOrder, setSortOrder] = useState<"eldste" | "nyeste">("eldste");
 
   const relevanteHendelsestyper: components["schemas"]["Hendelse"]["type"][] = [
     "Omgjøring",
@@ -33,12 +35,8 @@ export function RevurderingResultat() {
     behandling.fastsettelser.find((regelsett) => regelsett.id === omgjøringRegelsettId) ??
     behandling.saksbehandlingsregler?.find((regelsett) => regelsett.id === omgjøringRegelsettId);
 
-  if (!omgjøringRegelsett) {
-    return null;
-  }
-
   const omgjøringOpplysninger = behandling.opplysninger.filter((opplysninger) =>
-    omgjøringRegelsett.opplysninger.includes(opplysninger.opplysningTypeId),
+    omgjøringRegelsett?.opplysninger.includes(opplysninger.opplysningTypeId),
   );
 
   const omgjøringBegrunnelser = omgjøringOpplysninger
@@ -80,9 +78,14 @@ export function RevurderingResultat() {
     nyVerdi: periode.verdi,
   }));
 
+  const sortedTableValues = [...alleTableValues].sort((a, b) => {
+    const dateOrder = compareAsc(new Date(a.gyldigFraOgMed ?? 0), new Date(b.gyldigFraOgMed ?? 0));
+    return sortOrder === "eldste" ? dateOrder : -dateOrder;
+  });
+
   const tableValues = utvidTabell
-    ? alleTableValues
-    : alleTableValues.slice(0, ANTALL_PERIODER_SOM_VISES);
+    ? sortedTableValues
+    : sortedTableValues.slice(0, ANTALL_PERIODER_SOM_VISES);
 
   return (
     <InfoCard data-color="info">
@@ -90,7 +93,7 @@ export function RevurderingResultat() {
         <InfoCard.Title>Betalingsoversikt</InfoCard.Title>
       </InfoCard.Header>
       <InfoCard.Content>
-        <div className={"flex flex-col gap-4"}>
+        <div className={"flex flex-col gap-3"}>
           {omgjøringBegrunnelser.length > 0 && (
             <>
               <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
@@ -101,10 +104,22 @@ export function RevurderingResultat() {
               </List>
             </>
           )}
-
           {pengerSomSkalUtbetalesDenneBehandling && (
             <>
               <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
+
+              <RadioGroup
+                legend="Sorter perioder"
+                hideLegend
+                onChange={(value) => setSortOrder(value)}
+                value={sortOrder}
+                size="small"
+              >
+                <div className="flex flex-row gap-4">
+                  <Radio value="eldste">Eldste først</Radio>
+                  <Radio value="nyeste">Nyeste først</Radio>
+                </div>
+              </RadioGroup>
 
               <GenericTable
                 columns={tableColumns}
