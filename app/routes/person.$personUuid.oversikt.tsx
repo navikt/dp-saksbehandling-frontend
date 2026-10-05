@@ -7,26 +7,16 @@ import {
 } from "@navikt/aksel-icons";
 import { BodyShort, Heading, Switch, Tabs } from "@navikt/ds-react";
 import { useState } from "react";
-import {
-  ActionFunctionArgs,
-  data,
-  LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData } from "react-router";
 
-import { components } from "@/openapi/saksbehandling-typer";
 import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling, hentSak } from "~/models/behandling.server";
-import { hentPersonOversikt } from "~/models/saksbehandling.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
-import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
+import { filtrerMeldekortOppgaver, filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
@@ -35,65 +25,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.personUuid, "params.peronUuid er påkrevd");
-
-  const personOversikt = await hentPersonOversikt(request, params.personUuid);
-
-  const sisteSak = finnSisteSak(personOversikt.saker);
-
-  const sisteSakIDpBehandling = sisteSak ? await hentSak(request, sisteSak.id) : undefined;
-
-  const gjetterSisteDagpengerRettBehandlingId =
-    sisteSakIDpBehandling === undefined
-      ? sisteSak?.oppgaver.find(
-          (oppgave) =>
-            oppgave.behandlingType === "RETT_TIL_DAGPENGER" &&
-            oppgave.tilstand === "FERDIG_BEHANDLET",
-        )?.behandlingId
-      : undefined;
-
-  const gjetterSisteBehandling = gjetterSisteDagpengerRettBehandlingId
-    ? await hentBehandling(request, gjetterSisteDagpengerRettBehandlingId)
-    : undefined;
-
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = session.get("alert");
-
-  return data(
-    {
-      alert,
-      personOversikt,
-      sisteSak,
-      sisteSakIDpBehandling,
-      gjetterSisteBehandling,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
-}
-
 export default function PersonOversikt() {
-  const { personOversikt, sisteSakIDpBehandling, gjetterSisteBehandling, sisteSak, alert } =
-    useLoaderData<typeof loader>();
+  const { personOversikt, sisteSakIDpBehandling, gjetterSisteBehandling, sisteSak } =
+    useTypedRouteLoaderData("routes/person.$personUuid");
   const actionData = useActionData<typeof action>();
   const [skjulMeldekortOppgaver, setSkjulMeldekortOppgaver] = useState(false);
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  useHandleAlertMessages(alert);
 
-  const oppgaverTilBehandling = personOversikt.oppgaver.filter((oppgave) =>
-    [
-      "KLAR_TIL_BEHANDLING",
-      "UNDER_BEHANDLING",
-      "KLAR_TIL_KONTROLL",
-      "UNDER_KONTROLL",
-      "PAA_VENT",
-    ].includes(oppgave.tilstand),
-  );
+  const oppgaverTilBehandling = filtrerOppgaverTilBehandling(personOversikt.oppgaver);
 
   const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver);
   const alleOppgaver = filtrerMeldekortOppgaver(personOversikt.oppgaver, skjulMeldekortOppgaver);
@@ -203,15 +143,4 @@ export default function PersonOversikt() {
       </div>
     </div>
   );
-}
-
-function finnSisteSak(saker: components["schemas"]["Sak"][]) {
-  return saker
-    .filter(
-      (sak) =>
-        !sak.oppgaver.every((oppgave) =>
-          ["AVBRUTT", "AVBRUTT_MASKINELT"].includes(oppgave.tilstand),
-        ),
-    )
-    .at(0);
 }

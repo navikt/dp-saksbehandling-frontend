@@ -26,9 +26,10 @@ import styles from "./PersonBoks.module.css";
 interface IProps {
   person: components["schemas"]["Person"];
   rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
+  antallOppgaver?: number;
 }
 
-export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
+export function PersonBoks({ person, rapporteringPersonIdPromise, antallOppgaver }: IProps) {
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
 
   const navn = `${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`;
@@ -108,6 +109,11 @@ export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
             }
           </Await>
         </Suspense>
+        {antallOppgaver !== undefined && (
+          <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
+            Antall oppgaver på bruker: <b>{antallOppgaver}</b>
+          </BodyShort>
+        )}
       </div>
 
       {person.sikkerhetstiltak?.map((tiltak) => (
