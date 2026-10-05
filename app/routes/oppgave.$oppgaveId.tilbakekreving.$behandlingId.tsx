@@ -1,5 +1,5 @@
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
-import { Heading } from "@navikt/ds-react";
+import { BodyShort } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -41,17 +41,10 @@ export default function Tilbakekreving() {
       <BeslutterNotatProvider notat={oppgave.notat}>
         <OppgaveOversikt />
       </BeslutterNotatProvider>
-      <div
-        className={"card flex flex-1 flex-col items-center justify-center gap-4 p-4 text-center"}
-      >
-        <Heading size={"medium"}>Oppgaven behandles i tilbakekrevingsløsningen</Heading>
-        <LoadingLink
-          to={tilbakekreving.saksbehandlingURL}
-          asButtonVariant={"primary"}
-          icon={<ExternalLinkIcon aria-hidden={true} />}
-          buttonSize={"medium"}
-        >
-          Åpne behandling
+      <div className={"card flex flex-1 flex-col items-center justify-center"}>
+        <BodyShort>Oppgaven behandles i tilbakekrevingsløsningen</BodyShort>
+        <LoadingLink to={tilbakekreving.saksbehandlingURL} target={"_blank"}>
+          Åpne behandling (åpnes i ny fane) <ExternalLinkIcon />
         </LoadingLink>
       </div>
     </div>
