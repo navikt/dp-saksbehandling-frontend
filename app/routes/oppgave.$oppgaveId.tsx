@@ -6,26 +6,30 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
-import { hentOppgave } from "~/models/saksbehandling.server";
+import { hentOppgave, hentPersonOppgaver } from "~/models/saksbehandling.server";
+import { filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
+  const personOppgaver = await hentPersonOppgaver(request, oppgave.person.ident);
+  const antallOppgaver = filtrerOppgaverTilBehandling(personOppgaver).length;
 
-  return { oppgave, rapporteringPersonIdPromise };
+  return { oppgave, rapporteringPersonIdPromise, antallOppgaver };
 }
 
 export default function OppgaveLayout() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, rapporteringPersonIdPromise } = useLoaderData<typeof loader>();
+  const { oppgave, rapporteringPersonIdPromise, antallOppgaver } = useLoaderData<typeof loader>();
 
   return (
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks
         person={oppgave.person}
         rapporteringPersonIdPromise={rapporteringPersonIdPromise}
+        antallOppgaver={antallOppgaver}
       />
       <div className="main overflow-scroll">
         <Outlet />
