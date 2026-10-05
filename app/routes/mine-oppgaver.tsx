@@ -13,6 +13,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
+import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
@@ -23,6 +24,7 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const mineOppgaverDefaultParams = [
   { key: "mineOppgaver", value: "true" },
+  { key: "kunTildelteOppgaver", value: "true" },
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
   { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
   { key: "tilstand", value: "UNDER_KONTROLL" },
@@ -79,6 +81,7 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
+        <SwitchFilter param="kunTildelteOppgaver">Kun mine tildelte oppgaver</SwitchFilter>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
