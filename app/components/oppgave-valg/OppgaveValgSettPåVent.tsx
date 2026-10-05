@@ -54,7 +54,7 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
         <Modal.Body>
           <DatePicker.Standalone
             fromDate={add(new Date(), { days: 1 })}
-            toDate={add(new Date(), { days: 20 })}
+            toDate={add(new Date(), { months: 6 })}
             onSelect={(dato) => {
               utsettOppgaveForm.field("utsettTilDato").clearError();
               utsettOppgaveForm

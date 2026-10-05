@@ -3,11 +3,10 @@ import {
   BodyLong,
   BodyShort,
   Button,
-  DatePicker,
   Heading,
+  InlineMessage,
   Textarea,
   TextField,
-  useDatepicker,
 } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useEffect, useState } from "react";
@@ -113,13 +112,6 @@ function RedigerOppfolgingSkjema({ oppfolging, lukk }: IRedigerOppfolgingSkjemaP
     }
   }, [form.formState.submitStatus, lukk]);
 
-  const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: oppfolging.frist ? new Date(oppfolging.frist) : undefined,
-    onDateChange: (date) => {
-      form.field("frist").setValue(date ? formaterTilNorskDato(date) : undefined);
-    },
-  });
-
   return (
     <form {...form.getFormProps()} className="flex flex-col gap-4">
       <TextField
@@ -134,15 +126,9 @@ function RedigerOppfolgingSkjema({ oppfolging, lukk }: IRedigerOppfolgingSkjemaP
         label="Beskrivelse"
       />
 
-      <DatePicker {...datepickerProps}>
-        <DatePicker.Input
-          {...inputProps}
-          form={form.field("frist").getInputProps().form}
-          name={form.field("frist").getInputProps().name}
-          error={form.field("frist").error()}
-          label="Frist"
-        />
-      </DatePicker>
+      <InlineMessage status="info">
+        Hvis du vil endre fristdato kan du gjøre det ved å sette oppgaven på vent i sidebaren.
+      </InlineMessage>
 
       <div className="flex gap-2">
         <Button size="small" onClick={() => form.submit()} loading={form.formState.isSubmitting}>
