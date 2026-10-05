@@ -140,6 +140,7 @@ function RedigerOppfolgingSkjema({ oppfolging, lukk }: IRedigerOppfolgingSkjemaP
           form={form.field("frist").getInputProps().form}
           name={form.field("frist").getInputProps().name}
           error={form.field("frist").error()}
+          readOnly={true}
           label="Frist"
         />
       </DatePicker>
