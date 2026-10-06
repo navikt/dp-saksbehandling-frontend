@@ -1,7 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 
 import { lagreNotat } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForBeslutterNotat } from "~/utils/validering.util";
 
 export async function lagreNotatAction(request: Request, formData: FormData) {
@@ -12,10 +12,10 @@ export async function lagreNotatAction(request: Request, formData: FormData) {
   }
 
   const { oppgaveId, notat } = validertSkjema.data;
-  const { data, error } = await lagreNotat(request, oppgaveId, notat);
+  const { data, error, response } = await lagreNotat(request, oppgaveId, notat);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   return data;

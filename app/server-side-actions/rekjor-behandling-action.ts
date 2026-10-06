@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { rekjorBehandling } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForRekjørBehandling } from "~/utils/validering.util";
 
 export async function rekjorBehandlingAction(request: Request, formData: FormData) {
@@ -14,7 +14,7 @@ export async function rekjorBehandlingAction(request: Request, formData: FormDat
 
   const { behandlingId, ident, opplysningerSomSkalOppfriskes } = validertSkjema.data;
 
-  const { error } = await rekjorBehandling(
+  const { error, response } = await rekjorBehandling(
     request,
     behandlingId,
     ident,
@@ -22,7 +22,7 @@ export async function rekjorBehandlingAction(request: Request, formData: FormDat
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

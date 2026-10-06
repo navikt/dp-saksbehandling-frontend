@@ -4,7 +4,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { avbrytKlage } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringAvbrytKlage } from "~/utils/validering.util";
 
 export async function avbrytKlageAction(
@@ -19,10 +19,10 @@ export async function avbrytKlageAction(
   }
 
   const { behandlingId, årsak } = validertSkjema.data;
-  const { error } = await avbrytKlage(request, behandlingId, årsak);
+  const { error, response } = await avbrytKlage(request, behandlingId, årsak);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

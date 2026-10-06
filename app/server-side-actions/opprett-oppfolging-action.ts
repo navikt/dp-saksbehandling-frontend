@@ -3,7 +3,7 @@ import { redirect } from "react-router";
 
 import { opprettOppfolging } from "~/models/saksbehandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyOppfolgingSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";
@@ -27,14 +27,14 @@ export async function opprettOppfolgingAction(request: Request, formData: FormDa
     beholdOppgaven: tildelSammeSaksbehandler === true,
   };
 
-  const { data, error } = await opprettOppfolging(request, body);
+  const { data, error, response } = await opprettOppfolging(request, body);
 
   if (data) {
     return redirect(`/person/${personUuid}/oversikt`);
   }
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   throw new Error(`Uhåndtert feil i opprettOppfolgingAction()`);

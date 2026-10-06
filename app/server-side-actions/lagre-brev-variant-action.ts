@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { lagreMeldingOmVedtakBrevVariant } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
 export async function lagreBrevVariantAction(request: Request, formData: FormData) {
@@ -24,7 +24,7 @@ export async function lagreBrevVariantAction(request: Request, formData: FormDat
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   if (response.status == 204) {

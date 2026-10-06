@@ -4,7 +4,7 @@ import { redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { avbrytOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringAvbrytOppgave } from "~/utils/validering.util";
 
 export async function avbrytOppgaveAction(request: Request, formData: FormData) {
@@ -15,10 +15,10 @@ export async function avbrytOppgaveAction(request: Request, formData: FormData) 
   }
 
   const { oppgaveId, årsak } = validertSkjema.data;
-  const { error } = await avbrytOppgave(request, oppgaveId, årsak);
+  const { error, response } = await avbrytOppgave(request, oppgaveId, årsak);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

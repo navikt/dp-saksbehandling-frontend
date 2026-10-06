@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { IAlert } from "~/context/alert-context";
 import { lagreOpplysning } from "~/models/behandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/behandling-typer";
@@ -36,7 +36,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
   }
 
-  const { data, error } = await lagreOpplysning(
+  const { data, error, response } = await lagreOpplysning(
     request,
     behandlingId,
     opplysningTypeId,
@@ -47,7 +47,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   if (data) {

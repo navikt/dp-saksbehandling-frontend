@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { opprettBehandling } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForOpprettBehandling } from "~/utils/validering.util";
 
 export async function opprettBehandlingAction(request: Request, formData: FormData) {
@@ -13,7 +13,7 @@ export async function opprettBehandlingAction(request: Request, formData: FormDa
   }
 
   const { personIdent, behandlingstype } = validertSkjema.data;
-  const { data, error } = await opprettBehandling(request, personIdent, behandlingstype);
+  const { data, error, response } = await opprettBehandling(request, personIdent, behandlingstype);
 
   if (data) {
     const successAlert: IAlert = {
@@ -25,7 +25,7 @@ export async function opprettBehandlingAction(request: Request, formData: FormDa
   }
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   throw new Error(`Uhåndtert feil i opprettBehandlingAction()`);

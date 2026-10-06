@@ -3,7 +3,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import { IAlert } from "~/context/alert-context";
 import { redigerOppfolging } from "~/models/saksbehandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForRedigerOppfolgingSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";
@@ -23,10 +23,10 @@ export async function redigerOppfolgingAction(request: Request, formData: FormDa
     frist: frist ? formaterTilBackendDato(frist) : undefined,
   };
 
-  const { error } = await redigerOppfolging(request, behandlingId, body);
+  const { error, response } = await redigerOppfolging(request, behandlingId, body);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

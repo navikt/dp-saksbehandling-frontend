@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { kvitterAvklaring } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 export async function kvitterAvklaringAction(request: Request, formData: FormData) {
@@ -13,10 +13,15 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
   }
 
   const { behandlingId, avklaringId, begrunnelse } = validertSkjema.data;
-  const { error } = await kvitterAvklaring(request, behandlingId, avklaringId, begrunnelse);
+  const { error, response } = await kvitterAvklaring(
+    request,
+    behandlingId,
+    avklaringId,
+    begrunnelse,
+  );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

@@ -4,7 +4,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
 
 export async function returnerOppgaveTilSaksbehandlerAction(
@@ -19,10 +19,10 @@ export async function returnerOppgaveTilSaksbehandlerAction(
   }
 
   const { oppgaveId, årsak } = validertSkjema.data;
-  const { error } = await returnerOppgaveTilSaksbehandler(request, oppgaveId, årsak);
+  const { error, response } = await returnerOppgaveTilSaksbehandler(request, oppgaveId, årsak);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

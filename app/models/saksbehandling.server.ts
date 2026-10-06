@@ -4,7 +4,7 @@ import { redirect } from "react-router";
 import { commitSession, getSession } from "~/sessions";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHttpProblemAlert, handleHttpProblem } from "~/utils/error-response.utils";
+import { getErrorAlert, handleError } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
@@ -30,11 +30,7 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentOppgaver(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentOppgaver()");
 }
 
 export async function hentOppgave(request: Request, oppgaveId: string) {
@@ -50,11 +46,7 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentOppgave()");
 }
 
 export async function hentInnsending(request: Request, behandlingId: string) {
@@ -70,11 +62,7 @@ export async function hentInnsending(request: Request, behandlingId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentInnsending()");
 }
 
 export async function hentOppfolging(request: Request, behandlingId: string) {
@@ -90,11 +78,7 @@ export async function hentOppfolging(request: Request, behandlingId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentOppfolging(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentOppfolging()");
 }
 
 export async function redigerOppfolging(
@@ -143,13 +127,7 @@ export async function hentTilbakekreving(request: Request, behandlingId: string)
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentTilbakekreving(). ${response.status} - ${response.statusText}`,
-  );
+  handleError(error, response, "Uhåndtert feil i hentTilbakekreving()");
 }
 
 export async function ferdigstillInnsending(
@@ -182,11 +160,7 @@ export async function hentKlage(request: Request, behandlingId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentKlage(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentKlage()");
 }
 
 export async function ferdigstillKlage(request: Request, behandlingId: string) {
@@ -435,11 +409,7 @@ export async function sokPerson(request: Request, ident: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i sokPerson()");
 }
 
 export async function hentPersonOppgaver(request: Request, ident: string) {
@@ -453,13 +423,7 @@ export async function hentPersonOppgaver(request: Request, ident: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentPersonOppgaver(). ${response.status} - ${response.statusText}`,
-  );
+  handleError(error, response, "Uhåndtert feil i hentPersonOppgaver()");
 }
 
 export async function hentPersonOversikt(request: Request, personId: string) {
@@ -475,24 +439,23 @@ export async function hentPersonOversikt(request: Request, personId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentPersonOversikt()");
 }
 
 export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error } = await saksbehandlerClient.GET("/behandling/{behandlingId}/oppgaveId", {
-    headers: getHeaders(onBehalfOfToken),
-    params: {
-      path: { behandlingId },
+  const { data, error, response } = await saksbehandlerClient.GET(
+    "/behandling/{behandlingId}/oppgaveId",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { behandlingId },
+      },
     },
-  });
+  );
 
   if (error) {
-    const alert = getHttpProblemAlert(error);
+    const alert = getErrorAlert(error, response);
 
     const session = await getSession(request.headers.get("Cookie"));
     session.flash("alert", alert);
@@ -507,11 +470,13 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
   if (data) {
     return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
   }
+
+  handleError(error, response, "Uhåndtert feil i hentOppgaveIdForBehandlingId()");
 }
 
 export async function hentMeldingOmVedtakHtml(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error } = await saksbehandlerClient.GET(
+  const { data, error, response } = await saksbehandlerClient.GET(
     "/oppgave/{oppgaveId}/melding-om-vedtak/html",
     {
       headers: getHeaders(onBehalfOfToken),
@@ -525,9 +490,7 @@ export async function hentMeldingOmVedtakHtml(request: Request, oppgaveId: strin
     return data;
   }
 
-  if (error) {
-    return getHttpProblemAlert(error, "warn", "warning");
-  }
+  return getErrorAlert(error, response, "warn", "warning");
 }
 
 export async function lagreMeldingOmVedtakUtvidetBeskrivelse(
@@ -582,11 +545,7 @@ export async function hentStatistikk(request: Request, urlSearchParams: URLSearc
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentStatistikk(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentStatistikk()");
 }
 
 export async function hentAlleEmneknagger(request: Request) {
@@ -599,13 +558,7 @@ export async function hentAlleEmneknagger(request: Request) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentAlleEmneknagger(). ${response.status} - ${response.statusText}`,
-  );
+  handleError(error, response, "Uhåndtert feil i hentAlleEmneknagger()");
 }
 
 export async function flyttBehandlingTilNySak(
