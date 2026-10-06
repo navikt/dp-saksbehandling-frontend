@@ -311,8 +311,8 @@ importers:
         specifier: 3.4.1
         version: 3.4.1
       unleash-client:
-        specifier: 6.12.1
-        version: 6.12.1(supports-color@5.5.0)
+        specifier: 6.12.2
+        version: 6.12.2(supports-color@5.5.0)
       use-debounce:
         specifier: 10.1.1
         version: 10.1.1(react@19.3.0)
@@ -4141,6 +4141,10 @@ packages:
     resolution: {integrity: sha512-BGFsyJd5mpXp3rK6jIdADLNgpJUK1jnjzvYF8lK+VyDab9JAmqN0YOKDdP17HlgKb2+ehPgDc8EtnRLbGCAMhA==}
     engines: {node: '>= 12'}
 
+  ip-address@10.7.2:
+    resolution: {integrity: sha512-7H/2gFSIitxc0hG3nOI1glS8QLo/EHBFFLk8vEUjXY/xu0AdL8jZ9U1IzO2PUm0d2D/ofQcAifb0g6OBkt8U7w==}
+    engines: {node: '>= 12'}
+
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -5852,8 +5856,8 @@ packages:
     resolution: {integrity: sha512-6bc58dPYhCMHHuwxldQxO3RRNZ4eCogZ/st++0+fcC1nr0jiGUtAdBJ2qzmLQWSxbtz42pWt4QQMiZ9HvZf5cg==}
     engines: {node: '>=0.10.0'}
 
-  unleash-client@6.12.1:
-    resolution: {integrity: sha512-xeojMfPZynteI2fqGW70po23Nd588MKSv9cv5dH3BOfQmsVE0jcvypLl7a4/NfrAgmMKOpZ48N4TtnGd7klJDQ==}
+  unleash-client@6.12.2:
+    resolution: {integrity: sha512-aId4dG9E8zEOlOYLVy7YTMHG/gMKQYKDldWvWGt+x1z32a9g+IjlYBsFbqwOpD6T6CvMpCHzX1aONTW5MLVcHA==}
     engines: {node: '>=20'}
 
   unpipe@1.0.0:
@@ -7602,7 +7606,7 @@ snapshots:
       agent-base: 7.1.4
       http-proxy-agent: 7.0.2(supports-color@5.5.0)
       https-proxy-agent: 7.0.6(supports-color@5.5.0)
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       socks-proxy-agent: 8.0.5(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
@@ -9330,7 +9334,7 @@ snapshots:
       '@npmcli/fs': 5.0.0
       fs-minipass: 3.0.3
       glob: 13.0.6
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       minipass: 7.1.3
       minipass-collect: 2.0.1
       minipass-flush: 1.0.7
@@ -10462,6 +10466,8 @@ snapshots:
 
   ip-address@10.7.0: {}
 
+  ip-address@10.7.2: {}
+
   ipaddr.js@1.9.1: {}
 
   is-absolute@1.0.0:
@@ -11243,7 +11249,7 @@ snapshots:
 
   path-scurry@2.0.2:
     dependencies:
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       minipass: 7.1.3
 
   path-to-regexp@6.3.0: {}
@@ -12113,13 +12119,13 @@ snapshots:
     dependencies:
       normalize-path: 2.1.1
 
-  unleash-client@6.12.1(supports-color@5.5.0):
+  unleash-client@6.12.2(supports-color@5.5.0):
     dependencies:
       http-proxy-agent: 7.0.2(supports-color@5.5.0)
       https-proxy-agent: 7.0.6(supports-color@5.5.0)
-      ip-address: 10.7.0
+      ip-address: 10.7.2
       launchdarkly-eventsource: 2.2.0
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       make-fetch-happen: 15.0.6(supports-color@5.5.0)
       murmurhash3js: 3.0.1
       proxy-from-env: 1.1.0
