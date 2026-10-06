@@ -163,10 +163,7 @@ export function VilkårTidslinje() {
                       start={start}
                       end={slutt}
                       status="info"
-                      icon={hentIkonForOpplysningPeriode(
-                        periode.verdi,
-                        aktivtRegelsett?.relevantForResultat,
-                      )}
+                      icon={formaterOpplysningVerdi(periode.verdi)}
                     >
                       {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>

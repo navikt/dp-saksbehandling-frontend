@@ -18,7 +18,6 @@ import { Await, useParams } from "react-router";
 import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
-import { hentIkonForOpplysningPeriode } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import {
@@ -253,7 +252,7 @@ export function OpplysningerTidslinje(props: IProps) {
                   start={start}
                   end={slutt}
                   status="info"
-                  icon={hentIkonForOpplysningPeriode(periode.verdi, props.relevantForResultat)}
+                  icon={formaterOpplysningVerdi(periode.verdi)}
                 >
                   <div className={"flex gap-4"}>
                     <div>
