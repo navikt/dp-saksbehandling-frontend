@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getSoknadOrkestratorOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
+import { handleError } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { components, paths } from "../../openapi/soknad-orkestrator-typer";
@@ -26,11 +26,7 @@ export async function hentBarn(request: Request, soknadbarnId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentBarn(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentBarn()");
 }
 
 export async function redigerBarn(
@@ -86,7 +82,7 @@ export async function slettBarn(
 export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
-  const { data, error } = await orkestratorClient.GET("/land", {
+  const { data, error, response } = await orkestratorClient.GET("/land", {
     headers: getHeaders(onBehalfOfToken),
   });
 
@@ -94,9 +90,5 @@ export async function hentOrkestratorLandListe(request: Request) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentOppgaver(). 500 - Internal Server Error`);
+  handleError(error, response, "Uhåndtert feil i hentOrkestratorLandListe()");
 }

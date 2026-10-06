@@ -6,7 +6,7 @@ import { IAlert } from "~/context/alert-context";
 import { ferdigstillOppfolging } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentTekstForFerdigstilling } from "~/utils/tekst.utils";
 import { hentValideringForFerdigstillOppgave } from "~/utils/validering.util";
 
@@ -42,10 +42,10 @@ export async function ferdigstillOppfolgingAction(
         : undefined,
   };
 
-  const { error } = await ferdigstillOppfolging(request, body, data.behandlingId);
+  const { error, response } = await ferdigstillOppfolging(request, body, data.behandlingId);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

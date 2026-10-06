@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillKlage } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 
 export async function ferdigstillKlageAction(
   request: Request,
@@ -14,10 +14,10 @@ export async function ferdigstillKlageAction(
   const behandlingId = formData.get("behandlingId") as string;
   invariant(behandlingId, "behandlingId er påkrevd");
 
-  const { error } = await ferdigstillKlage(request, behandlingId);
+  const { error, response } = await ferdigstillKlage(request, behandlingId);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

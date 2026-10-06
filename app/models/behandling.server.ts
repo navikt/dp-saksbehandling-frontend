@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
+import { handleError } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { components, paths } from "../../openapi/behandling-typer";
@@ -53,11 +53,7 @@ export async function hentBehandling(request: Request, behandlingId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentBehandling()");
 }
 
 export async function lagreOpplysning(
@@ -143,13 +139,7 @@ export async function hentVurderinger(request: Request, behandlingId: string) {
     return data;
   }
 
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentVurderinger(). ${response.status} - ${response.statusText}`,
-  );
+  handleError(error, response, "Uhåndtert feil i hentVurderinger()");
 }
 
 export async function hentSak(request: Request, sakId: string) {
@@ -160,18 +150,15 @@ export async function hentSak(request: Request, sakId: string) {
       path: { sakId },
     },
   });
+  console.log(data, error, response);
 
   if (data) {
     return data;
   }
 
-  if (error) {
-    if (error.status === 404) {
-      return undefined;
-    }
-
-    handleHttpProblem(error);
+  if (response.status === 404) {
+    return undefined;
   }
 
-  throw new Error(`Uhåndtert feil i hentSak(). ${response.status} - ${response.statusText}`);
+  handleError(error, response, "Uhåndtert feil i hentSak()");
 }

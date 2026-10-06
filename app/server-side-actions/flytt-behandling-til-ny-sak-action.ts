@@ -4,7 +4,7 @@ import { redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { flyttBehandlingTilNySak } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForFlyttBehandlingTilNySak } from "~/utils/validering.util";
 
 export async function flyttBehandlingTilNySakAction(request: Request, formData: FormData) {
@@ -15,10 +15,10 @@ export async function flyttBehandlingTilNySakAction(request: Request, formData: 
   }
 
   const { behandlingId, personIdent, aktivtOppgaveSok } = validertSkjema.data;
-  const { error } = await flyttBehandlingTilNySak(request, behandlingId, personIdent);
+  const { error, response } = await flyttBehandlingTilNySak(request, behandlingId, personIdent);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

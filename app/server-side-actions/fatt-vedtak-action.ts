@@ -4,7 +4,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
 
 export async function fattVedtakAction(
@@ -19,10 +19,10 @@ export async function fattVedtakAction(
   }
 
   const { oppgaveId } = validertSkjema.data;
-  const { error } = await ferdigstillOppgave(request, oppgaveId);
+  const { error, response } = await ferdigstillOppgave(request, oppgaveId);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const session = await getSession(request.headers.get("Cookie"));

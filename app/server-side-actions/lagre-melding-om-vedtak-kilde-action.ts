@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { lagreMeldingOmVedtak } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForMeldingOmVedtakKildeSkjema } from "~/utils/validering.util";
 
 export async function lagreMeldingOmVedtakKildeAction(request: Request, formData: FormData) {
@@ -20,7 +20,7 @@ export async function lagreMeldingOmVedtakKildeAction(request: Request, formData
   const { response, error } = await lagreMeldingOmVedtak(request, oppgaveId, meldingOmVedtakKilde);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   if (response.status == 204) {

@@ -3,7 +3,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import { components } from "@/openapi/saksbehandling-typer";
 import { IAlert } from "~/context/alert-context";
 import { lagreGodkjentBrevIGosys } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForGodkjentBrevSkjema } from "~/utils/validering.util";
 
 export async function lagreGodkjentBrevIGosysAction(request: Request, formData: FormData) {
@@ -21,7 +21,7 @@ export async function lagreGodkjentBrevIGosysAction(request: Request, formData: 
   const { response, error } = await lagreGodkjentBrevIGosys(request, oppgaveId, kontrollert);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   if (response.status == 204) {

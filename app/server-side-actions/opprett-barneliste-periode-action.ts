@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { lagreOpplysning } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 import type { components } from "../../openapi/behandling-typer";
@@ -21,7 +21,7 @@ export async function opprettBarnelistePeriodeAction(
   const { behandlingId, barn, gyldigFraOgMed, begrunnelse, soknadBarnId } = validertSkjema.data;
   const barnVerdiListe: components["schemas"]["BarnVerdi"][] = barn;
 
-  const { data, error } = await lagreOpplysning(
+  const { data, error, response } = await lagreOpplysning(
     request,
     behandlingId,
     params.opplysningId!,
@@ -32,7 +32,7 @@ export async function opprettBarnelistePeriodeAction(
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   if (data) {

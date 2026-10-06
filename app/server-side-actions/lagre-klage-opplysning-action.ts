@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import { lagreKlageOpplysning } from "~/models/saksbehandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 
 import { components } from "../../openapi/saksbehandling-typer";
 
@@ -26,7 +26,7 @@ export async function lagreKlageOpplysningAction(request: Request, formData: For
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   return response;

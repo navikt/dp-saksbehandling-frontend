@@ -5,7 +5,7 @@ import { IAlert } from "~/context/alert-context";
 import { utsettOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringSettOppgavePåVent } from "~/utils/validering.util";
 
 export async function settOppgavePåVentAction(request: Request, formData: FormData) {
@@ -17,7 +17,7 @@ export async function settOppgavePåVentAction(request: Request, formData: FormD
 
   const { oppgaveId, utsettTilDato, beholdOppgave, paaVentAarsak } = validertSkjema.data;
 
-  const { error } = await utsettOppgave(
+  const { error, response } = await utsettOppgave(
     request,
     oppgaveId,
     formaterTilBackendDato(utsettTilDato),
@@ -26,7 +26,7 @@ export async function settOppgavePåVentAction(request: Request, formData: FormD
   );
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   const successAlert: IAlert = {

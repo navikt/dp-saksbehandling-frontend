@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { opprettRevurderingEtterKlage } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForOpprettRevurderingEtterKlage } from "~/utils/validering.util";
 
 export async function opprettRevurderingEtterKlageAction(request: Request, formData: FormData) {
@@ -16,7 +16,7 @@ export async function opprettRevurderingEtterKlageAction(request: Request, formD
   }
 
   const { personIdent, klageId } = validertSkjema.data;
-  const { data, error } = await opprettRevurderingEtterKlage(
+  const { data, error, response } = await opprettRevurderingEtterKlage(
     request,
     personIdent,
     klageId,
@@ -33,7 +33,7 @@ export async function opprettRevurderingEtterKlageAction(request: Request, formD
   }
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   throw new Error(`Uhåndtert feil i opprettRevurderingEtterKlageAction()`);

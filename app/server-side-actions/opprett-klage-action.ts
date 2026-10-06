@@ -3,7 +3,7 @@ import { redirect } from "react-router";
 
 import { opprettKlage } from "~/models/saksbehandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";
@@ -25,14 +25,14 @@ export async function opprettKlageAction(request: Request, formData: FormData) {
     },
   };
 
-  const { data, error } = await opprettKlage(request, klageBody);
+  const { data, error, response } = await opprettKlage(request, klageBody);
 
   if (data) {
     return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
   }
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return getErrorAlert(error, response);
   }
 
   throw new Error(`Uhåndtert feil i opprettKlageAction()`);
