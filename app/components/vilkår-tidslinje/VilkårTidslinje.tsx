@@ -162,10 +162,7 @@ export function VilkårTidslinje() {
                       key={periode.id}
                       start={start}
                       end={slutt}
-                      status={hentFargeForOpplysningPeriode(
-                        periode.verdi,
-                        aktivtRegelsett?.relevantForResultat,
-                      )}
+                      status="info"
                       icon={hentIkonForOpplysningPeriode(
                         periode.verdi,
                         aktivtRegelsett?.relevantForResultat,
