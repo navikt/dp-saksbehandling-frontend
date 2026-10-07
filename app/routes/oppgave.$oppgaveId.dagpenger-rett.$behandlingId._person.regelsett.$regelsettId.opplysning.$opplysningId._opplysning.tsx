@@ -2,6 +2,7 @@ import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Alert, Heading } from "@navikt/ds-react";
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
+import { EndreBeregningsregelModal } from "~/components/endre-beregningsregel/EndreBeregningsregelModal";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
@@ -12,6 +13,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { alleRegelsett } from "~/utils/behandling.utils";
+import { BEREGNINGSREGEL_OPPLYSNINGER } from "~/utils/beregningsregel.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
@@ -19,6 +21,8 @@ import { components } from "../../openapi/behandling-typer";
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
+
+const TAP_AV_ARBEIDSINNTEKT = "MTEzODE3NjI5";
 
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
@@ -59,6 +63,10 @@ export default function Opplysning() {
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
 
+  const beregningsregelOpplysninger = regelsettOpplysninger.filter((opplysning) =>
+    BEREGNINGSREGEL_OPPLYSNINGER.some((id) => id === opplysning.opplysningTypeId),
+  );
+
   const tilbakeKnappTilstand = hentTilbakeKnappTilstand(behandling, opplysningId);
 
   return (
@@ -71,7 +79,6 @@ export default function Opplysning() {
           <ArrowLeftIcon />
           {tilbakeKnappTilstand.label}
         </LoadingLink>
-
         <div className={"card p-4"}>
           <div className={"flex flex-1 flex-col gap-4"}>
             <div className={"card p-4"}>
@@ -88,6 +95,13 @@ export default function Opplysning() {
                 visAllePerioder
               />
             </div>
+            {regelsett.id === TAP_AV_ARBEIDSINNTEKT && (
+              <EndreBeregningsregelModal
+                behandlingId={behandling.behandlingId}
+                opplysninger={beregningsregelOpplysninger}
+                sistePrøvingsdato={sistePrøvingsdato}
+              />
+            )}
 
             <div className={"card p-4"}>
               <OpplysningerTidslinje
