@@ -63,7 +63,7 @@ const Barneskjema = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
       <RvfTextField name="fornavnOgMellomnavn" label="Fornavn og mellomnavn" />
       <RvfTextField name="etternavn" label="Etternavn" />
       <RvfTextField name="ident" label="Ident" />
-      <DatePicker {...fodselsdatoField.datepickerProps}>
+      <DatePicker {...fodselsdatoField.datepickerProps} dropdownCaption>
         <DatePicker.Input
           {...fodselsdatoField.inputProps}
           error={barnForm.error("fødselsdato")}

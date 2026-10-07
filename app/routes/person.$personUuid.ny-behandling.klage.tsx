@@ -55,7 +55,7 @@ export default function Oppgave() {
         </Heading>
 
         <div className={"flex flex-col gap-4"}>
-          <DatePicker {...datepickerProps}>
+          <DatePicker {...datepickerProps} dropdownCaption>
             <DatePicker.Input
               {...inputProps}
               label="Klage mottatt"

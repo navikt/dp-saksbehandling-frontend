@@ -55,6 +55,7 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
           <DatePicker.Standalone
             fromDate={add(new Date(), { days: 1 })}
             toDate={add(new Date(), { months: 6 })}
+            dropdownCaption
             onSelect={(dato) => {
               utsettOppgaveForm.field("utsettTilDato").clearError();
               utsettOppgaveForm

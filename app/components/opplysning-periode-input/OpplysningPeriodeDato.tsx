@@ -22,7 +22,7 @@ export function OpplysningPeriodeDato({
   });
 
   return (
-    <DatePicker {...datepickerProps}>
+    <DatePicker {...datepickerProps} dropdownCaption>
       <DatePicker.Input
         {...inputProps}
         form={field.getInputProps().form}

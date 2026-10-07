@@ -51,7 +51,7 @@ export function NyOppfolgingFelter({ form }: { form: FormApi }) {
         ))}
       </Select>
 
-      <DatePicker {...datepickerProps}>
+      <DatePicker {...datepickerProps} dropdownCaption>
         <DatePicker.Input
           {...inputProps}
           size="small"

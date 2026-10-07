@@ -110,7 +110,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
   return (
     <Table.Row>
       <Table.DataCell>
-        <DatePicker {...datepickerFraOgMed.datepickerProps}>
+        <DatePicker {...datepickerFraOgMed.datepickerProps} dropdownCaption>
           <DatePicker.Input
             {...datepickerFraOgMed.inputProps}
             form={periodeForm.field("gyldigFraOgMed").getInputProps().form}
@@ -124,7 +124,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <DatePicker {...datepickerTilOgMed.datepickerProps}>
+        <DatePicker {...datepickerTilOgMed.datepickerProps} dropdownCaption>
           <DatePicker.Input
             {...datepickerTilOgMed.inputProps}
             form={periodeForm.field("gyldigTilOgMed").getInputProps().form}
