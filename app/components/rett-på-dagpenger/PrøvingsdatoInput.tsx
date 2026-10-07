@@ -57,7 +57,7 @@ export function PrøvingsdatoInput() {
     <div className={"card p-4"}>
       <Heading size={"small"}>Prøvingsdato</Heading>
 
-      <DatePicker {...datepickerProps}>
+      <DatePicker {...datepickerProps} dropdownCaption>
         <DatePicker.Input
           {...inputProps}
           readOnly={readonly}

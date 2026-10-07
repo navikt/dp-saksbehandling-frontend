@@ -40,7 +40,7 @@ export function OppgaveFilterDato() {
 
   return (
     <div className={styles.container}>
-      <DatePicker {...fraDato.datepickerProps}>
+      <DatePicker {...fraDato.datepickerProps} dropdownCaption>
         <DatePicker.Input
           className={styles.datepicker}
           label="Fra"

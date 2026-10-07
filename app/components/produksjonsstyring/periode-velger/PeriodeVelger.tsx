@@ -86,6 +86,7 @@ export function PeriodeVelger() {
 
         <DatePicker
           onSelect={togglePeriode}
+          dropdownCaption
           mode="range"
           onClose={() => setÅpen(false)}
           open={åpen}

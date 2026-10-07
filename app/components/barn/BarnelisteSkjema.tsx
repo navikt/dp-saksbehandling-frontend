@@ -66,7 +66,7 @@ const BarnelisteSkjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Pr
     <FormProvider scope={nyBarnelisteForm.scope()}>
       <form {...nyBarnelisteForm.getFormProps()}>
         <VStack gap="space-8">
-          <DatePicker {...gyldigFraOgMedDatepicker.datepickerProps}>
+          <DatePicker {...gyldigFraOgMedDatepicker.datepickerProps} dropdownCaption>
             <DatePicker.Input
               {...gyldigFraOgMedDatepicker.inputProps}
               error={nyBarnelisteForm.field("gyldigFraOgMed").error()}

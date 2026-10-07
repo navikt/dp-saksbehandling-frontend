@@ -31,7 +31,7 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
       )}
 
       {opplysning.redigerbar && (
-        <DatePicker {...datepickerProps}>
+        <DatePicker {...datepickerProps} dropdownCaption>
           <DatePicker.Input
             {...inputProps}
             size="small"

@@ -92,7 +92,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
   return (
     <Table.Row>
       <Table.DataCell>
-        <DatePicker {...datepickerFraOgMed.datepickerProps}>
+        <DatePicker {...datepickerFraOgMed.datepickerProps} dropdownCaption>
           <DatePicker.Input
             {...datepickerFraOgMed.inputProps}
             form={nyOpplysningPeriodeForm.field("gyldigFraOgMed").getInputProps().form}
@@ -106,7 +106,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <DatePicker {...datepickerTilOgMed.datepickerProps}>
+        <DatePicker {...datepickerTilOgMed.datepickerProps} dropdownCaption>
           <DatePicker.Input
             {...datepickerTilOgMed.inputProps}
             form={nyOpplysningPeriodeForm.field("gyldigTilOgMed").getInputProps().form}
