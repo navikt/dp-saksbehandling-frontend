@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from "react-router";
 
 import { avbrytKlageAction } from "~/server-side-actions/avbryt-klage-action";
 import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
+import { endreBeregningsregelAction } from "~/server-side-actions/endre-beregningsregel-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { ferdigstillBehandlingKlageAction } from "~/server-side-actions/ferdigstill-behandling-klage-action";
 import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
@@ -42,6 +43,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-opplysning":
       return await lagreOpplysningAction(request, formData);
+
+    case "endre-beregningsregel":
+      return await endreBeregningsregelAction(request, formData);
 
     case "slett-periode":
       return await slettPeriodeAction(request, formData);

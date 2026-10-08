@@ -348,7 +348,7 @@ export function hentValideringForAvklaringSkjema() {
   });
 }
 
-function hentValideringForNorskDato() {
+export function hentValideringForNorskDato() {
   return z
     .string("Du må velge en dato")
     .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
