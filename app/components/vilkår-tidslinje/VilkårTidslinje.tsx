@@ -243,28 +243,38 @@ export function VilkårTidslinje() {
                       vilkårEllerOpplysning.relevantForResultat,
                     )}
                   >
-                    <div className={"flex gap-4"}>
-                      <div>
-                        <Detail textColor={"subtle"}>Fra og med</Detail>
-                        <BodyShort size={"small"}>
-                          {periode.gyldigFraOgMed
-                            ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                            : "--"}
-                        </BodyShort>
-                      </div>
-                      <div>
-                        <Detail textColor={"subtle"}>Til og med</Detail>
-                        <BodyShort size={"small"}>
-                          {periode.gyldigTilOgMed
-                            ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                            : "--"}
-                        </BodyShort>
-                      </div>
-                      <div>
-                        <Detail textColor={"subtle"}>Verdi</Detail>
-                        <BodyShort size={"small"}>
-                          {formaterOpplysningVerdi(periode.verdi)}
-                        </BodyShort>
+                    <div className={"flex flex-col gap-1"}>
+                      {vilkårEllerOpplysning.relevantForResultat === false && (
+                        <HStack gap="space-2" align="center">
+                          <CircleSlashIcon aria-hidden />
+                          <Detail textColor={"subtle"} className="translate-y-px">
+                            Ikke relevant
+                          </Detail>
+                        </HStack>
+                      )}
+                      <div className={"flex gap-4"}>
+                        <div>
+                          <Detail textColor={"subtle"}>Fra og med</Detail>
+                          <BodyShort size={"small"}>
+                            {periode.gyldigFraOgMed
+                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                              : "--"}
+                          </BodyShort>
+                        </div>
+                        <div>
+                          <Detail textColor={"subtle"}>Til og med</Detail>
+                          <BodyShort size={"small"}>
+                            {periode.gyldigTilOgMed
+                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                              : "--"}
+                          </BodyShort>
+                        </div>
+                        <div>
+                          <Detail textColor={"subtle"}>Verdi</Detail>
+                          <BodyShort size={"small"}>
+                            {formaterOpplysningVerdi(periode.verdi)}
+                          </BodyShort>
+                        </div>
                       </div>
                     </div>
                   </Timeline.Period>
