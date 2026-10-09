@@ -26,7 +26,7 @@ export function BehandlingProvider({
   behandling,
   forrigeBehandling,
 }: PropsWithChildren<IBehandlingProviderType>) {
-  const [visArvedeOpplysninger, setVisArvedeOpplysninger] = useState(false);
+  const [visArvedeOpplysninger, setVisArvedeOpplysninger] = useState(true);
   const prøvingsdatoOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
   );
