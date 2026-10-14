@@ -18,7 +18,7 @@ import {
   BEREGNINGSREGEL_OPPLYSNINGER,
   endreBeregningsregelSkjema,
 } from "~/utils/beregningsregel.utils";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
 
 interface Props {
   behandlingId: string;
@@ -59,6 +59,7 @@ export function EndreBeregningsregelModal({
         form.field("gyldigFraOgMed").setValue("");
       }
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   useEffect(() => {

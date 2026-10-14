@@ -2,7 +2,7 @@ import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import { IKlageOpplysningProps } from "~/components/klage/klage-opplysning/KlageOpplysning";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
 
 import { components } from "../../../../openapi/saksbehandling-typer";
 import styles from "./KlageOpplysning.module.css";
@@ -22,6 +22,7 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
         field.setValue(datoNorskFormat);
       }
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   return (

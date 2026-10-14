@@ -56,3 +56,7 @@ export function formaterTilBackendDato(inputDato: Date | string, medKlokkeslett?
   // 2021-01-31
   return format(dato, "yyyy-MM-dd", { locale: nb });
 }
+
+export function maxGyldigTilOgMedDato() {
+  return new Date(new Date().getFullYear() + 2, 11, 31);
+}

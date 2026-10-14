@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
 import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
+import { maxGyldigTilOgMedDato } from "~/utils/dato.utils";
 
 import styles from "./OppgaveFilterDato.module.css";
 
@@ -27,6 +28,7 @@ export function OppgaveFilterDato() {
     onDateChange: (date) => {
       updateSearchParams("tom", date ? format(date, "yyyy-MM-dd", { locale: nb }) : "");
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   function updateSearchParams(key: string, value: string) {
@@ -50,7 +52,7 @@ export function OppgaveFilterDato() {
         />
       </DatePicker>
 
-      <DatePicker {...tilDato.datepickerProps}>
+      <DatePicker {...tilDato.datepickerProps} dropdownCaption>
         <DatePicker.Input
           className={styles.datepicker}
           label="Til"

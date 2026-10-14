@@ -1,7 +1,11 @@
 import { Checkbox, DatePicker, Select, Textarea, TextField, useDatepicker } from "@navikt/ds-react";
 import { FormApi } from "@rvf/react-router";
 
-import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
+import {
+  formaterTilBackendDato,
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+} from "~/utils/dato.utils";
 import { gyldigeNyOppfølgingÅrsaker } from "~/utils/validering.util";
 
 // @ts-expect-error: Denne komponenten brukes i tre forskjellige skjemaer, og det er to forskjellige varianter, og det er bare irriterende :)
@@ -17,6 +21,7 @@ export function NyOppfolgingFelter({ form }: { form: FormApi }) {
         fristField.setValue(formaterTilNorskDato(date));
       }
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   return (
