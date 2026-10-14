@@ -88,8 +88,8 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@graphql-codegen/cli": "7.4.4",
-    "@graphql-codegen/client-preset": "6.2.1",
+    "@graphql-codegen/cli": "7.4.5",
+    "@graphql-codegen/client-preset": "6.2.2",
     "@graphql-codegen/typescript": "6.1.1",
     "@parcel/watcher": "2.6.0",
     "@portabletext/types": "4.0.2",
