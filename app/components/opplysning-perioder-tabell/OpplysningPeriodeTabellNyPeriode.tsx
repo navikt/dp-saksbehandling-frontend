@@ -4,7 +4,7 @@ import { add } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
 import { hentValideringForNyOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -65,6 +65,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
         nyOpplysningPeriodeForm.field("gyldigFraOgMed").setValue(undefined);
       }
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   const datepickerTilOgMed = useDatepicker({
@@ -87,6 +88,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
         nyOpplysningPeriodeForm.field("gyldigTilOgMed").setValue(undefined);
       }
     },
+    toDate: maxGyldigTilOgMedDato(),
   });
 
   return (

@@ -5,12 +5,12 @@ import { pino } from "pino";
 import { getEnv } from "~/utils/env.utils";
 
 const devConfig: LoggerOptions = {
-  transport: {
-    target: "pino-pretty",
-    options: {
-      colorize: true,
-    },
-  },
+  // transport: {
+  //   target: "pino-pretty",
+  //   options: {
+  //     colorize: true,
+  //   },
+  // },
 };
 
 const prodConfig: LoggerOptions = {
