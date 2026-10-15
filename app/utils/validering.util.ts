@@ -378,7 +378,6 @@ export function hentValideringAvbrytKlage() {
     _action: z.literal("avbryt-klage"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
-    notat: z.string().optional(),
   });
 }
 

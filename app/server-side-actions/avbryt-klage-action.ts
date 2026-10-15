@@ -18,12 +18,13 @@ export async function avbrytKlageAction(
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, årsak, notat } = validertSkjema.data;
+  const { behandlingId, årsak } = validertSkjema.data;
+  const notat = formData.get("notat");
   const { error, response } = await avbrytKlage(
     request,
     behandlingId,
     årsak,
-    notat?.trim() || undefined,
+    typeof notat === "string" ? notat.trim() || undefined : undefined,
   );
 
   if (error) {
