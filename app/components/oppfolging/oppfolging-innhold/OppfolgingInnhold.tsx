@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { useOppgave } from "~/hooks/useOppgave";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForRedigerOppfolgingSkjema } from "~/utils/validering.util";
 
 interface IProps {
@@ -102,7 +101,6 @@ function RedigerOppfolgingSkjema({ oppfolging, lukk }: IRedigerOppfolgingSkjemaP
       behandlingId: oppfolging.behandlingId,
       tittel: oppfolging.tittel,
       beskrivelse: oppfolging.beskrivelse,
-      frist: oppfolging.frist ? formaterTilNorskDato(oppfolging.frist) : undefined,
     },
   });
 

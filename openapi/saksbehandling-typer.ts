@@ -1722,6 +1722,64 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/klage/{behandlingId}/trekk": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Trekk klage */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["KlageAvslutningNotat"];
+                };
+            };
+            responses: {
+                /** @description Klagen er trukket */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/klage/{behandlingId}/avbryt": {
         parameters: {
             query?: never;
@@ -2554,6 +2612,10 @@ export interface components {
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "INGEN_BEHANDLING" | "ANNET";
         AvbrytKlage: {
             aarsak: components["schemas"]["AvbrytKlageAarsak"];
+            /** @description Kort begrunnelse for hvorfor klagen avsluttes og hva vurderingen bygger på */
+            notat?: string;
+        };
+        KlageAvslutningNotat: {
             /** @description Kort begrunnelse for hvorfor klagen avsluttes og hva vurderingen bygger på */
             notat?: string;
         };

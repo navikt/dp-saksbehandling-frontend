@@ -15,6 +15,7 @@ import { useFeatureFlags } from "~/hooks/useFeatureFlags";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import type { ISaksbehandler } from "~/models/microsoft.server";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
+import { kontrollOppgaverDefaultParams } from "~/routes/kontroll-oppgaver";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
 import { convertToQueryParamString } from "~/utils/url.utils";
 
@@ -71,6 +72,15 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Alle oppgaver
+        </NavLink>
+
+        <NavLink
+          to={`/kontroll-oppgaver?${convertToQueryParamString(kontrollOppgaverDefaultParams)}`}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Kontrolloppgaver
         </NavLink>
 
         <NavLink
