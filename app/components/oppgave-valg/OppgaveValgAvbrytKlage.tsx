@@ -74,7 +74,7 @@ export function OppgaveValgAvbrytKlage({
             size="small"
             resize="vertical"
             label="Begrunnelse (valgfritt)"
-            description="Skriv kort hvorfor klagen avsluttes og hva vurderingen bygger på."
+            description="Skriv kort hvorfor klagen avbrytes og hva vurderingen bygger på."
             error={avbrytKlageForm.field("notat").error()}
           />
         </Modal.Body>
