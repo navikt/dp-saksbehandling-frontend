@@ -73,7 +73,7 @@ export interface paths {
                 };
             };
         };
-        /** Rediger tittel, beskrivelse og frist for en oppfølging under behandling */
+        /** Rediger tittel og beskrivelse for en oppfølging under behandling */
         put: {
             parameters: {
                 query?: never;
@@ -430,15 +430,18 @@ export interface paths {
                     fom?: string;
                     tom?: string;
                     harDpSak?: boolean;
+                    /** @description Filtrerer på oppgaver der pålogget NAV-ident er/har vært saksbehandler eller beslutter */
                     mineOppgaver?: boolean;
-                    /** @description Filtrer på oppgaver tildelt en bestemt saksbehandler (NAV-ident) */
+                    /** @description Filtrerer på oppgaver tildelt en NAV-ident */
+                    kunTildelteOppgaver?: boolean;
+                    /** @description Filtrerer på oppgaver der en bestemt NAV-ident er/har vært saksbehandler eller beslutter */
                     saksbehandlerIdent?: string;
                     /** @description Vis kun oppgaver som ikke er tildelt en saksbehandler */
                     utenSaksbehandler?: boolean;
                     antallOppgaver?: number;
                     side?: number;
                     /** @description Feltet oppgaver sorteres på */
-                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "beslutter" | "utsattTil";
+                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "beslutter" | "utsattTil" | "totaltfeilutbetaltbelop" | "sendttilkontroll";
                     /** @description Sorteringsrekkefølge for oppgaver */
                     sortering?: "ASC" | "DESC";
                 };
@@ -1509,55 +1512,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/klage/opprett": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Oppretter en klage fra en applikasjon (p.t. dp-mottak) */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["OpprettKlage"];
-                };
-            };
-            responses: {
-                /** @description Vellykket oppretting av klage og tilhørende oppgave */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["OppgaveOversikt"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/klage/opprett-manuelt": {
         parameters: {
             query?: never;
@@ -1735,60 +1689,6 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Behandling ferdigstilt — klage klar for revurdering */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Klagen ble ikke funnet */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/klage/{behandlingId}/trekk": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Trekk klage */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Klagen er trukket */
                 204: {
                     headers: {
                         [name: string]: unknown;
@@ -2499,6 +2399,10 @@ export interface components {
             lovligeEndringer: components["schemas"]["LovligeEndringer"];
             /** Format: date */
             utsattTilDato?: string;
+            /** Format: double */
+            totaltFeilutbetaltBelop?: number;
+            /** Format: date-time */
+            sendtTilKontroll?: string;
         };
         Oppgave: {
             /** Format: uuid */
@@ -2650,6 +2554,8 @@ export interface components {
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "INGEN_BEHANDLING" | "ANNET";
         AvbrytKlage: {
             aarsak: components["schemas"]["AvbrytKlageAarsak"];
+            /** @description Kort begrunnelse for hvorfor klagen avsluttes og hva vurderingen bygger på */
+            notat?: string;
         };
         /** @enum {string} */
         AvbrytKlageAarsak: "FLERE_KLAGER" | "TRUKKET_KLAGE" | "ANNET";
@@ -2999,11 +2905,6 @@ export interface components {
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
             beskrivelse?: string;
-            /**
-             * Format: date
-             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
-             */
-            frist?: string;
             /** @description Strukturert data knyttet til oppgaven */
             strukturertData?: {
                 [key: string]: unknown;
