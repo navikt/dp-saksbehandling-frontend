@@ -187,11 +187,12 @@ export async function avbrytKlage(
   request: Request,
   behandlingId: string,
   aarsak: components["schemas"]["AvbrytKlageAarsak"],
+  notat?: string,
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.POST("/klage/{behandlingId}/avbryt", {
     headers: getHeaders(onBehalfOfToken),
-    body: { aarsak },
+    body: { aarsak, ...(notat ? { notat } : {}) },
     params: {
       path: { behandlingId },
     },

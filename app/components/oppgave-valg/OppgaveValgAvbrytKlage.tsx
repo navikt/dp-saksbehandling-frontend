@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
-import { Button, ButtonProps, Modal, Radio, RadioGroup } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal, Radio, RadioGroup, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -37,6 +37,7 @@ export function OppgaveValgAvbrytKlage({
       // Castingen her gjør at vi kan ha en tom verdi selv om årsak er påkrevd i sjemaet
       // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773
       årsak: "" as unknown as components["schemas"]["AvbrytKlageAarsak"],
+      notat: "",
     },
   });
 
@@ -67,6 +68,15 @@ export function OppgaveValgAvbrytKlage({
               </Radio>
             ))}
           </RadioGroup>
+
+          <Textarea
+            {...avbrytKlageForm.field("notat").getInputProps()}
+            size="small"
+            resize="vertical"
+            label="Begrunnelse (valgfritt)"
+            description="Skriv kort hvorfor klagen avsluttes og hva vurderingen bygger på."
+            error={avbrytKlageForm.field("notat").error()}
+          />
         </Modal.Body>
 
         <Modal.Footer>
