@@ -5,7 +5,6 @@ export const mockOppfolging: components["schemas"]["Oppfolging"] = {
   tittel: "Manuell sjekk av inntektsopplysninger",
   beskrivelse:
     "Bruker har rapportert inntekt som avviker vesentlig fra registrerte opplysninger i A-ordningen. Det må gjøres en manuell vurdering av inntektsgrunnlaget for perioden januar til mars 2025.",
-  frist: "2025-10-15",
   strukturertData: {
     "Rapportert inntekt": "45 000 kr",
     "Registrert inntekt (A-ordningen)": "32 000 kr",

@@ -6,6 +6,7 @@ import {
   formaterTilBackendDato,
   formaterTilNorskDato,
   maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
 } from "~/utils/dato.utils";
 
 export function OpplysningPeriodeDato({
@@ -23,6 +24,7 @@ export function OpplysningPeriodeDato({
         field.setValue(formaterTilNorskDato(date));
       }
     },
+    fromDate: minGyldigFraOgMedDato(),
     toDate: maxGyldigTilOgMedDato(),
   });
 

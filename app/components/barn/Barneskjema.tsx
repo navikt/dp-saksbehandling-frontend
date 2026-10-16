@@ -9,7 +9,7 @@ import {
   useDatepicker,
 } from "@navikt/ds-react";
 import { useField, useFormContext } from "@rvf/react-router";
-import { parse } from "date-fns";
+import { parse, sub } from "date-fns";
 
 import { components as orkestratorComponents } from "@/openapi/soknad-orkestrator-typer";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
@@ -43,6 +43,8 @@ const Barneskjema = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
   const datoValue = barnForm.field("fødselsdato").value();
   const fodselsdatoField = useDatepicker({
     defaultSelected: datoValue ? parse(datoValue, "yyyy-MM-dd", new Date()) : new Date(),
+    // TODO: tilfeldig valgt, men kanskje det er greit at vi ikke kan legge til veldig gamle barn
+    fromDate: sub(new Date(), { years: 20 }),
     toDate: new Date(),
     onDateChange: (date: Date | undefined) => {
       if (date) {
