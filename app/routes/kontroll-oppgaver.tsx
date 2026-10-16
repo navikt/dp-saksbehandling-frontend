@@ -10,7 +10,6 @@ import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
-import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import {
   renderOppgaveArsakTags,
   renderTags,
@@ -28,7 +27,6 @@ import {
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const kontrollOppgaverDefaultParams = [
-  { key: "tilstand", value: "UNDER_KONTROLL" },
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
@@ -75,7 +73,6 @@ export default function KontrollOppgaver() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
-        <SwitchFilter param="kunTildelteOppgaver">Kun mine tildelte oppgaver</SwitchFilter>
         <OppgaveFilterDato />
         <OppgaveFilterUtløstAv />
         <EmneknaggFilter />

@@ -51,6 +51,14 @@ export function HeaderMeny({ saksbehandler }: IProps) {
         </NavLink>
 
         <NavLink
+          to={`/kontroll-oppgaver?${convertToQueryParamString(kontrollOppgaverDefaultParams)}`}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Oppgaver til kontroll
+        </NavLink>
+        <NavLink
           to={`/mine-oppgaver?${convertToQueryParamString(mineOppgaverDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
@@ -72,15 +80,6 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Alle oppgaver
-        </NavLink>
-
-        <NavLink
-          to={`/kontroll-oppgaver?${convertToQueryParamString(kontrollOppgaverDefaultParams)}`}
-          className={({ isActive }) =>
-            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
-          }
-        >
-          Kontrolloppgaver
         </NavLink>
 
         <NavLink
