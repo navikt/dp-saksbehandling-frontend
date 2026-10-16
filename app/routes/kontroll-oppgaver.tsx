@@ -28,10 +28,10 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const kontrollOppgaverDefaultParams = [
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
+  { key: "sortering", value: "ASC" },
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
   { key: "sorteringsfelt", value: "sendttilkontroll" },
-  { key: "sortering", value: "DESC" },
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {
