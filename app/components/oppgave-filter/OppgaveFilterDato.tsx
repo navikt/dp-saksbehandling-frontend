@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
 import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
-import { maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import { maxGyldigTilOgMedDato, minGyldigFraOgMedDato } from "~/utils/dato.utils";
 
 import styles from "./OppgaveFilterDato.module.css";
 
@@ -16,6 +16,7 @@ export function OppgaveFilterDato() {
 
   const fraDato = useDatepicker({
     defaultSelected: fomDato,
+    fromDate: minGyldigFraOgMedDato(),
     toDate: tomDato,
     onDateChange: (date) => {
       updateSearchParams("fom", date ? format(date, "yyyy-MM-dd", { locale: nb }) : "");

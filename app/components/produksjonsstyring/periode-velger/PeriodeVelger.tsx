@@ -14,7 +14,11 @@ import { nb } from "date-fns/locale";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
 
-import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 
 type DateRange = {
   from: Date | undefined;
@@ -90,6 +94,7 @@ export function PeriodeVelger() {
           mode="range"
           onClose={() => setÅpen(false)}
           open={åpen}
+          fromDate={minGyldigFraOgMedDato()}
           toDate={maxGyldigTilOgMedDato()}
         >
           <Button

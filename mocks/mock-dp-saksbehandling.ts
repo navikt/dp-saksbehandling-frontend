@@ -555,7 +555,6 @@ export const mockDpSaksbehandling = [
     const body = await request.json();
     mockOppfolging.tittel = body.tittel;
     mockOppfolging.beskrivelse = body.beskrivelse;
-    mockOppfolging.frist = body.frist;
 
     return response(204).empty();
   }),
