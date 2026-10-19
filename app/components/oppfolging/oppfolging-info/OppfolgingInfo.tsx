@@ -70,12 +70,6 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
           verdi={hentOppgaveTilstandTekst(oppgave.tilstand)}
         />
 
-        <VerdiMedTittel
-          visBorder={true}
-          label="Frist"
-          verdi={oppfolging.frist ? formaterTilNorskDato(oppfolging.frist) : "Ingen frist"}
-        />
-
         {oppgave.saksbehandler && (
           <VerdiMedTittel
             visBorder={true}
