@@ -22,7 +22,9 @@ function EndretOpplysninger({ vurderinger }: IProps) {
 
   return (
     <div>
-      <Heading size={"small"}>Saksbehandlers vurderinger</Heading>
+      <Heading level="3" size={"small"}>
+        Saksbehandlers vurderinger
+      </Heading>
       {opplysningerSomSkalVises.length === 0 && (
         <BodyShort className={"pt-2"}>Ingen vurderinger</BodyShort>
       )}

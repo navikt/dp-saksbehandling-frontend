@@ -7,10 +7,9 @@ import {
   RobotSmileIcon,
   TasklistIcon,
 } from "@navikt/aksel-icons";
-import classnames from "classnames";
-import { useLocation } from "react-router";
+import { Tabs } from "@navikt/ds-react";
+import { Link as RouterLink, useLocation } from "react-router";
 
-import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { skalViseRegelsett } from "~/utils/behandling.utils";
@@ -18,33 +17,33 @@ import { isDefined } from "~/utils/type-guards";
 
 import styles from "./LinkTabs.module.css";
 
-interface IProps {
-  className?: string;
-}
-
-export function LinkTabs(props: IProps) {
+export function LinkTabs() {
   const location = useLocation();
   const { oppgaveId } = useTypeSafeParams();
   const { behandling, visArvedeOpplysninger } = useBehandling();
 
   return (
-    <nav className={props.className}>
-      <ol className={styles.container}>
-        {getTabs(oppgaveId, behandling, visArvedeOpplysninger).map((tab) => (
-          <li key={tab.url}>
-            <LoadingLink
+    <nav className="min-w-0 flex-1">
+      <Tabs value={location.pathname} size="small">
+        <Tabs.List>
+          {getTabs(oppgaveId, behandling, visArvedeOpplysninger).map((tab) => (
+            <Tabs.Tab
+              as={RouterLink}
               to={`${tab.url}`}
-              className={classnames(styles.lenke, {
-                [styles.lenkeAktiv]: location.pathname === tab.url,
-              })}
-            >
-              {tab.icon}
-              {tab.label}
-              {tab.suffix}
-            </LoadingLink>
-          </li>
-        ))}
-      </ol>
+              key={tab.url}
+              value={tab.url}
+              className="whitespace-nowrap"
+              icon={tab.icon}
+              label={
+                <>
+                  {tab.label}
+                  {tab.suffix}
+                </>
+              }
+            />
+          ))}
+        </Tabs.List>
+      </Tabs>
     </nav>
   );
 }

@@ -22,6 +22,7 @@ export function OppgaveMeny() {
         <ActionMenu>
           <ActionMenu.Trigger>
             <Button
+              className="shrink-0"
               variant="secondary"
               size={"small"}
               icon={<ChevronDownIcon aria-hidden />}

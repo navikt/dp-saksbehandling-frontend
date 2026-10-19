@@ -26,7 +26,7 @@ export default function BehandlingLayout() {
         <main>
           <div className={"card p-4"}>
             <div className="flex justify-between gap-6">
-              <LinkTabs className="flex-1" />
+              <LinkTabs />
               <OppgaveMeny />
             </div>
             <div className="mt-4">

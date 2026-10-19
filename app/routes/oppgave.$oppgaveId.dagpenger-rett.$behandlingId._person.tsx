@@ -36,22 +36,24 @@ export default function BehandlingLayout() {
   return (
     <BeslutterNotatProvider notat={oppgave.notat}>
       <BehandlingProvider behandling={behandling} forrigeBehandling={forrigeBehandling}>
-        <div className="grid grid-cols-[minmax(0,1fr)_20vw] gap-4">
+        <div className="grid grid-cols-[minmax(0,1fr)_300px] gap-4">
           <div className="">
             <Outlet />
           </div>
-          <aside aria-label="Sidepanel" className="card flex min-w-0 flex-col gap-4 p-4">
-            <Avklaringer avklaringer={behandling.avklaringer} />
-            {isPending && <Loader size="large" title="Henter vurderinger" />}
-            {error && (
-              <Alert variant="error">
-                <Heading size="small">Kunne ikke hente vurderinger</Heading>
-                <p>{error.message}</p>
-              </Alert>
-            )}
-            {vurderinger && <EndretOpplysninger vurderinger={vurderinger} />}
+          <aside aria-label="Sidepanel" className="flex min-w-0 flex-col gap-4">
+            <div className="card flex min-w-0 flex-col gap-4 p-4">
+              <Avklaringer avklaringer={behandling.avklaringer} />
+              {isPending && <Loader size="large" title="Henter vurderinger" />}
+              {error && (
+                <Alert variant="error">
+                  <Heading size="small">Kunne ikke hente vurderinger</Heading>
+                  <p>{error.message}</p>
+                </Alert>
+              )}
+              {vurderinger && <EndretOpplysninger vurderinger={vurderinger} />}
+            </div>
             {underKontroll && (
-              <div>
+              <div className="card p-4">
                 <Heading className="pb-2" size="small">
                   Kontroll
                 </Heading>
