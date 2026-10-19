@@ -4,7 +4,6 @@ import {
   ExclamationmarkTriangleFillIcon,
   GavelSoundBlockIcon,
   ParagraphIcon,
-  PersonPencilIcon,
   RobotSmileIcon,
   TasklistIcon,
 } from "@navikt/aksel-icons";
@@ -69,9 +68,6 @@ function getTabs(
 
   const erFerietillegg = behandling.behandletHendelse.type === "Ferietillegg";
 
-  const antallAvklaringer = behandling.avklaringer.filter(
-    (avklaring) => avklaring.status === "Åpen",
-  ).length;
   const erTilBeslutning = behandling.tilstand === "TilBeslutning";
 
   return [
@@ -82,12 +78,6 @@ function getTabs(
           icon: <GavelSoundBlockIcon aria-hidden />,
         }
       : undefined,
-    {
-      url: `${baseUrl}/avklaringer`,
-      label: "Avklaringer og vurderinger",
-      icon: <PersonPencilIcon aria-hidden />,
-      suffix: hentSuffixForAvklaringer(antallAvklaringer, erTilBeslutning),
-    },
     {
       url: `${baseUrl}/vilkar`,
       label: "Vilkårsvurderinger",
@@ -128,15 +118,4 @@ function getTabs(
     //     }
     //   : undefined,
   ].filter(isDefined);
-}
-
-function hentSuffixForAvklaringer(antall: number, erTilBeslutning: boolean) {
-  if (antall > 0 && !erTilBeslutning) {
-    return <span className={styles.antallAvklaringer}>{antall}</span>;
-  }
-
-  if (erTilBeslutning) {
-    return <ExclamationmarkTriangleFillIcon className={styles.advarsel} aria-hidden />;
-  }
-  return null;
 }

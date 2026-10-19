@@ -15,7 +15,7 @@ export function Avklaringer({ avklaringer }: IProps) {
   );
 
   return (
-    <div className={"card p-4"}>
+    <div>
       <Heading size={"small"}> Hva som må sjekkes</Heading>
 
       {avklaringerSomGjelder.length === 0 && <BodyShort>Det er ingen avklaringer</BodyShort>}
