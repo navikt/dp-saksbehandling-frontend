@@ -4,7 +4,7 @@ import { add, sub } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
@@ -54,12 +54,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     defaultSelected: props.periode.gyldigFraOgMed
       ? new Date(props.periode.gyldigFraOgMed)
       : undefined,
-    // Tidligste gylding fra og med dato er forrige periode sin til og med dato + 1 dag
+    // Tidligste gyldig fra og med dato er forrige periode sin til og med dato + 1 dag
     fromDate:
       forrigePeriodeTilOgMedDato && !ubegrensetFromDate
         ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
         : undefined,
-    toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : undefined,
+    toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : maxGyldigTilOgMedDato(),
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
       periodeForm.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
@@ -83,10 +83,10 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       ? new Date(props.periode.gyldigTilOgMed)
       : undefined,
     fromDate: datepickerFraOgMed.selectedDay ? datepickerFraOgMed.selectedDay : undefined,
-    // Seneste gylding til og med dato er neste periode sin fra og med dato - 1 dag
+    // Seneste gyldig til og med dato er neste periode sin fra og med dato - 1 dag
     toDate: nestePeriodeFraOgMedDato
       ? sub(new Date(nestePeriodeFraOgMedDato), { days: 1 })
-      : undefined,
+      : maxGyldigTilOgMedDato(),
 
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
