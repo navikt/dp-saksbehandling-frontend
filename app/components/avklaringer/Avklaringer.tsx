@@ -15,8 +15,10 @@ export function Avklaringer({ avklaringer }: IProps) {
   );
 
   return (
-    <div className={"card p-4"}>
-      <Heading size={"small"}> Hva som må sjekkes</Heading>
+    <div>
+      <Heading level="3" size={"small"}>
+        Avklaringer
+      </Heading>
 
       {avklaringerSomGjelder.length === 0 && <BodyShort>Det er ingen avklaringer</BodyShort>}
       <div className={"mt-2 flex flex-col gap-2"}>
