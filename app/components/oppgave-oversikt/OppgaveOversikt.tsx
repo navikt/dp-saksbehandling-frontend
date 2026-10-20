@@ -41,12 +41,13 @@ import { NoteButton, NoteModal } from "../note-button/NoteButton";
 interface IProps {
   klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
   opprettetAv?: behandlingComponents["schemas"]["Oppretter"];
+  visKontroll?: boolean;
 }
 
 export function OppgaveOversikt(props: IProps) {
   const [visHuskelapp, setVisHuskelapp] = useState(false);
   const location = useLocation();
-  const [erLukket, setErLukket] = useState(false);
+  const [erLukket, setErLukket] = useState(true);
   const { oppgave, underKontroll } = useOppgave();
 
   const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
@@ -83,7 +84,7 @@ export function OppgaveOversikt(props: IProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-full min-h-0">
       {visHuskelapp && (
         <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
       )}
@@ -91,11 +92,11 @@ export function OppgaveOversikt(props: IProps) {
         {!erLukket && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 350, opacity: 1 }}
+            animate={{ width: 310, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <aside className={"flex flex-col gap-4"}>
+            <aside className="flex max-h-full flex-col gap-4 overflow-y-auto overscroll-contain">
               <div className={"card flex flex-col gap-4 p-4"}>
                 <div className="flex items-center gap-2">
                   <Heading size={"small"}>Oppgaveinformasjon</Heading>
@@ -259,7 +260,7 @@ export function OppgaveOversikt(props: IProps) {
                 </div>
               </div>
 
-              {underKontroll && (
+              {underKontroll && props.visKontroll !== false && (
                 <div className={"card p-4"}>
                   <Heading className={"pb-2"} size={"small"}>
                     Kontroll
@@ -310,7 +311,7 @@ export function OppgaveOversikt(props: IProps) {
         className="absolute top-4"
         initial={false}
         animate={{
-          right: erLukket ? -12 : -6,
+          right: erLukket ? -12 : -10,
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
       >

@@ -81,6 +81,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/person/{personId}/meldedato": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Henter meldedato for en gitt person */
+        get: operations["get-person-meldedato"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/arbeidssokerperioder/{personId}": {
         parameters: {
             query?: never;
@@ -119,6 +136,10 @@ export interface components {
         PersonSoknadInnsendtTidspunktResponse: {
             /** Format: date-time */
             innsendtTidspunkt: string;
+        };
+        MeldedatoResponse: {
+            /** Format: date */
+            meldedato: string;
         };
         PersonStatus: {
             ident: string;
@@ -300,6 +321,36 @@ export interface operations {
                 content?: never;
             };
             /** @description Hvis bruker med oppgitt ident ikke eksisterer eller hvis oppgitt søknad ikke eksisterer */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "get-person-meldedato": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description personId til personen du vil hente meldedato for */
+                personId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeldedatoResponse"];
+                };
+            };
+            /** @description Hvis bruker med oppgitt personId ikke eksisterer */
             404: {
                 headers: {
                     [name: string]: unknown;

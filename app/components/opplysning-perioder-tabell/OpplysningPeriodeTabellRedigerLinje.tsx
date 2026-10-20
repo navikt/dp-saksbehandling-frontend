@@ -4,7 +4,11 @@ import { add, sub } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
-import { formaterTilNorskDato, minGyldigFraOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
@@ -60,7 +64,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       : forrigePeriodeTilOgMedDato
         ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
         : minGyldigFraOgMedDato(),
-    toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : undefined,
+    toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : maxGyldigTilOgMedDato(),
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
       periodeForm.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
@@ -87,7 +91,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     // Seneste gylding til og med dato er neste periode sin fra og med dato - 1 dag
     toDate: nestePeriodeFraOgMedDato
       ? sub(new Date(nestePeriodeFraOgMedDato), { days: 1 })
-      : undefined,
+      : maxGyldigTilOgMedDato(),
 
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();

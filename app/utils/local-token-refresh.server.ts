@@ -30,9 +30,10 @@ async function hentTokenMedInnloggingscookie(audienceUrl: string): Promise<strin
 
   const response = await fetch(audienceUrl, {
     headers: { Cookie: `io.nais.wonderwall.session=${cookie}` },
+    redirect: "manual",
   });
 
-  if (!response.ok) {
+  if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) {
     throw new Error(
       `Klarte ikke fornye lokalt token (status ${response.status}). Innloggingen din har sannsynligvis utløpt, kjør \`pnpm generate-token\` på nytt.`,
     );
@@ -86,13 +87,9 @@ function fornyAlleTokens(): Promise<void> {
         process.env[env] = await hentTokenMedInnloggingscookie(url);
       }),
     );
-  })();
+  })().finally(() => {
+    pågåendeRefreshAlle = null;
+  });
 
-  try {
-    return pågåendeRefreshAlle;
-  } finally {
-    pågåendeRefreshAlle.finally(() => {
-      pågåendeRefreshAlle = null;
-    });
-  }
+  return pågåendeRefreshAlle;
 }
