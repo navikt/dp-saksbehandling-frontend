@@ -1,25 +1,12 @@
-import { Detail, Heading, Skeleton } from "@navikt/ds-react";
-import { differenceInCalendarDays } from "date-fns";
+import { Detail, Heading } from "@navikt/ds-react";
 import omit from "lodash/omit";
 import { useState } from "react";
 
 import { GenericTable, type TableColumn } from "~/components/generic-table/GenericTable";
-import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
-import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
-import {
-  renderOppgaveArsakTags,
-  renderTags,
-  tagsInCategory,
-} from "~/components/oppgave-table/oppgave-table.utils";
+import { NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveTablePaginering } from "~/components/oppgave-table/OppgaveTablePaginering";
+import { renderOppgaveKolonne } from "~/components/oppgave-table/render-oppgave-kolonne";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
-import {
-  hentFargevariantForSøknadsresultat,
-  hentOppgaveTilstandTekst,
-  hentUtløstAvTekstForVisning,
-} from "~/utils/tekst.utils";
 
 import type { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveTable.module.css";
@@ -64,7 +51,6 @@ export function OppgaveTable({
 }: OppgaveTableProps) {
   const [selectedNoteKey, setSelectedNoteKey] = useState<string>();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
-  const detailAs = henterOppgaver ? Skeleton : "p";
   const visibleColumns = omit(columns, excludedColumns) as Record<TableColumnKey, TableColumn>;
 
   return (
@@ -91,76 +77,15 @@ export function OppgaveTable({
         defaultColumn="tidspunktOpprettet"
         emptyMessage="Fant ingen oppgaver"
       >
-        {(columnKey, value) => {
-          switch (columnKey) {
-            case "tidspunktOpprettet":
-              return (
-                <Detail textColor="subtle" as={detailAs}>
-                  {formaterTilNorskDato(value.tidspunktOpprettet)}
-                </Detail>
-              );
-            case "utlostAv":
-              return (
-                <Detail as={detailAs} className="flex items-center gap-2">
-                  {hentUtløstAvTekstForVisning(value.utlostAv, true)}
-                  {renderTags(tagsInCategory(value, "GJENOPPTAK"), () => "neutral", henterOppgaver)}
-                </Detail>
-              );
-            case "rettighet":
-              return (
-                <Detail as={detailAs} className="flex flex-wrap gap-2">
-                  {tagsInCategory(value, "RETTIGHET")
-                    .map((tag) => tag.visningsnavn)
-                    .join(", ")}
-                </Detail>
-              );
-            case "personIdent":
-              return (
-                <Detail as={detailAs}>
-                  {skjulSensitiveOpplysninger ? maskerVerdi(value.personIdent) : value.personIdent}
-                </Detail>
-              );
-            case "tilstand":
-              return (
-                <Detail as={detailAs} className="flex gap-2 whitespace-nowrap">
-                  {hentOppgaveTilstandTekst(value.tilstand)}
-                </Detail>
-              );
-            case "utsattTilDato": {
-              if (value.tilstand !== "PAA_VENT" || !value.utsattTilDato) return null;
-              const dager = differenceInCalendarDays(value.utsattTilDato, new Date());
-              return (
-                <Detail as={detailAs}>{`${dager} ${dager === 1 ? "dag" : "dager"} igjen`}</Detail>
-              );
-            }
-            case "utfall":
-              return renderTags(
-                tagsInCategory(value, "SOKNADSRESULTAT"),
-                (tag) => hentFargevariantForSøknadsresultat(tag.visningsnavn),
-                henterOppgaver,
-              );
-            case "arsak":
-              return (
-                <div className="flex flex-wrap gap-2">
-                  {renderOppgaveArsakTags(value, henterOppgaver)}
-                </div>
-              );
-            case "saksbehandler":
-              return <Detail as={detailAs}>{value.saksbehandlerIdent ?? "Ikke tildelt"}</Detail>;
-            case "beslutter":
-              return <Detail as={detailAs}>{value.beslutterIdent ?? "Ikke tildelt"}</Detail>;
-            case "notat":
-              return (
-                <NoteButton
-                  oppgaveTilstand={value.tilstand}
-                  noteKey={value.oppgaveId}
-                  onClick={() => setSelectedNoteKey(value.oppgaveId)}
-                />
-              );
-            case "valg":
-              return <ListeOppgaveMeny listeOppgave={value} />;
-          }
-        }}
+        {(columnKey, value) =>
+          renderOppgaveKolonne(
+            columnKey,
+            value,
+            henterOppgaver,
+            setSelectedNoteKey,
+            skjulSensitiveOpplysninger,
+          )
+        }
       </GenericTable>
       <OppgaveTablePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       {selectedNoteKey && (

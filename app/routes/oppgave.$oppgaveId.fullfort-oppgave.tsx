@@ -17,7 +17,8 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { Kaffepause } from "~/components/kaffepause/Kaffepause";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
+import { useAktivOppgavelisteSok, useAktivOppgavelisteUrl } from "~/hooks/useAktivOppgaveliste";
+import { useAktivtOppgaveSokKilde } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useOppgave } from "~/hooks/useOppgave";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -49,7 +50,9 @@ export default function NesteOppgave() {
   const { oppgave } = useOppgave();
   const [kaffepause, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
-  const aktivtOppgaveSok = useAktivtOppgaveSok();
+  const aktivtOppgaveSok = useAktivOppgavelisteSok();
+  const kilde = useAktivtOppgaveSokKilde();
+  const oppgavelisteUrl = useAktivOppgavelisteUrl();
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -64,6 +67,7 @@ export default function NesteOppgave() {
         <Form method="post" className={"flex flex-col items-center"}>
           <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
           <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
+          {kilde && <input name="kilde" value={kilde} hidden={true} readOnly={true} />}
           <Button
             className={"w-max"}
             variant="primary"
@@ -76,7 +80,7 @@ export default function NesteOppgave() {
         </Form>
 
         <div className="flex gap-6">
-          <LoadingLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+          <LoadingLink asButtonVariant={"secondary"} to={oppgavelisteUrl}>
             Gå til oppgaveliste
           </LoadingLink>
           <LoadingLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>

@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { z } from "zod";
 
 import { useLeggTilbakeOppgaveMutation } from "~/api/oppgave-hooks";
+import { useAktivOppgavelisteUrl } from "~/hooks/useAktivOppgaveliste";
 import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { hentTekstForLeggTilbakeÅrsak } from "~/utils/tekst.utils";
 
@@ -22,6 +23,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
   const params = useParams();
   const navigate = useNavigate();
   const aktivtOppgaveSok = useAktivtOppgaveSok();
+  const oppgavelisteUrl = useAktivOppgavelisteUrl();
 
   const { mutate, isPending } = useLeggTilbakeOppgaveMutation();
 
@@ -43,7 +45,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
           onSuccess: () => {
             // If returning the task being viewed, redirect to the list
             if (params.oppgaveId === oppgave.oppgaveId && aktivtOppgaveSok) {
-              navigate(`/?${aktivtOppgaveSok}`);
+              navigate(oppgavelisteUrl);
             }
             // Close modal
             modalRef.current?.close();
