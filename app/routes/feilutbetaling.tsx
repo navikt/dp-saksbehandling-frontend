@@ -3,7 +3,6 @@ import { Button, Detail, Heading } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import {
   type ActionFunctionArgs,
-  Form,
   type LoaderFunctionArgs,
   redirect,
   useSearchParams,
@@ -19,6 +18,7 @@ import tableStyles from "~/components/oppgave-table/OppgaveTable.module.css";
 import { OppgaveTablePaginering } from "~/components/oppgave-table/OppgaveTablePaginering";
 import { renderOppgaveKolonne } from "~/components/oppgave-table/render-oppgave-kolonne";
 import { setOppgavelisteKilde } from "~/hooks/useAktivtOppgaveSok";
+import { useHentNesteOppgave } from "~/hooks/useHentNesteOppgave";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
@@ -84,6 +84,10 @@ export default function Feilutbetaling() {
   const [searchParams] = useSearchParams();
   const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(searchParams);
   const [selectedNoteKey, setSelectedNoteKey] = useState<string>();
+  const { hentNesteOppgave, henterNesteOppgave } = useHentNesteOppgave(
+    searchParams.toString(),
+    "feilutbetaling",
+  );
 
   useEffect(() => {
     setOppgavelisteKilde("feilutbetaling");
@@ -98,20 +102,17 @@ export default function Feilutbetaling() {
       </nav>
 
       <main>
-        <Form method="post" className="mb-2">
-          <input hidden readOnly name="_action" value="hent-neste-oppgave" />
-          <input hidden readOnly name="aktivtOppgaveSok" value={searchParams.toString()} />
-          <input hidden readOnly name="kilde" value="feilutbetaling" />
+        <div className="mb-2">
           <Button
             variant="primary"
             size="small"
-            type="submit"
-            loading={isFetching}
-            disabled={isFetching}
+            onClick={hentNesteOppgave}
+            loading={isFetching || henterNesteOppgave}
+            disabled={isFetching || henterNesteOppgave}
           >
             Neste oppgave
           </Button>
-        </Form>
+        </div>
         <div className="card">
           <div className="flex flex-col p-4">
             <div className={tableStyles.oppgavelisteHeader}>
