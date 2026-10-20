@@ -18,7 +18,11 @@ import {
   BEREGNINGSREGEL_OPPLYSNINGER,
   endreBeregningsregelSkjema,
 } from "~/utils/beregningsregel.utils";
-import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 
 interface Props {
   behandlingId: string;
@@ -47,6 +51,7 @@ export function EndreBeregningsregelModal({
   });
   const datepicker = useDatepicker({
     defaultSelected: sistePrøvingsdato,
+    fromDate: minGyldigFraOgMedDato(),
     onDateChange: (dato) => {
       form.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : "");
       form.field("gyldigFraOgMed").clearError();

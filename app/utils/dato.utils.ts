@@ -57,6 +57,11 @@ export function formaterTilBackendDato(inputDato: Date | string, medKlokkeslett?
   return format(dato, "yyyy-MM-dd", { locale: nb });
 }
 
+export function minGyldigFraOgMedDato() {
+  // kunne vært en const, men det er digg å kunne endre logikk her ved behov uten å endre på funksjonskall
+  return new Date(2013, 0, 1);
+}
+
 export function maxGyldigTilOgMedDato() {
   return new Date(new Date().getFullYear() + 2, 11, 31);
 }

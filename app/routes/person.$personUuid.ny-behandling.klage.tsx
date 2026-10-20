@@ -6,7 +6,11 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
+import {
+  formaterTilBackendDato,
+  formaterTilNorskDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
 
@@ -36,6 +40,7 @@ export default function Oppgave() {
   const opprettetDatoField = klageForm.field("opprettetDato");
   const opprettetDatoValue = opprettetDatoField.value();
   const { datepickerProps, inputProps } = useDatepicker({
+    fromDate: minGyldigFraOgMedDato(),
     toDate: new Date(),
     defaultSelected: opprettetDatoValue
       ? new Date(formaterTilBackendDato(opprettetDatoValue))

@@ -4,7 +4,11 @@ import { add, sub } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
-import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
@@ -54,11 +58,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     defaultSelected: props.periode.gyldigFraOgMed
       ? new Date(props.periode.gyldigFraOgMed)
       : undefined,
-    // Tidligste gyldig fra og med dato er forrige periode sin til og med dato + 1 dag
-    fromDate:
-      forrigePeriodeTilOgMedDato && !ubegrensetFromDate
+    // Tidligste gylding fra og med dato er forrige periode sin til og med dato + 1 dag
+    fromDate: ubegrensetFromDate
+      ? undefined
+      : forrigePeriodeTilOgMedDato
         ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
-        : undefined,
+        : minGyldigFraOgMedDato(),
     toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : maxGyldigTilOgMedDato(),
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
@@ -82,8 +87,8 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     defaultSelected: props.periode.gyldigTilOgMed
       ? new Date(props.periode.gyldigTilOgMed)
       : undefined,
-    fromDate: datepickerFraOgMed.selectedDay ? datepickerFraOgMed.selectedDay : undefined,
-    // Seneste gyldig til og med dato er neste periode sin fra og med dato - 1 dag
+    fromDate: datepickerFraOgMed.selectedDay ?? minGyldigFraOgMedDato(),
+    // Seneste gylding til og med dato er neste periode sin fra og med dato - 1 dag
     toDate: nestePeriodeFraOgMedDato
       ? sub(new Date(nestePeriodeFraOgMedDato), { days: 1 })
       : maxGyldigTilOgMedDato(),

@@ -4,7 +4,11 @@ import { isSameDay } from "date-fns";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
-import { formaterTilNorskDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilNorskDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
@@ -51,6 +55,7 @@ export function PrøvingsdatoInput() {
         prøvingsdatoSkjema.field("gyldigFraOgMed").setValue(undefined);
       }
     },
+    fromDate: minGyldigFraOgMedDato(),
     toDate: maxGyldigTilOgMedDato(),
   });
 

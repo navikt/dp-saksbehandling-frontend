@@ -4,7 +4,11 @@ import { useLoaderData } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
 import { loader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person.regelsett.$regelsettId.opplysning.$opplysningId.barneliste.ny";
-import { formaterTilBackendDato, maxGyldigTilOgMedDato } from "~/utils/dato.utils";
+import {
+  formaterTilBackendDato,
+  maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
+} from "~/utils/dato.utils";
 import { boolToStringbool, hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 import { LoadingLink } from "../loading-link/LoadingLink";
@@ -52,6 +56,7 @@ const BarnelisteSkjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Pr
   });
 
   const gyldigFraOgMedDatepicker = useDatepicker({
+    fromDate: minGyldigFraOgMedDato(),
     onDateChange: (date: Date | undefined) => {
       if (date) {
         const dato = formaterTilBackendDato(date);

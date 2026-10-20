@@ -5,6 +5,7 @@ import {
   formaterTilBackendDato,
   formaterTilNorskDato,
   maxGyldigTilOgMedDato,
+  minGyldigFraOgMedDato,
 } from "~/utils/dato.utils";
 import { gyldigeNyOppfølgingÅrsaker } from "~/utils/validering.util";
 
@@ -21,6 +22,7 @@ export function NyOppfolgingFelter({ form }: { form: FormApi }) {
         fristField.setValue(formaterTilNorskDato(date));
       }
     },
+    fromDate: minGyldigFraOgMedDato(),
     toDate: maxGyldigTilOgMedDato(),
   });
 
