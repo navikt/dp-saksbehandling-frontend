@@ -24,7 +24,7 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const feilutbetalingDefaultParams = [
-  { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
+  { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
   { key: "utlostAv", value: "TILBAKEKREVING" },
   { key: "sortering", value: "DESC" },
   { key: "side", value: "1" },
