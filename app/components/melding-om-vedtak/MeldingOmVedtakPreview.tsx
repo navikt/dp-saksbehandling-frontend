@@ -17,7 +17,7 @@ export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
     if (containerRef.current) {
       containerRef.current.innerHTML = skjulSensitiveOpplysninger ? maskerSensitivHtml(html) : html;
     }
-  }, [skjulSensitiveOpplysninger]);
+  }, [html, skjulSensitiveOpplysninger]);
 
   useEffect(() => {
     if (!containerRef.current) {

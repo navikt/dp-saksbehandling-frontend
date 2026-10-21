@@ -1,79 +1,29 @@
-import { Radio, RadioGroup } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
-import { Form } from "react-router";
-
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
-import { UtvidedeBeskrivelser } from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useOppgave } from "~/hooks/useOppgave";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { isAlert } from "~/utils/type-guards";
-import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
+import { MeldingOmVedtakDPSak } from "../melding-om-vedtak/MeldingOmVedtakDPSak";
 import { OppgaveValgFerdigstillKlage } from "../oppgave-valg/OppgaveValgFerdigstillKlage";
 import styles from "./MeldingOmVedtakKlage.module.css";
 
 export function MeldingOmVedtakKlage() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave } = useOppgave();
+  const { oppgave, readonly } = useOppgave();
   const { utvidedeBeskrivelser, meldingOmVedtak } = useMeldingOmVedtak();
-
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
-  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
-
-  const endreBrevVariantForm = useForm({
-    method: "post",
-    schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
-    defaultValues: {
-      _action: "lagre-brev-variant",
-      oppgaveId: oppgave.oppgaveId,
-      brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
-    },
-  });
 
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
-        <MeldingOmVedtakKilde readOnly={readOnly} oppgave={oppgave} />
-        {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
-          <>
-            <hr className="border-(--ax-border-neutral-subtle)" />
-
-            <Form {...endreBrevVariantForm.getFormProps()}>
-              <input name={"_action"} value={"lagre-brev-variant"} hidden={true} readOnly={true} />
-              <input
-                hidden={true}
-                readOnly={true}
-                {...endreBrevVariantForm.field("oppgaveId").getInputProps()}
-              />
-
-              <RadioGroup
-                {...endreBrevVariantForm.field("brevVariant").getInputProps()}
-                size={"small"}
-                legend="Variant"
-                readOnly={readOnly}
-                onChange={() => endreBrevVariantForm.submit()}
-              >
-                <Radio value="GENERERT">Standardisert tekst</Radio>
-                <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
-              </RadioGroup>
-            </Form>
-
-            {utvidedeBeskrivelser.length > 0 && (
-              <hr className="border-(--ax-border-neutral-subtle)" />
-            )}
-
-            {!isAlert(meldingOmVedtak) && <UtvidedeBeskrivelser readOnly={readOnly} />}
-          </>
-        )}
+        <MeldingOmVedtakKilde readOnly={readonly} oppgave={oppgave} />
+        {oppgave.meldingOmVedtakKilde === "DP_SAK" && <MeldingOmVedtakDPSak />}
         <OppgaveValgFerdigstillKlage
           oppgave={oppgave}
           buttonSize="small"
           buttonVariant="primary"
           className=" "
-          readOnly={readOnly}
+          readOnly={readonly}
         />
       </div>
 
