@@ -1,29 +1,26 @@
 import { LayersIcon } from "@navikt/aksel-icons";
-import { Detail, Heading, Skeleton } from "@navikt/ds-react";
-import { useState } from "react";
-import { type LoaderFunctionArgs, redirect, useSearchParams } from "react-router";
+import { Button, Detail, Heading } from "@navikt/ds-react";
+import { useEffect, useState } from "react";
+import {
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  redirect,
+  useSearchParams,
+} from "react-router";
 
 import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import { GenericTable, type TableColumn } from "~/components/generic-table/GenericTable";
-import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
-import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
+import { NoteModal } from "~/components/note-button/NoteButton";
 import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
-import {
-  renderOppgaveArsakTags,
-  renderTags,
-  tagsInCategory,
-} from "~/components/oppgave-table/oppgave-table.utils";
 import tableStyles from "~/components/oppgave-table/OppgaveTable.module.css";
 import { OppgaveTablePaginering } from "~/components/oppgave-table/OppgaveTablePaginering";
+import { renderOppgaveKolonne } from "~/components/oppgave-table/render-oppgave-kolonne";
+import { setOppgavelisteKilde } from "~/hooks/useAktivtOppgaveSok";
+import { useHentNesteOppgave } from "~/hooks/useHentNesteOppgave";
 import styles from "~/route-styles/index.module.css";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
-import {
-  hentFargevariantForSøknadsresultat,
-  hentOppgaveTilstandTekst,
-  hentUtløstAvTekstForVisning,
-} from "~/utils/tekst.utils";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const kontrollOppgaverDefaultParams = [
@@ -33,6 +30,10 @@ export const kontrollOppgaverDefaultParams = [
   { key: "antallOppgaver", value: "50" },
   { key: "sorteringsfelt", value: "sendttilkontroll" },
 ];
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -69,7 +70,15 @@ export default function KontrollOppgaver() {
   const [searchParams] = useSearchParams();
   const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(searchParams);
   const [selectedNoteKey, setSelectedNoteKey] = useState<string>();
-  const detailAs = isFetching ? Skeleton : "p";
+  const { hentNesteOppgave, henterNesteOppgave } = useHentNesteOppgave(
+    searchParams.toString(),
+    "kontroll",
+  );
+
+  useEffect(() => {
+    setOppgavelisteKilde("kontroll");
+  }, []);
+
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
@@ -79,6 +88,17 @@ export default function KontrollOppgaver() {
       </nav>
 
       <main>
+        <div className="mb-2">
+          <Button
+            variant="primary"
+            size="small"
+            onClick={hentNesteOppgave}
+            loading={isFetching || henterNesteOppgave}
+            disabled={isFetching || henterNesteOppgave}
+          >
+            Neste oppgave
+          </Button>
+        </div>
         <div className={"card"}>
           <div className="flex flex-col p-4">
             <div className={tableStyles.oppgavelisteHeader}>
@@ -99,75 +119,9 @@ export default function KontrollOppgaver() {
               defaultColumn="sendtTilKontroll"
               emptyMessage="Fant ingen oppgaver"
             >
-              {(columnKey, value) => {
-                switch (columnKey) {
-                  case "tidspunktOpprettet":
-                    return (
-                      <Detail textColor="subtle" as={detailAs}>
-                        {formaterTilNorskDato(value.tidspunktOpprettet)}
-                      </Detail>
-                    );
-                  case "sendtTilKontroll":
-                    return (
-                      <Detail as={detailAs}>
-                        {value.sendtTilKontroll
-                          ? formaterTilNorskDato(value.sendtTilKontroll)
-                          : "N/A"}
-                      </Detail>
-                    );
-                  case "utlostAv":
-                    return (
-                      <Detail as={detailAs} className="flex items-center gap-2">
-                        {hentUtløstAvTekstForVisning(value.utlostAv, true)}
-                        {renderTags(
-                          tagsInCategory(value, "GJENOPPTAK"),
-                          () => "neutral",
-                          isFetching,
-                        )}
-                      </Detail>
-                    );
-                  case "rettighet":
-                    return (
-                      <Detail as={detailAs}>
-                        {tagsInCategory(value, "RETTIGHET")
-                          .map((tag) => tag.visningsnavn)
-                          .join(", ")}
-                      </Detail>
-                    );
-                  case "tilstand":
-                    return (
-                      <Detail as={detailAs}>{hentOppgaveTilstandTekst(value.tilstand)}</Detail>
-                    );
-                  case "utfall":
-                    return renderTags(
-                      tagsInCategory(value, "SOKNADSRESULTAT"),
-                      (tag) => hentFargevariantForSøknadsresultat(tag.visningsnavn),
-                      isFetching,
-                    );
-                  case "arsak":
-                    return (
-                      <div className="flex flex-wrap gap-2">
-                        {renderOppgaveArsakTags(value, isFetching)}
-                      </div>
-                    );
-                  case "saksbehandler":
-                    return (
-                      <Detail as={detailAs}>{value.saksbehandlerIdent ?? "Ikke tildelt"}</Detail>
-                    );
-                  case "beslutter":
-                    return <Detail as={detailAs}>{value.beslutterIdent ?? "Ikke tildelt"}</Detail>;
-                  case "notat":
-                    return (
-                      <NoteButton
-                        oppgaveTilstand={value.tilstand}
-                        noteKey={value.oppgaveId}
-                        onClick={() => setSelectedNoteKey(value.oppgaveId)}
-                      />
-                    );
-                  case "valg":
-                    return <ListeOppgaveMeny listeOppgave={value} />;
-                }
-              }}
+              {(columnKey, value) =>
+                renderOppgaveKolonne(columnKey, value, isFetching, setSelectedNoteKey)
+              }
             </GenericTable>
             <OppgaveTablePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
             {selectedNoteKey && (

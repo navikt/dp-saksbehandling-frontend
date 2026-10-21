@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import {
   ActionFunctionArgs,
   data,
-  Form,
   LoaderFunctionArgs,
   redirect,
   useActionData,
@@ -22,6 +21,7 @@ import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
 import { setAktivtOppgaveSok, useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useHentNesteOppgave } from "~/hooks/useHentNesteOppgave";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -72,6 +72,7 @@ export default function Saksbehandling() {
   const [searchParams, setSearchParams] = useSearchParams();
   const aktivtOppgaveSok = useAktivtOppgaveSok();
   const actionData = useActionData<typeof action>();
+  const { hentNesteOppgave, henterNesteOppgave } = useHentNesteOppgave(aktivtOppgaveSok);
   const { alert, search } = useLoaderData<typeof loader>();
   const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
@@ -123,19 +124,17 @@ export default function Saksbehandling() {
       </nav>
 
       <main>
-        <Form method="post" className={"mb-2"}>
-          <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
-          <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
+        <div className={"mb-2"}>
           <Button
             variant="primary"
             size="small"
-            type="submit"
-            loading={isFetching}
-            disabled={isFetching}
+            onClick={hentNesteOppgave}
+            loading={isFetching || henterNesteOppgave}
+            disabled={isFetching || henterNesteOppgave}
           >
             Neste oppgave
           </Button>
-        </Form>
+        </div>
 
         <div className={"card"}>
           <OppgaveTable

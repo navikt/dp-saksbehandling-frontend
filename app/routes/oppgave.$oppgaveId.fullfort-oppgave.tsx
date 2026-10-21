@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
-  Form,
   LoaderFunctionArgs,
   useActionData,
   useLoaderData,
@@ -17,8 +16,10 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { Kaffepause } from "~/components/kaffepause/Kaffepause";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
+import { useAktivOppgavelisteSok, useAktivOppgavelisteUrl } from "~/hooks/useAktivOppgaveliste";
+import { useAktivtOppgaveSokKilde } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useHentNesteOppgave } from "~/hooks/useHentNesteOppgave";
 import { useOppgave } from "~/hooks/useOppgave";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -49,7 +50,11 @@ export default function NesteOppgave() {
   const { oppgave } = useOppgave();
   const [kaffepause, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
-  const aktivtOppgaveSok = useAktivtOppgaveSok();
+  const aktivtOppgaveSok = useAktivOppgavelisteSok();
+  const kilde = useAktivtOppgaveSokKilde();
+  const oppgavelisteUrl = useAktivOppgavelisteUrl();
+  const { hentNesteOppgave, henterNesteOppgave } = useHentNesteOppgave(aktivtOppgaveSok, kilde);
+  const venter = henterNesteOppgave || navigation.state !== "idle";
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -61,22 +66,21 @@ export default function NesteOppgave() {
         <Heading size="xlarge">Fullført!</Heading>
         <BodyShort>{alert?.title}</BodyShort>
 
-        <Form method="post" className={"flex flex-col items-center"}>
-          <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
-          <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
+        <div className={"flex flex-col items-center"}>
           <Button
             className={"w-max"}
             variant="primary"
-            loading={navigation.state !== "idle"}
-            disabled={navigation.state !== "idle"}
+            onClick={hentNesteOppgave}
+            loading={venter}
+            disabled={venter}
           >
             Start neste oppgave
           </Button>
           <AktivOppgaveSøk aktivtOppgaveSok={aktivtOppgaveSok} />
-        </Form>
+        </div>
 
         <div className="flex gap-6">
-          <LoadingLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+          <LoadingLink asButtonVariant={"secondary"} to={oppgavelisteUrl}>
             Gå til oppgaveliste
           </LoadingLink>
           <LoadingLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
