@@ -4,9 +4,9 @@ export const klage: components["schemas"]["Oppgave"] = {
   oppgaveId: "0199390e-3602-7b10-9402-77ca0d12d8ac",
   behandlingId: "0199390e-35aa-7f47-9e95-2c384bcb2e93",
   saksbehandler: {
-    ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    ident: "Z993622",
+    fornavn: "F_Z993622",
+    etternavn: "E_Z993622",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -37,7 +37,7 @@ export const klage: components["schemas"]["Oppgave"] = {
       tidspunkt: "2025-09-11T15:54:16.734",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z993298 E_Z993298",
+        navn: "F_Z993622 E_Z993622",
         rolle: "saksbehandler",
       },
     },
@@ -46,13 +46,13 @@ export const klage: components["schemas"]["Oppgave"] = {
       tidspunkt: "2025-09-11T15:54:16.707",
       tittel: "Klar til behandling",
       behandler: {
-        navn: "F_Z993298 E_Z993298",
+        navn: "F_Z993622 E_Z993622",
         rolle: "saksbehandler",
       },
     },
   ],
   emneknagger: [],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [
       "AVVENT_SVAR",
