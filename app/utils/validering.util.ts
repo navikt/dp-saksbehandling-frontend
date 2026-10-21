@@ -28,7 +28,7 @@ export function hentValideringForOpplysningPeriodeSkjema(
     nåFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
+      hentValideringForNorskDato().optional(),
     ),
     nåTilOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
