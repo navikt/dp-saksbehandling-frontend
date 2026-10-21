@@ -4,7 +4,6 @@ import { Suspense, useEffect, useState } from "react";
 import {
   ActionFunctionArgs,
   Await,
-  data,
   LoaderFunctionArgs,
   useActionData,
   useLoaderData,
@@ -23,7 +22,6 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentKlage, hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
 import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
 import { isAlert } from "~/utils/type-guards";
 
@@ -40,31 +38,19 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   // Kun nødvendig for "melding om vedtak"-fanen, ikke bloker resten av behandlingen på denne
   const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, params.oppgaveId);
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = session.get("alert");
-
-  return data(
-    {
-      alert,
-      klage,
-      meldingOmVedtakPromise,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return {
+    klage,
+    meldingOmVedtakPromise,
+  };
 }
 
 export default function Oppgave() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { klage, alert, meldingOmVedtakPromise } = useLoaderData<typeof loader>();
+  const { klage, meldingOmVedtakPromise } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  useHandleAlertMessages(alert);
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
   const skjulMeldingOmVedtak = erMedholdEllerDelvisMedhold(klage.utfall.verdi);
