@@ -2,6 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
+import { hentOppgavelisteSti } from "~/hooks/useAktivtOppgaveSok";
 import { flyttBehandlingTilNySak } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getErrorAlert } from "~/utils/error-response.utils";
@@ -14,7 +15,7 @@ export async function flyttBehandlingTilNySakAction(request: Request, formData: 
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, personIdent, aktivtOppgaveSok } = validertSkjema.data;
+  const { behandlingId, personIdent, aktivtOppgaveSok, kilde } = validertSkjema.data;
   const { error, response } = await flyttBehandlingTilNySak(request, behandlingId, personIdent);
 
   if (error) {
@@ -29,7 +30,7 @@ export async function flyttBehandlingTilNySakAction(request: Request, formData: 
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/?${aktivtOppgaveSok}`, {
+  return redirect(`${hentOppgavelisteSti(kilde)}?${aktivtOppgaveSok}`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
