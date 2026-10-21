@@ -23,7 +23,7 @@ export function hentValideringForOpplysningPeriodeSkjema(
     _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
     opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
-    periodeId: z.string("Det mangler opplysningId i skjema"),
+    periodeId: z.string().optional(),
     nåVerdi: hentValideringForOpplysningVerdi(datatype),
     nåFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake

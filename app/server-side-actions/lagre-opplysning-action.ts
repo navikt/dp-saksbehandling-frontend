@@ -59,7 +59,8 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   if (
     verdi === nåVerdi &&
     gyldigFraOgMedDato === nåFraOgMedDato &&
-    gyldigTilOgMedDato === nåTilOgMedDato
+    gyldigTilOgMedDato === nåTilOgMedDato &&
+    periodeId
   ) {
     const { error, response } = await lagreOpplysningBegrunnelse(
       request,
