@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { IAlert } from "~/context/alert-context";
 import { isAlert } from "~/utils/type-guards";
@@ -36,40 +36,45 @@ export function MeldingOmVedtakProvider(
     IOpplysningPeriodeVerdi[]
   >([]);
 
-  function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
-    oppdaterListe(
-      utvidedeBeskrivelser,
-      oppdatertBeskrivelse,
-      (beskrivelse) => beskrivelse.brevblokkId === oppdatertBeskrivelse.brevblokkId,
-      setUtvidedeBeskrivelser,
+  useEffect(() => {
+    setUtvidedeBeskrivelser(
+      (!isAlert(props.meldingOmVedtak) && props.meldingOmVedtak.utvidedeBeskrivelser) || [],
     );
+    setOpplysningPeriodeVerdier([]);
+  }, [props.meldingOmVedtak]);
+
+  function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
+    setUtvidedeBeskrivelser((gjeldendeListe) => {
+      const oppdatertListe = [...gjeldendeListe];
+      const eksisterendeIndex = oppdatertListe.findIndex(
+        (beskrivelse) => beskrivelse.brevblokkId === oppdatertBeskrivelse.brevblokkId,
+      );
+
+      if (eksisterendeIndex !== -1) {
+        oppdatertListe[eksisterendeIndex] = oppdatertBeskrivelse;
+      } else {
+        oppdatertListe.push(oppdatertBeskrivelse);
+      }
+
+      return oppdatertListe;
+    });
   }
 
   function oppdaterOpplysningPeriodeVerdier(opplysningPeriodeVerdi: IOpplysningPeriodeVerdi) {
-    oppdaterListe(
-      opplysningPeriodeVerdier,
-      opplysningPeriodeVerdi,
-      (periode) => periode.uuid === opplysningPeriodeVerdi.uuid,
-      setOpplysningPeriodeVerdier,
-    );
-  }
+    setOpplysningPeriodeVerdier((gjeldendeListe) => {
+      const oppdatertListe = [...gjeldendeListe];
+      const eksisterendeIndex = oppdatertListe.findIndex(
+        (periode) => periode.uuid === opplysningPeriodeVerdi.uuid,
+      );
 
-  function oppdaterListe<T>(
-    liste: T[],
-    nyVerdi: T,
-    finnMatch: (item: T) => boolean,
-    setListe: (oppdatertListe: T[]) => void,
-  ) {
-    const oppdatertListe = [...liste];
-    const eksisterendeIndex = oppdatertListe.findIndex(finnMatch);
+      if (eksisterendeIndex !== -1) {
+        oppdatertListe[eksisterendeIndex] = opplysningPeriodeVerdi;
+      } else {
+        oppdatertListe.push(opplysningPeriodeVerdi);
+      }
 
-    if (eksisterendeIndex !== -1) {
-      oppdatertListe[eksisterendeIndex] = nyVerdi;
-    } else {
-      oppdatertListe.push(nyVerdi);
-    }
-
-    setListe(oppdatertListe);
+      return oppdatertListe;
+    });
   }
 
   return (
