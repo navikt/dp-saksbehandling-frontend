@@ -4,11 +4,12 @@ import { ActionFunctionArgs, useActionData, useRouteError, useSearchParams } fro
 import { EndreBeregningsregelModal } from "~/components/endre-beregningsregel/EndreBeregningsregelModal";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
-import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
+import { OpplysningerTittel } from "~/components/opplysninger-tittel/OpplysningerTittel";
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrøvingsdatoInput";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useOppgave } from "~/hooks/useOppgave";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { BEREGNINGSREGEL_OPPLYSNINGER } from "~/utils/beregningsregel.utils";
 import { isAlert } from "~/utils/type-guards";
@@ -18,6 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Vilkårsvurderinger() {
+  const { readonly } = useOppgave();
   const { behandling, prøvingsdatoOpplysning, sistePrøvingsdato } = useBehandling();
   const [searchParams] = useSearchParams();
   const opplysningId = searchParams.get("opplysning");
@@ -52,14 +54,13 @@ export default function Vilkårsvurderinger() {
               />
             )}
             <div className="p-4">
-              <OpplysningerTidslinje
+              <OpplysningerTittel
                 tittel={opplysning.navn}
                 redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
                 regelsettHjemmel={regelsett.hjemmel.tittel}
                 opplysningKilde={opplysning.formål}
                 opplysninger={[opplysning]}
-                pins={sistePrøvingsdato && [{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
-                visAllePerioder
+                readonly={readonly}
               />
               <OpplysningPerioderTabell opplysning={opplysning} regelsettId={regelsett.id} />
             </div>
