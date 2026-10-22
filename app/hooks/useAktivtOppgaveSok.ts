@@ -35,8 +35,12 @@ export function setAktivtOppgaveSok(sok: string) {
   lyttere.forEach((lytter) => lytter());
 }
 
-export function setOppgavelisteKilde(kilde: OppgavelisteKilde) {
-  sessionStorage.setItem(KILDE_NØKKEL, kilde);
+export function setOppgavelisteKilde(kilde: OppgavelisteKilde | undefined) {
+  if (kilde === undefined) {
+    sessionStorage.removeItem(KILDE_NØKKEL);
+  } else {
+    sessionStorage.setItem(KILDE_NØKKEL, kilde);
+  }
   lyttere.forEach((lytter) => lytter());
 }
 

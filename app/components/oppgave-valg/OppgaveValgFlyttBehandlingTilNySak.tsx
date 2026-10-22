@@ -38,7 +38,7 @@ export function OppgaveValgFlyttBehandlingTilNySak({
       personIdent: oppgave.person.ident,
       behandlingId: oppgave.behandlingId,
       aktivtOppgaveSok,
-      kilde,
+      ...(kilde ? { kilde } : {}),
     },
   });
 
