@@ -11,6 +11,7 @@ import { hentValideringForFlyttBehandlingTilNySak } from "~/utils/validering.uti
 export async function flyttBehandlingTilNySakAction(request: Request, formData: FormData) {
   const validertSkjema = await parseFormData(formData, hentValideringForFlyttBehandlingTilNySak());
 
+  console.log(validertSkjema);
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }

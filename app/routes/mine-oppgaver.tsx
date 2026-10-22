@@ -28,7 +28,6 @@ export const mineOppgaverDefaultParams = [
   { key: "mineOppgaver", value: "true" },
   { key: "kunTildelteOppgaver", value: "true" },
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
-  { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
   { key: "tilstand", value: "UNDER_KONTROLL" },
   { key: "tilstand", value: "UNDER_BEHANDLING" },
   { key: "side", value: "1" },

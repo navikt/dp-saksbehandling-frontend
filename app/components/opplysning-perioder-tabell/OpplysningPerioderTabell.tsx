@@ -18,13 +18,15 @@ import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
   opplysning: components["schemas"]["RedigerbareOpplysninger"];
+  regelsettId?: string;
 }
 
 const NY_PERIODE_ID = "NY-PERIODE";
 
-export function OpplysningPerioderTabell({ opplysning }: IProps) {
+export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelsettId }: IProps) {
   const navigate = useNavigate();
-  const { behandlingId, regelsettId } = useParams();
+  const { behandlingId, regelsettId: regelsettIdFraRoute } = useParams();
+  const regelsettId = valgtRegelsettId ?? regelsettIdFraRoute;
   const { readonly, oppgave } = useOppgave();
   const { featureFlags } = useFeatureFlags();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
@@ -180,7 +182,9 @@ export function OpplysningPerioderTabell({ opplysning }: IProps) {
             variant={"secondary"}
             onClick={() =>
               isBarneopplysning
-                ? navigate(`barneliste/ny`)
+                ? navigate(
+                    `/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${opplysning.opplysningTypeId}/barneliste/ny`,
+                  )
                 : setPeriodeIdUnderRedigering(NY_PERIODE_ID)
             }
             data-umami-event="Legg til periode"
