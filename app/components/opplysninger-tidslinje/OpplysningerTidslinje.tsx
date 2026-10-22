@@ -2,7 +2,7 @@ import { ExternalLinkIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
 import { BodyShort, Detail, HStack, InlineMessage, Link, Timeline } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -41,6 +41,7 @@ interface IProps {
   visAllePerioder?: boolean;
   relevantForResultat?: boolean;
   førsteFraOgMedDato?: string;
+  opplysningUrlBuilder?: (opplysningTypeId: string) => string;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -58,6 +59,8 @@ export function OpplysningerTidslinje(props: IProps) {
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
+  const [searchParams] = useSearchParams();
+  const valgtOpplysningId = searchParams.get("opplysning") ?? opplysningId;
 
   const opplysningerSomSkalVises = props.visAllePerioder
     ? props.opplysninger
@@ -119,7 +122,7 @@ export function OpplysningerTidslinje(props: IProps) {
             label={props.medLenkeTilOpplysning ? "\u00A0" : ""}
             icon={
               props.medLenkeTilOpplysning &&
-              props.opplysningGrunnUrl && (
+              (props.opplysningUrlBuilder || props.opplysningGrunnUrl) && (
                 <HStack wrap={false} gap="space-2" align="center" className={"overflow-hidden"}>
                   {(readonly || !opplysning.redigerbar) && (
                     <div>
@@ -129,10 +132,15 @@ export function OpplysningerTidslinje(props: IProps) {
                   <div className={"overflow-hidden"}>
                     <LoadingLink
                       className={
-                        opplysningId === opplysning.opplysningTypeId ? "font-ax-bold" : undefined
+                        valgtOpplysningId === opplysning.opplysningTypeId
+                          ? "font-ax-bold"
+                          : undefined
                       }
                       tittelPåHover={opplysning.navn}
-                      to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
+                      to={
+                        props.opplysningUrlBuilder?.(opplysning.opplysningTypeId) ??
+                        `${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`
+                      }
                     >
                       {opplysning.navn}
                     </LoadingLink>

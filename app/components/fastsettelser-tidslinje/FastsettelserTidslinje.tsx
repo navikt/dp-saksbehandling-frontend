@@ -1,28 +1,21 @@
 import { Accordion, Heading } from "@navikt/ds-react";
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 
+import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { skalViseRegelsett } from "~/utils/behandling.utils";
-import { isDefined } from "~/utils/type-guards";
+import { skalViseOpplysning } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTidslinje";
 
 export function FastsettelserTidslinje() {
-  const { oppgaveId } = useTypeSafeParams();
   const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
   const tidslinjeState = useTidslinjeNavigeringState(behandling);
-
-  const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["Regelsett"] | undefined
-  >();
-
-  const aktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
-    aktivtRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const valgtOpplysningId = searchParams.get("opplysning");
 
   const pins = prøvingsdatoOpplysning?.perioder
     .map((periode) => {
@@ -30,11 +23,40 @@ export function FastsettelserTidslinje() {
         return { date: new Date(periode.verdi.verdi), label: "Prøvingsdato" };
       }
     })
-    .filter(isDefined);
+    .filter((pin): pin is { date: Date; label: string } => pin !== undefined);
 
   const fastsettelserSomSkalVises = behandling.fastsettelser.filter((fastsettelse) =>
     skalViseRegelsett(fastsettelse, behandling.opplysninger, visArvedeOpplysninger),
   );
+  const aktivtRegelsett = fastsettelserSomSkalVises.find((fastsettelse) =>
+    fastsettelse.opplysninger.includes(valgtOpplysningId ?? ""),
+  );
+
+  function hentOpplysninger(regelsett: components["schemas"]["Regelsett"]) {
+    return behandling.opplysninger.filter(
+      (opplysning) =>
+        regelsett.opplysninger.includes(opplysning.opplysningTypeId) &&
+        skalViseOpplysning(opplysning, visArvedeOpplysninger),
+    );
+  }
+
+  function opplysningSearch(opplysningId?: string) {
+    const params = new URLSearchParams(searchParams);
+    if (opplysningId) {
+      params.set("opplysning", opplysningId);
+    } else {
+      params.delete("opplysning");
+    }
+    return params;
+  }
+
+  function toggleRegelsett(regelsett: components["schemas"]["Regelsett"]) {
+    const opplysningId =
+      aktivtRegelsett?.id === regelsett.id
+        ? undefined
+        : hentOpplysninger(regelsett)[0]?.opplysningTypeId;
+    setSearchParams(opplysningSearch(opplysningId), { preventScrollReset: true });
+  }
 
   if (fastsettelserSomSkalVises.length === 0) {
     return null;
@@ -53,29 +75,41 @@ export function FastsettelserTidslinje() {
       </div>
 
       <Accordion size={"small"} className={"aksel--compact"}>
-        {fastsettelserSomSkalVises.map((fastsettelse) => (
-          <Accordion.Item key={fastsettelse.id} open={aktivtRegelsett?.id === fastsettelse.id}>
-            <Accordion.Header
-              onClick={() =>
-                aktivtRegelsett?.navn === fastsettelse.navn
-                  ? setAktivtRegelsett(undefined)
-                  : setAktivtRegelsett(fastsettelse)
-              }
-            >
-              {fastsettelse.navn}
-            </Accordion.Header>
-            <Accordion.Content>
-              <OpplysningerTidslinje
-                opplysninger={aktiveOpplysninger}
-                medLenkeTilOpplysning={true}
-                opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
-                pins={pins}
-                eksternTidslinjeNavigeringState={tidslinjeState}
-                relevantForResultat={aktivtRegelsett?.relevantForResultat}
-              />
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
+        {fastsettelserSomSkalVises.map((fastsettelse) => {
+          const opplysninger = hentOpplysninger(fastsettelse);
+          const erUtvidet = aktivtRegelsett?.id === fastsettelse.id;
+          const valgtOpplysning = opplysninger.find(
+            (opplysning) => opplysning.opplysningTypeId === valgtOpplysningId,
+          );
+
+          return (
+            <Accordion.Item key={fastsettelse.id} open={erUtvidet}>
+              <Accordion.Header onClick={() => toggleRegelsett(fastsettelse)}>
+                {fastsettelse.navn}
+              </Accordion.Header>
+              <Accordion.Content>
+                <OpplysningerTidslinje
+                  opplysninger={opplysninger}
+                  medLenkeTilOpplysning={true}
+                  opplysningUrlBuilder={(opplysningId) =>
+                    `?${opplysningSearch(opplysningId).toString()}`
+                  }
+                  pins={pins}
+                  eksternTidslinjeNavigeringState={tidslinjeState}
+                  relevantForResultat={fastsettelse.relevantForResultat}
+                />
+                {valgtOpplysning && (
+                  <div className="mt-4">
+                    <OpplysningPerioderTabell
+                      opplysning={valgtOpplysning}
+                      regelsettId={fastsettelse.id}
+                    />
+                  </div>
+                )}
+              </Accordion.Content>
+            </Accordion.Item>
+          );
+        })}
       </Accordion>
     </div>
   );
