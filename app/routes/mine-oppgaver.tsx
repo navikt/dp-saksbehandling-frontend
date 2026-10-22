@@ -1,4 +1,5 @@
 import { LayersIcon } from "@navikt/aksel-icons";
+import { useEffect } from "react";
 import {
   type ActionFunctionArgs,
   data,
@@ -15,6 +16,7 @@ import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterSt
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveTable } from "~/components/oppgave-table/OppgaveTable";
+import { setOppgavelisteKilde } from "~/hooks/useAktivtOppgaveSok";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -70,6 +72,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
+
+  useEffect(() => {
+    setOppgavelisteKilde(undefined);
+  }, []);
 
   const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
     new URLSearchParams(search),
