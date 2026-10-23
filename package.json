@@ -58,7 +58,7 @@
     "@portabletext/toolbar": "9.0.18",
     "@react-router/node": "8.3.0",
     "@react-router/serve": "8.3.0",
-    "@rvf/react-router": "8.2.0",
+    "@rvf/react-router": "8.2.1",
     "@sanity/client": "8.9.0",
     "@tanstack/react-query": "^5.104.3",
     "@types/umami": "^2.10.1",
