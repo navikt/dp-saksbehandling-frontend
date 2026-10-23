@@ -29,9 +29,10 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   avklaring: components["schemas"]["Avklaring"];
+  lukket?: boolean;
 }
 
-export function Avklaring({ avklaring }: IProps) {
+export function Avklaring({ avklaring, lukket }: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
   const { prøvingsdatoOpplysning } = useBehandling();
@@ -55,7 +56,7 @@ export function Avklaring({ avklaring }: IProps) {
     },
   });
 
-  const kanRedigereBegrunnelse = avklaring.kanKvitteres && !avklaring.maskinelt;
+  const kanRedigereBegrunnelse = (avklaring.kanKvitteres && !avklaring.maskinelt) || !lukket;
 
   return (
     <ExpansionCard
@@ -143,11 +144,11 @@ export function Avklaring({ avklaring }: IProps) {
 
 function hentAvklartAvTekst(avklaring: components["schemas"]["Avklaring"]) {
   if (avklaring.avklartAv) {
-    return `Avklart av ${avklaring.avklartAv.ident}`;
+    return `Avklart av ${avklaring.avklartAv.ident} ${formaterTilNorskDato(avklaring.sistEndret, true)}`;
   }
 
   if (avklaring.maskinelt) {
-    return "Avklart av regelmotor";
+    return `Avklart av regelmotor ${formaterTilNorskDato(avklaring.sistEndret, true)}`;
   }
 
   return "Regelmotor works in mysterious ways";
