@@ -454,8 +454,8 @@ importers:
         specifier: 0.28.2
         version: 0.28.2
       '@rollup/rollup-linux-x64-musl':
-        specifier: 4.64.7
-        version: 4.64.7
+        specifier: 4.64.10
+        version: 4.64.10
 
 packages:
 
@@ -2608,8 +2608,8 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@rollup/rollup-linux-x64-musl@4.64.7':
-    resolution: {integrity: sha512-dFVtPfjZqAnUPpPY4Bfg+87yo1IBW9HiY8iCFtg49Pn46MfZTebSHZh8PL6SOsgyt9LQP8Nj/sE6jm3aWpySmQ==}
+  '@rollup/rollup-linux-x64-musl@4.64.10':
+    resolution: {integrity: sha512-Dlh8q8r145aYgh+N3gNIG1dz35Fz/FCxe5hs/43orDsffjP8S1P4Xz5I4FpSJsDS4LpQw1QmswZkQlUbkCldjQ==}
     cpu: [x64]
     os: [linux]
     libc: [musl]
@@ -8808,7 +8808,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@rollup/rollup-linux-x64-musl@4.64.7':
+  '@rollup/rollup-linux-x64-musl@4.64.10':
     optional: true
 
   '@rvf/core@8.1.1(@types/react@19.3.0)(react@19.3.1)(scheduler@0.28.0)(use-sync-external-store@1.7.0(react@19.3.1))':
