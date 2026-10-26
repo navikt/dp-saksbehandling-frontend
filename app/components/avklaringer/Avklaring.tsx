@@ -39,7 +39,7 @@ export function Avklaring({ avklaring }: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
   const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
-  console.log(avklaring, behandling);
+
   const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
   const prøvingsdato =
     prøvingsdatoOpplysningPeriode &&

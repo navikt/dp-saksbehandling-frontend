@@ -27,7 +27,6 @@ export function OppgaveValgFlyttBehandlingTilNySak({
   const { pathname } = useLocation();
   const aktivtOppgaveSok = useAktivOppgavelisteSok();
   const kilde = useAktivtOppgaveSokKilde();
-  console.log(kilde);
 
   const flyttBehandlingTilNySakForm = useForm({
     method: "post",
