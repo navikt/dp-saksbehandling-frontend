@@ -23,7 +23,10 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { alleRegelsett } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
+import {
+  konverterOpplysningVerdiTilSkjemaVerdi,
+  skalViseOpplysning,
+} from "~/utils/opplysning.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -35,7 +38,8 @@ interface IProps {
 export function Avklaring({ avklaring }: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
-  const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
+  console.log(avklaring, behandling);
   const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
   const prøvingsdato =
     prøvingsdatoOpplysningPeriode &&
@@ -62,11 +66,13 @@ export function Avklaring({ avklaring }: IProps) {
 
   function hentRegelsettUrl(regelsettId: string) {
     const regelsett = alleRegelsett(behandling).find((regelsett) => regelsett.id === regelsettId);
-    const opplysning = behandling.opplysninger.find(
+    const synligeOpplysninger = behandling.opplysninger.filter(
       (opplysning) =>
         regelsett?.opplysninger.includes(opplysning.opplysningTypeId) &&
-        opplysning.perioder.some((periode) => avklaring.opplysninger?.includes(periode.id)),
+        skalViseOpplysning(opplysning, visArvedeOpplysninger),
     );
+    const opplysning =
+      regelsett?.type === "Vilkår" ? synligeOpplysninger.at(-1) : synligeOpplysninger[0];
 
     if (!regelsett || !opplysning) {
       return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}`;
