@@ -1,19 +1,8 @@
 import { ExternalLinkIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
-import {
-  BodyShort,
-  Detail,
-  Heading,
-  HStack,
-  InlineMessage,
-  Link,
-  Loader,
-  Tag,
-  Timeline,
-} from "@navikt/ds-react";
+import { BodyShort, Detail, HStack, InlineMessage, Link, Timeline } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
-import { Suspense } from "react";
-import { Await, useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -27,12 +16,10 @@ import {
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
-import {
-  formaterOpplysningFormål,
-  formaterOpplysningVerdi,
-  skalViseOpplysning,
-} from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
 import { isTekstVerdi } from "~/utils/type-guards";
+
+import { OpplysningerTittel } from "../opplysninger-tittel/OpplysningerTittel";
 
 interface TimelinePin {
   date: Date;
@@ -54,6 +41,7 @@ interface IProps {
   visAllePerioder?: boolean;
   relevantForResultat?: boolean;
   førsteFraOgMedDato?: string;
+  opplysningUrlBuilder?: (opplysningTypeId: string) => string;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -71,6 +59,8 @@ export function OpplysningerTidslinje(props: IProps) {
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
+  const [searchParams] = useSearchParams();
+  const valgtOpplysningId = searchParams.get("opplysning") ?? opplysningId;
 
   const opplysningerSomSkalVises = props.visAllePerioder
     ? props.opplysninger
@@ -89,100 +79,17 @@ export function OpplysningerTidslinje(props: IProps) {
 
   return (
     <>
-      {props.tittel && props.regelsettHjemmel && (
-        <>
-          <div className={`flex content-center justify-between`}>
-            <div>
-              <div className={"flex items-center gap-1"}>
-                {readonly ||
-                  (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                    <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
-                  ))}
-                <Heading size={"small"}>{props.tittel}</Heading>
-              </div>
-
-              {props.regelsettHjemmel && (
-                <Detail textColor="subtle">{props.regelsettHjemmel}</Detail>
-              )}
-            </div>
-
-            <BodyShort size={"small"}>
-              {props.redigertAvSaksbehandler && (
-                <>
-                  Opplysning redigert av:{" "}
-                  <Tag size={"small"} variant={"warning"} className={"ml-1"}>
-                    Saksbehandler
-                  </Tag>
-                </>
-              )}
-
-              {!props.redigertAvSaksbehandler && props.opplysningKilde && (
-                <>
-                  Opplysning hentet fra:{" "}
-                  <Tag size={"small"} variant={"warning"} className={"ml-1"}>
-                    {formaterOpplysningFormål(props.opplysningKilde)}
-                  </Tag>
-                </>
-              )}
-            </BodyShort>
-          </div>
-
-          {!props.eksternTidslinjeNavigeringState && (
-            <TidslinjeNavigering
-              tidslinjeStartSlutt={tidslinjeStartSlutt}
-              setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-              antallUkerITidslinje={antallUkerITidslinje}
-              setAntallUkerITidslinje={setAntallUkerITidslinje}
-            />
-          )}
-        </>
-      )}
-
-      {props.tittel && !props.regelsettHjemmel && (
+      {props.tittel && (
         <div className="flex flex-col gap-4">
-          <div className={`flex content-center justify-between`}>
-            <div className={"flex grow items-center gap-1"}>
-              {readonly ||
-                (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                  <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
-                ))}
-              <Heading size={"small"}>{props.tittel}</Heading>
-            </div>
-            {props.rapporteringPersonIdPromise && (
-              <Suspense
-                fallback={
-                  <div className="flex items-center justify-end gap-1">
-                    <Loader size="small" />
-                    <BodyShort textColor={"subtle"}>Henter meldekort-url</BodyShort>
-                  </div>
-                }
-              >
-                <Await resolve={props.rapporteringPersonIdPromise}>
-                  {(rapporteringPersonId) => {
-                    const meldekortId =
-                      behandling.behandletHendelse.type === "Meldekort"
-                        ? behandling.behandletHendelse.id
-                        : null;
-
-                    return meldekortId && rapporteringPersonId ? (
-                      <div className="flex justify-end">
-                        <Link
-                          href={`${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${rapporteringPersonId?.personId}/perioder?meldekortId=${meldekortId}`}
-                          target="_blank"
-                        >
-                          Meldekort for perioden <ExternalLinkIcon />
-                        </Link>
-                      </div>
-                    ) : (
-                      <InlineMessage status="warning">
-                        Klarte ikke hente meldekort-url
-                      </InlineMessage>
-                    );
-                  }}
-                </Await>
-              </Suspense>
-            )}
-          </div>
+          <OpplysningerTittel
+            readonly={readonly}
+            opplysninger={props.opplysninger}
+            redigertAvSaksbehandler={!!props.redigertAvSaksbehandler}
+            regelsettHjemmel={props.regelsettHjemmel}
+            opplysningKilde={props.opplysningKilde}
+            tittel={props.tittel}
+            rapporteringPersonIdPromise={props.rapporteringPersonIdPromise}
+          />
           {!props.eksternTidslinjeNavigeringState && (
             <TidslinjeNavigering
               tidslinjeStartSlutt={tidslinjeStartSlutt}
@@ -215,7 +122,7 @@ export function OpplysningerTidslinje(props: IProps) {
             label={props.medLenkeTilOpplysning ? "\u00A0" : ""}
             icon={
               props.medLenkeTilOpplysning &&
-              props.opplysningGrunnUrl && (
+              (props.opplysningUrlBuilder || props.opplysningGrunnUrl) && (
                 <HStack wrap={false} gap="space-2" align="center" className={"overflow-hidden"}>
                   {(readonly || !opplysning.redigerbar) && (
                     <div>
@@ -225,10 +132,15 @@ export function OpplysningerTidslinje(props: IProps) {
                   <div className={"overflow-hidden"}>
                     <LoadingLink
                       className={
-                        opplysningId === opplysning.opplysningTypeId ? "font-ax-bold" : undefined
+                        valgtOpplysningId === opplysning.opplysningTypeId
+                          ? "font-ax-bold"
+                          : undefined
                       }
                       tittelPåHover={opplysning.navn}
-                      to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
+                      to={
+                        props.opplysningUrlBuilder?.(opplysning.opplysningTypeId) ??
+                        `${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`
+                      }
                     >
                       {opplysning.navn}
                     </LoadingLink>

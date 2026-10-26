@@ -21,8 +21,12 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { alleRegelsett } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
+import {
+  konverterOpplysningVerdiTilSkjemaVerdi,
+  skalViseOpplysning,
+} from "~/utils/opplysning.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -34,9 +38,12 @@ interface IProps {
 export function Avklaring({ avklaring }: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
-  const { prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
+
   const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
-  const prøvingsdato = konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode!.verdi);
+  const prøvingsdato =
+    prøvingsdatoOpplysningPeriode &&
+    konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode.verdi);
   const { oppgaveId, behandlingId } = useTypeSafeParams();
   const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(
     underKontroll && !!avklaring?.begrunnelse,
@@ -56,6 +63,29 @@ export function Avklaring({ avklaring }: IProps) {
   });
 
   const kanRedigereBegrunnelse = avklaring.kanKvitteres && !avklaring.maskinelt;
+
+  function hentRegelsettUrl(regelsettId: string) {
+    const regelsett = alleRegelsett(behandling).find((regelsett) => regelsett.id === regelsettId);
+    const synligeOpplysninger = behandling.opplysninger.filter(
+      (opplysning) =>
+        regelsett?.opplysninger.includes(opplysning.opplysningTypeId) &&
+        skalViseOpplysning(opplysning, visArvedeOpplysninger),
+    );
+    const opplysning =
+      regelsett?.type === "Vilkår" ? synligeOpplysninger.at(-1) : synligeOpplysninger[0];
+
+    if (!regelsett || !opplysning) {
+      return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}`;
+    }
+
+    const fane = {
+      Vilkår: "vilkar",
+      Fastsettelse: "fastsettelser",
+      Prosess: "prosessregler",
+    }[regelsett.type];
+
+    return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/${fane}?opplysning=${opplysning.opplysningTypeId}`;
+  }
 
   return (
     <ExpansionCard
@@ -93,10 +123,7 @@ export function Avklaring({ avklaring }: IProps) {
           <BodyLong size={"small"}>{avklaring.beskrivelse}</BodyLong>
 
           {avklaring.regelsett.map((regelsett) => (
-            <LoadingLink
-              key={regelsett.id}
-              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
-            >
+            <LoadingLink key={regelsett.id} to={hentRegelsettUrl(regelsett.id)}>
               {regelsett.hjemmel.tittel}
             </LoadingLink>
           ))}

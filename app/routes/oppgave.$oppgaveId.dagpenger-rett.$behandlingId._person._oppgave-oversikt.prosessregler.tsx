@@ -1,7 +1,8 @@
 import { InfoCard } from "@navikt/ds-react";
-import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
+import { ActionFunctionArgs, useActionData, useRouteError, useSearchParams } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -16,6 +17,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export default function Prosessregler() {
   const { behandling } = useBehandling();
   const { oppgaveId } = useTypeSafeParams();
+  const [searchParams] = useSearchParams();
+  const valgtOpplysningId = searchParams.get("opplysning");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -36,6 +39,9 @@ export default function Prosessregler() {
         const opplysninger = behandling.opplysninger.filter((opplysning) =>
           regelsett.opplysninger.includes(opplysning.opplysningTypeId),
         );
+        const valgtOpplysning = opplysninger.find(
+          (opplysning) => opplysning.opplysningTypeId === valgtOpplysningId,
+        );
 
         return (
           <div key={regelsett.id}>
@@ -45,7 +51,17 @@ export default function Prosessregler() {
               opplysninger={opplysninger}
               medLenkeTilOpplysning={true}
               opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
+              opplysningUrlBuilder={(opplysningTypeId) => {
+                const params = new URLSearchParams(searchParams);
+                params.set("opplysning", opplysningTypeId);
+                return `?${params.toString()}`;
+              }}
             />
+            {valgtOpplysning && (
+              <div className="mt-4">
+                <OpplysningPerioderTabell opplysning={valgtOpplysning} regelsettId={regelsett.id} />
+              </div>
+            )}
           </div>
         );
       })}
