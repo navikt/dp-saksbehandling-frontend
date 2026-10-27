@@ -218,8 +218,8 @@ importers:
         specifier: 2.12.0
         version: 2.12.0(@opentelemetry/api@1.9.1)
       '@portabletext/block-tools':
-        specifier: 6.0.4
-        version: 6.0.4(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+        specifier: 6.0.5
+        version: 6.0.5(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@portabletext/editor':
         specifier: 8.2.4
         version: 8.2.4(@types/react@19.3.0)(react@19.3.1)
@@ -2344,8 +2344,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@portabletext/block-tools@6.0.4':
-    resolution: {integrity: sha512-h8Y4K8Wr+tBiu9R9YAaf5mtbHBtOKzFAF4egxmhb/imSaAdkW/xB+o31HPd4DXbY4rUs3xqerKMJRa0+n1Ikng==}
+  '@portabletext/block-tools@6.0.5':
+    resolution: {integrity: sha512-XJxHimuKnBZyCyjzfVCTeJdYdaZa5d42t4QllaEiopL1OEQSalya9tUKoCm2FCuJQTn8TO8nIw9zgsyOanhjdg==}
     engines: {node: '>=22.12'}
 
   '@portabletext/editor@8.2.4':
@@ -2356,6 +2356,10 @@ packages:
 
   '@portabletext/html@2.0.1':
     resolution: {integrity: sha512-FjJiemGN9iH12dcrxLv16FPtJJBKqW95ErEvGTmouWOeKO77UGhqZJ3MsBeyhIMA14dlaa62vl8u7HI0NkRlrA==}
+    engines: {node: '>=22.12'}
+
+  '@portabletext/html@2.0.2':
+    resolution: {integrity: sha512-9s69Dd2F5QjSHeiM11w+vnuYSjSDatXK3W033rpVCOG5AItVglFUmZzKh7UqAFeV6T9sTSjCfaX7lo2UesK6Uw==}
     engines: {node: '>=22.12'}
 
   '@portabletext/keyboard-shortcuts@3.0.0':
@@ -2379,12 +2383,16 @@ packages:
     peerDependencies:
       react: ^19
 
-  '@portabletext/sanity-bridge@4.1.3':
-    resolution: {integrity: sha512-hkbZ1OfET4B1U3yDkEC/SA4rZCy5RUyLM+Dea2WfhlUBCm1Fp6TjL++/f4furP6LPviWjhHbrHjZzAgoxShdkA==}
+  '@portabletext/sanity-bridge@4.1.4':
+    resolution: {integrity: sha512-4S3IZ9T5Eoe2lcrmrw3Yygu8fv50JhHE7+hOTyx+wxpaKvRvFvf2XJa2DM5mhVMzOhScyyc3H0FaCrZEzQ5BJQ==}
     engines: {node: '>=22.12'}
 
   '@portabletext/schema@3.0.1':
     resolution: {integrity: sha512-kVs12KNNtKfIYt7GbIYPVB7qJY8ZuErIa5C8NGBHR/sRN8ciR7C0UpOCTbcIvKSCiqjc47hJxEkWIyPg8XZGUQ==}
+    engines: {node: '>=22.12'}
+
+  '@portabletext/schema@3.1.0':
+    resolution: {integrity: sha512-Th8x0I21GDDv+yQEqF1w/G9iuyLkFdUM424VSSCCdZRSnfor2m23m+GFdf3pVTte6TPOzu4Ku89FwqyRRJ2vxQ==}
     engines: {node: '>=22.12'}
 
   '@portabletext/to-html@6.0.0':
@@ -8578,11 +8586,11 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@portabletext/block-tools@6.0.4(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
+  '@portabletext/block-tools@6.0.5(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
-      '@portabletext/html': 2.0.1
-      '@portabletext/sanity-bridge': 4.1.3(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
-      '@portabletext/schema': 3.0.1
+      '@portabletext/html': 2.0.2
+      '@portabletext/sanity-bridge': 4.1.4(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      '@portabletext/schema': 3.1.0
       '@sanity/types': 6.11.0(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
     transitivePeerDependencies:
       - '@types/react'
@@ -8609,6 +8617,11 @@ snapshots:
       '@portabletext/schema': 3.0.1
       '@vercel/stega': 1.1.0
 
+  '@portabletext/html@2.0.2':
+    dependencies:
+      '@portabletext/schema': 3.1.0
+      '@vercel/stega': 1.1.0
+
   '@portabletext/keyboard-shortcuts@3.0.0': {}
 
   '@portabletext/patches@3.0.1':
@@ -8626,9 +8639,9 @@ snapshots:
       '@portabletext/types': 4.0.2
       react: 19.3.1
 
-  '@portabletext/sanity-bridge@4.1.3(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
+  '@portabletext/sanity-bridge@4.1.4(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
-      '@portabletext/schema': 3.0.1
+      '@portabletext/schema': 3.1.0
       '@sanity/schema': 6.11.0(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@sanity/types': 6.11.0(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
     transitivePeerDependencies:
@@ -8636,6 +8649,8 @@ snapshots:
       - vitest
 
   '@portabletext/schema@3.0.1': {}
+
+  '@portabletext/schema@3.1.0': {}
 
   '@portabletext/to-html@6.0.0':
     dependencies:
