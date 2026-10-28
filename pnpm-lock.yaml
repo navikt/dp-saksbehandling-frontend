@@ -221,14 +221,14 @@ importers:
         specifier: 6.0.5
         version: 6.0.5(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@portabletext/editor':
-        specifier: 8.2.6
-        version: 8.2.6(@types/react@19.3.0)(react@19.3.1)
+        specifier: 8.2.7
+        version: 8.2.7(@types/react@19.3.0)(react@19.3.1)
       '@portabletext/keyboard-shortcuts':
         specifier: 3.0.0
         version: 3.0.0
       '@portabletext/plugin-list-index':
         specifier: ^2.0.17
-        version: 2.0.17(@portabletext/editor@8.2.6(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
+        version: 2.0.17(@portabletext/editor@8.2.7(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@portabletext/react':
         specifier: 8.0.1
         version: 8.0.1(react@19.3.1)
@@ -237,7 +237,7 @@ importers:
         version: 6.0.0
       '@portabletext/toolbar':
         specifier: 9.0.18
-        version: 9.0.18(@portabletext/editor@8.2.6(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
+        version: 9.0.18(@portabletext/editor@8.2.7(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@react-router/node':
         specifier: 8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(typescript@6.0.3)
@@ -2456,8 +2456,8 @@ packages:
     resolution: {integrity: sha512-XJxHimuKnBZyCyjzfVCTeJdYdaZa5d42t4QllaEiopL1OEQSalya9tUKoCm2FCuJQTn8TO8nIw9zgsyOanhjdg==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/editor@8.2.6':
-    resolution: {integrity: sha512-izIYYtkYd79JAqg+4ck6jg3oYJOzJmbme/5dYNvc3357kd/7hIC9rQNsjqFoay4Q5vgt7snxklkQB7O5oHNnig==}
+  '@portabletext/editor@8.2.7':
+    resolution: {integrity: sha512-9xRFULmxCIACgmLqcdmkXSw2RVovBSczSm2/s6FCrSLujxcR7g6nKlxa147U6maIjQG1S7bZoihovppPF/YlOQ==}
     engines: {node: '>=22.12'}
     peerDependencies:
       react: ^19.3.1
@@ -2486,6 +2486,10 @@ packages:
     engines: {node: '>=22.12'}
     peerDependencies:
       react: ^19
+
+  '@portabletext/repair@1.0.0':
+    resolution: {integrity: sha512-5oH5Osa1Cka07kK0w3y/ehS6gy64+dlyAwCiiuu74S0uceScvGuUFo6qSJDhsg1x9zxv46wMpZyObox3Aej9ag==}
+    engines: {node: '>=22.12'}
 
   '@portabletext/sanity-bridge@4.1.4':
     resolution: {integrity: sha512-4S3IZ9T5Eoe2lcrmrw3Yygu8fv50JhHE7+hOTyx+wxpaKvRvFvf2XJa2DM5mhVMzOhScyyc3H0FaCrZEzQ5BJQ==}
@@ -8825,11 +8829,12 @@ snapshots:
       - '@types/react'
       - vitest
 
-  '@portabletext/editor@8.2.6(@types/react@19.3.0)(react@19.3.1)':
+  '@portabletext/editor@8.2.7(@types/react@19.3.0)(react@19.3.1)':
     dependencies:
       '@portabletext/html': 2.0.2
       '@portabletext/keyboard-shortcuts': 3.0.0
       '@portabletext/patches': 3.0.2
+      '@portabletext/repair': 1.0.0
       '@portabletext/schema': 3.1.0
       '@portabletext/to-html': 6.0.0
       '@sanity/diff-match-patch': 3.2.1
@@ -8852,9 +8857,9 @@ snapshots:
     dependencies:
       '@sanity/diff-match-patch': 3.2.1
 
-  '@portabletext/plugin-list-index@2.0.17(@portabletext/editor@8.2.6(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)':
+  '@portabletext/plugin-list-index@2.0.17(@portabletext/editor@8.2.7(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@portabletext/editor': 8.2.6(@types/react@19.3.0)(react@19.3.1)
+      '@portabletext/editor': 8.2.7(@types/react@19.3.0)(react@19.3.1)
       react: 19.3.1
 
   '@portabletext/react@8.0.1(react@19.3.1)':
@@ -8862,6 +8867,11 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
       react: 19.3.1
+
+  '@portabletext/repair@1.0.0':
+    dependencies:
+      '@portabletext/patches': 3.0.2
+      '@portabletext/schema': 3.1.0
 
   '@portabletext/sanity-bridge@4.1.4(@types/react@19.3.0)(vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@2.15.0(@types/node@26.0.0)(typescript@6.0.3))(vite@8.3.4(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
@@ -8879,9 +8889,9 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.18(@portabletext/editor@8.2.6(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
+  '@portabletext/toolbar@9.0.18(@portabletext/editor@8.2.7(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
     dependencies:
-      '@portabletext/editor': 8.2.6(@types/react@19.3.0)(react@19.3.1)
+      '@portabletext/editor': 8.2.7(@types/react@19.3.0)(react@19.3.1)
       '@portabletext/keyboard-shortcuts': 3.0.0
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.1)(xstate@5.32.6)
       react: 19.3.1
