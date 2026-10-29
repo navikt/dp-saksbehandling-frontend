@@ -211,6 +211,15 @@ export function hentUtløstAvTekstForVisning(
         "Samordning"
       );
 
+    case "MIGRERING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <InformationSquareIcon aria-hidden fontSize="1.5rem" /> Andre hendelser
+        </span>
+      ) : (
+        "Migrering"
+      );
+
     default:
       return utløstAv;
   }

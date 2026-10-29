@@ -19,6 +19,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "ARBEIDSSØKERPERIODE",
   "FERIETILLEGG",
   "SAMORDNING",
+  "MIGRERING",
 ];
 
 export function OppgaveFilterUtløstAv() {
