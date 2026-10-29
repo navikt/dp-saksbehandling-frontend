@@ -36,7 +36,7 @@ export default function BehandlingLayout() {
   return (
     <BeslutterNotatProvider notat={oppgave.notat}>
       <BehandlingProvider behandling={behandling} forrigeBehandling={forrigeBehandling}>
-        <div className="grid grid-cols-[minmax(0,1fr)_300px] gap-4">
+        <div className="grid grid-cols-[minmax(0,1fr)_320px] gap-4">
           <div className="">
             <Outlet />
           </div>

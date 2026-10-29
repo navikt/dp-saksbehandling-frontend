@@ -93,7 +93,7 @@ export function UtvidetBeskrivelseInput(props: IProps) {
           name={"utvidet-beskrivelse"}
           className={styles.container}
           label={props.label}
-          value={props.utvidetBeskrivelse.tekst}
+          defaultValue={props.utvidetBeskrivelse.tekst}
           onChange={(event) => lagreUtvidetBeskrivelse(event.currentTarget.value)}
           onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
           readOnly={props.readOnly}

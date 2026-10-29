@@ -1,321 +1,135 @@
-import {
-  CheckmarkCircleFillIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  CircleSlashIcon,
-  PadlockLockedIcon,
-  XMarkOctagonIcon,
-} from "@navikt/aksel-icons";
-import {
-  BodyShort,
-  Detail,
-  Heading,
-  HStack,
-  Timeline,
-  TimelinePeriodProps,
-} from "@navikt/ds-react";
-import classnames from "classnames";
-import { add, sub } from "date-fns";
-import { useState } from "react";
+import { BodyShort, Heading, Timeline } from "@navikt/ds-react";
+import { ReactNode } from "react";
+import { useSearchParams } from "react-router";
 
-import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { components } from "@/openapi/behandling-typer";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { skalViseRegelsett } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
-import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
+import { skalViseOpplysning } from "~/utils/opplysning.utils";
+import { isDatoVerdi } from "~/utils/type-guards";
 
-import { components } from "../../../openapi/behandling-typer";
-import styles from "./VilkårTidslinje.module.css";
+import { renderOpplysningRad, renderVilkårRad } from "./vilkår-tidslinje-rader";
 
-export function VilkårTidslinje() {
-  const { oppgaveId } = useTypeSafeParams();
+export {
+  hentFargeForOpplysningPeriode,
+  hentIkonForOpplysningPeriode,
+} from "./vilkår-tidslinje-rader";
+
+type Regelsett = components["schemas"]["Regelsett"];
+
+export function VilkårTidslinje({ children }: { children?: ReactNode }) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { readonly } = useOppgave();
   const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
-  const {
-    antallUkerITidslinje,
-    setAntallUkerITidslinje,
-    tidslinjeStartSlutt,
-    setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(behandling);
-  const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["Regelsett"] | undefined
-  >();
+  const tidslinjeState = useTidslinjeNavigeringState(behandling);
+  const valgtOpplysningId = searchParams.get("opplysning");
 
-  const [vilkårOgOpplysninger, setVilkårOgOpplysninger] = useState<
-    (components["schemas"]["Regelsett"] | components["schemas"]["RedigerbareOpplysninger"])[]
-  >(behandling.vilkår);
+  const synligeVilkår = behandling.vilkår.filter((vilkår) =>
+    skalViseRegelsett(vilkår, behandling.opplysninger, visArvedeOpplysninger),
+  );
+  const aktivtRegelsett = synligeVilkår.find((vilkår) =>
+    vilkår.opplysninger.includes(valgtOpplysningId ?? ""),
+  );
 
-  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"]) {
-    if (aktivtRegelsett?.navn === regelsett.navn) {
-      setAktivtRegelsett(undefined);
-      setVilkårOgOpplysninger(behandling.vilkår);
-      return;
-    }
-
-    setAktivtRegelsett(regelsett);
-
-    const nyeAktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
-      regelsett.opplysninger.includes(opplysning.opplysningTypeId),
-    );
-
-    const index =
-      behandling.vilkår.findIndex((vilkår) => vilkår.navn === regelsett.navn) ??
-      behandling.vilkår.length - 1;
-
-    const oppdatertData = [
-      ...behandling.vilkår.slice(0, index + 1),
-      ...nyeAktiveOpplysninger.reverse(),
-      ...behandling.vilkår.slice(index + 1),
-    ];
-
-    setVilkårOgOpplysninger(oppdatertData);
+  function synligeOpplysninger(regelsett: Regelsett) {
+    return behandling.opplysninger
+      .filter(
+        (opplysning) =>
+          regelsett.opplysninger.includes(opplysning.opplysningTypeId) &&
+          skalViseOpplysning(opplysning, visArvedeOpplysninger),
+      )
+      .reverse();
   }
 
-  const skalViseTidslinje =
-    behandling.vilkår.filter((vilkår) =>
-      skalViseRegelsett(vilkår, behandling.opplysninger, visArvedeOpplysninger),
-    ).length > 0;
+  function opplysningSearch(opplysningId?: string) {
+    const params = new URLSearchParams(searchParams);
+    if (opplysningId) {
+      params.set("opplysning", opplysningId);
+    } else {
+      params.delete("opplysning");
+    }
+    return params;
+  }
 
-  if (!skalViseTidslinje) {
+  function toggleRegelsett(regelsett: Regelsett) {
+    const opplysningId =
+      aktivtRegelsett?.id === regelsett.id
+        ? undefined
+        : synligeOpplysninger(regelsett)[0]?.opplysningTypeId;
+    setSearchParams(opplysningSearch(opplysningId), { preventScrollReset: true });
+  }
+
+  function renderTidslinje(regelsett: Regelsett[]) {
+    return (
+      <Timeline
+        startDate={tidslinjeState.tidslinjeStartSlutt.start}
+        endDate={tidslinjeState.tidslinjeStartSlutt.end}
+        className="aksel--compact"
+      >
+        {prøvingsdatoOpplysning?.perioder.map((periode) =>
+          isDatoVerdi(periode.verdi) ? (
+            <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
+              <BodyShort size="small" weight="semibold">
+                Prøvingsdato
+              </BodyShort>
+              <BodyShort size="small">{formaterTilNorskDato(periode.verdi.verdi)}</BodyShort>
+            </Timeline.Pin>
+          ) : null,
+        )}
+        {regelsett.flatMap((vilkår) => {
+          const hovedOpplysning = behandling.opplysninger.find(
+            (opplysning) => opplysning.opplysningTypeId === vilkår.opplysningTypeId,
+          );
+          if (!hovedOpplysning) {
+            return [];
+          }
+
+          const utvidet = vilkår.id === aktivtRegelsett?.id;
+          const vilkårRad = renderVilkårRad({
+            regelsett: vilkår,
+            hovedOpplysning,
+            utvidet,
+            siste: vilkår === synligeVilkår.at(-1) && !utvidet,
+            onToggle: () => toggleRegelsett(vilkår),
+          });
+          const opplysningRader = utvidet
+            ? synligeOpplysninger(vilkår).map((opplysning) =>
+                renderOpplysningRad({
+                  opplysning,
+                  valgt: opplysning.opplysningTypeId === valgtOpplysningId,
+                  readonly,
+                  search: `?${opplysningSearch(opplysning.opplysningTypeId)}`,
+                }),
+              )
+            : [];
+          return [vilkårRad, ...opplysningRader];
+        })}
+      </Timeline>
+    );
+  }
+
+  if (synligeVilkår.length === 0) {
     return null;
   }
 
+  const aktivIndex = aktivtRegelsett ? synligeVilkår.indexOf(aktivtRegelsett) : -1;
+  const vilkårTilOgMedAktivt =
+    aktivIndex === -1 ? synligeVilkår : synligeVilkår.slice(0, aktivIndex + 1);
+  const vilkårEtterAktivt = aktivIndex === -1 ? [] : synligeVilkår.slice(aktivIndex + 1);
+
   return (
-    <div className={"card p-4"}>
-      <div className={"flex content-center justify-between"}>
-        <Heading size={"small"}>Vilkårsvurderinger</Heading>
-        <TidslinjeNavigering
-          tidslinjeStartSlutt={tidslinjeStartSlutt}
-          setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-          antallUkerITidslinje={antallUkerITidslinje}
-          setAntallUkerITidslinje={setAntallUkerITidslinje}
-        />
+    <div className="card p-4">
+      <div className="flex content-center justify-between">
+        <Heading size="small">Vilkårsvurderinger</Heading>
+        <TidslinjeNavigering {...tidslinjeState} />
       </div>
-
-      <Timeline
-        startDate={tidslinjeStartSlutt.start}
-        endDate={tidslinjeStartSlutt.end}
-        className={"aksel--compact"}
-      >
-        {prøvingsdatoOpplysning?.perioder?.map((periode) => {
-          if (isDatoVerdi(periode.verdi)) {
-            return (
-              <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
-                <BodyShort size={"small"} weight={"semibold"}>
-                  Prøvingsdato
-                </BodyShort>
-                <BodyShort size={"small"}>{formaterTilNorskDato(periode.verdi.verdi)}</BodyShort>
-              </Timeline.Pin>
-            );
-          }
-        })}
-
-        {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
-          if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
-            if (!skalViseOpplysning(vilkårEllerOpplysning, visArvedeOpplysninger)) {
-              return null;
-            }
-
-            return (
-              <Timeline.Row
-                key={vilkårEllerOpplysning.opplysningTypeId}
-                label={"\u00A0"}
-                icon={
-                  <HStack
-                    wrap={false}
-                    gap="space-2"
-                    align="center"
-                    className={"ml-11 overflow-hidden"}
-                  >
-                    {(readonly || !vilkårEllerOpplysning.redigerbar) && (
-                      <div>
-                        <PadlockLockedIcon fontSize="1rem" />
-                      </div>
-                    )}
-                    <div className={"overflow-hidden"}>
-                      <LoadingLink
-                        tittelPåHover={vilkårEllerOpplysning.navn}
-                        to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
-                      >
-                        {vilkårEllerOpplysning.navn}
-                      </LoadingLink>
-                    </div>
-                  </HStack>
-                }
-              >
-                {vilkårEllerOpplysning.perioder.map((periode) => {
-                  const start = periode.gyldigFraOgMed
-                    ? new Date(periode.gyldigFraOgMed)
-                    : sub(new Date(), { years: 1 });
-
-                  const slutt = periode.gyldigTilOgMed
-                    ? new Date(periode.gyldigTilOgMed)
-                    : add(new Date(), { years: 1 });
-
-                  return (
-                    <Timeline.Period
-                      key={periode.id}
-                      start={start}
-                      end={slutt}
-                      status="info"
-                      icon={formaterOpplysningVerdi(periode.verdi)}
-                    >
-                      {formaterOpplysningVerdi(periode.verdi)}
-                    </Timeline.Period>
-                  );
-                })}
-              </Timeline.Row>
-            );
-          }
-
-          if (
-            !skalViseRegelsett(
-              vilkårEllerOpplysning,
-              behandling.opplysninger,
-              visArvedeOpplysninger,
-            )
-          ) {
-            return null;
-          }
-
-          const hovedOpplysning = behandling.opplysninger.find(
-            (opplysning) => opplysning.opplysningTypeId === vilkårEllerOpplysning.opplysningTypeId,
-          );
-
-          if (!hovedOpplysning) {
-            return null;
-          }
-
-          return (
-            <Timeline.Row
-              key={vilkårEllerOpplysning.id}
-              label={"\u00A0"}
-              icon={
-                <div className={"w-full"}>
-                  <button
-                    type={"button"}
-                    className={classnames(styles.vilkårButton, {
-                      siste: index === vilkårOgOpplysninger.length - 1,
-                    })}
-                    title={vilkårEllerOpplysning.navn}
-                    aria-expanded={aktivtRegelsett?.id === vilkårEllerOpplysning.id}
-                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
-                  >
-                    <span className={styles.vilkårButtonIconWrapper}>
-                      {aktivtRegelsett?.id === vilkårEllerOpplysning.id ? (
-                        <ChevronUpIcon className={styles.vilkårButtonIconChevron} />
-                      ) : (
-                        <ChevronDownIcon className={styles.vilkårButtonIconChevron} />
-                      )}
-                    </span>
-                    <span className={styles.vilkårButtonIconChevron}>
-                      {vilkårEllerOpplysning.navn}
-                    </span>
-                  </button>
-                </div>
-              }
-            >
-              {hovedOpplysning.perioder.map((periode, index) => {
-                const start = periode.gyldigFraOgMed
-                  ? new Date(periode.gyldigFraOgMed)
-                  : sub(new Date(), { years: 1 });
-
-                const slutt = periode.gyldigTilOgMed
-                  ? new Date(periode.gyldigTilOgMed)
-                  : add(new Date(), { years: 1 });
-
-                return (
-                  <Timeline.Period
-                    key={index}
-                    start={start}
-                    end={slutt}
-                    status={hentFargeForOpplysningPeriode(
-                      periode.verdi,
-                      vilkårEllerOpplysning.relevantForResultat,
-                    )}
-                    icon={hentIkonForOpplysningPeriode(
-                      periode.verdi,
-                      vilkårEllerOpplysning.relevantForResultat,
-                    )}
-                  >
-                    <div className={"flex flex-col gap-1"}>
-                      {vilkårEllerOpplysning.relevantForResultat === false && (
-                        <HStack gap="space-2" align="center">
-                          <CircleSlashIcon aria-hidden />
-                          <Detail textColor={"subtle"} className="translate-y-px">
-                            Ikke relevant
-                          </Detail>
-                        </HStack>
-                      )}
-                      <div className={"flex gap-4"}>
-                        <div>
-                          <Detail textColor={"subtle"}>Fra og med</Detail>
-                          <BodyShort size={"small"}>
-                            {periode.gyldigFraOgMed
-                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                              : "--"}
-                          </BodyShort>
-                        </div>
-                        <div>
-                          <Detail textColor={"subtle"}>Til og med</Detail>
-                          <BodyShort size={"small"}>
-                            {periode.gyldigTilOgMed
-                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                              : "--"}
-                          </BodyShort>
-                        </div>
-                        <div>
-                          <Detail textColor={"subtle"}>Verdi</Detail>
-                          <BodyShort size={"small"}>
-                            {formaterOpplysningVerdi(periode.verdi)}
-                          </BodyShort>
-                        </div>
-                      </div>
-                    </div>
-                  </Timeline.Period>
-                );
-              })}
-            </Timeline.Row>
-          );
-        })}
-      </Timeline>
+      {renderTidslinje(vilkårTilOgMedAktivt)}
+      {aktivtRegelsett && children}
+      {vilkårEtterAktivt.length > 0 && renderTidslinje(vilkårEtterAktivt)}
     </div>
   );
-}
-
-export function hentIkonForOpplysningPeriode(
-  opplysningsverdi: components["schemas"]["Opplysningsverdi"],
-  relevantForResultat?: boolean,
-) {
-  if (relevantForResultat === false) {
-    return <CircleSlashIcon />;
-  }
-  switch (opplysningsverdi.datatype) {
-    case "boolsk":
-      return opplysningsverdi.verdi ? <CheckmarkCircleFillIcon /> : <XMarkOctagonIcon />;
-
-    default:
-      return formaterOpplysningVerdi(opplysningsverdi);
-  }
-}
-
-export function hentFargeForOpplysningPeriode(
-  opplysningsverdi: components["schemas"]["Opplysningsverdi"],
-  relevantForResultat?: boolean,
-): TimelinePeriodProps["status"] {
-  if (relevantForResultat === false) {
-    return "neutral";
-  }
-
-  switch (opplysningsverdi.datatype) {
-    case "boolsk":
-      return opplysningsverdi.verdi ? "success" : "danger";
-    default:
-      return "info";
-  }
 }
