@@ -1722,64 +1722,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/klage/{behandlingId}/trekk": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Trekk klage */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["KlageAvslutningNotat"];
-                };
-            };
-            responses: {
-                /** @description Klagen er trukket */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Klagen ble ikke funnet */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/klage/{behandlingId}/avbryt": {
         parameters: {
             query?: never;
@@ -2615,10 +2557,6 @@ export interface components {
             /** @description Kort begrunnelse for hvorfor klagen avsluttes og hva vurderingen bygger på */
             notat?: string;
         };
-        KlageAvslutningNotat: {
-            /** @description Kort begrunnelse for hvorfor klagen avsluttes og hva vurderingen bygger på */
-            notat?: string;
-        };
         /** @enum {string} */
         AvbrytKlageAarsak: "FLERE_KLAGER" | "TRUKKET_KLAGE" | "ANNET";
         ReturnerTilSaksbehandling: {
@@ -2744,6 +2682,13 @@ export interface components {
             behandlingType: components["schemas"]["BehandlingType"];
             utlostAv: components["schemas"]["UtlostAvType"];
         };
+        BehandlingSomKanPaaklages: {
+            /** Format: uuid */
+            behandlingId: string;
+            utlostAv: components["schemas"]["UtlostAvType"];
+            /** Format: date-time */
+            ferdigbehandletTidspunkt: string;
+        };
         Klage: {
             /** Format: uuid */
             behandlingId: string;
@@ -2756,6 +2701,8 @@ export interface components {
             klageinstansBehandling?: components["schemas"]["KlageinstansBehandling"];
             /** @description Årsaker til at klagen avbrytes */
             lovligeAvbrytAarsaker: components["schemas"]["AvbrytKlageAarsak"][];
+            /** @description Behandlinger som kan påklages */
+            behandlingerSomKanPaaklages: components["schemas"]["BehandlingSomKanPaaklages"][];
         };
         TekstVerdi: {
             verdi: string;

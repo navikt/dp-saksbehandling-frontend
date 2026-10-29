@@ -1,9 +1,12 @@
-import { graphql, HttpResponse } from "msw";
+import { graphql } from "msw/graphql";
+import { HttpResponse } from "msw/http";
 
 import { mockPdlPerson } from "./mock-pdl-person";
 
+const api = graphql.link("http://localhost:3000/graphql");
+
 export const mockPdl = [
-  graphql.query("hentPerson", () => {
+  api.query("hentPerson", () => {
     return HttpResponse.json({
       data: {
         hentPerson: mockPdlPerson,

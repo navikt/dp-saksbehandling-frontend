@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-import { delay } from "msw";
+import { delay } from "msw/utils/delay";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { formaterTilBackendDato } from "~/utils/dato.utils";

@@ -1,4 +1,4 @@
-import { delay } from "msw";
+import { delay } from "msw/utils/delay";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";

@@ -1,4 +1,5 @@
-import { bypass, http, HttpResponse } from "msw";
+import { http, HttpResponse } from "msw/http";
+import { bypass } from "msw/utils/bypass";
 
 export const mockSanity = [
   http.get("https://rt6o382n.api.sanity.io/v2024-06-20/data/query*", async ({ request }) => {
