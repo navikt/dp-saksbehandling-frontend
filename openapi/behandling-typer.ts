@@ -702,7 +702,11 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put?: never;
+        /**
+         * Endre en eksisterende opplysning
+         * @description Endrer verdi og/eller gyldighetsperiode på opplysningen. Opplysningen får en ny revisjon som erstatter hele den eksisterende, og utledede opplysninger beregnes på nytt. Oppgis gyldigFraOgMed erstattes hele perioden (utelatt gyldigTilOgMed betyr åpen periode), ellers beholdes perioden.
+         */
+        put: operations["endreOpplysning"];
         post?: never;
         /** Fjern en opplysning */
         delete: operations["fjernOpplysning"];
@@ -1304,6 +1308,14 @@ export interface components {
         NyOpplysning: {
             opplysningstype: components["schemas"]["OpplysningTypeId"];
             verdi: string;
+            begrunnelse: string;
+            /** Format: date */
+            gyldigFraOgMed?: string;
+            /** Format: date */
+            gyldigTilOgMed?: string;
+        };
+        EndreOpplysning: {
+            verdi?: string;
             begrunnelse: string;
             /** Format: date */
             gyldigFraOgMed?: string;
@@ -1923,7 +1935,7 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning" | "KlageFørsteinstans" | "KlageKlageinstans" | "KlageTrygderetten";
+            type: "Søknad" | "Meldekort" | "Manuell" | "Migrer" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning" | "KlageFørsteinstans" | "KlageKlageinstans" | "KlageTrygderetten";
             /**
              * Format: date
              * @description Når hendelsen skjedde på utsiden av vårt system
@@ -2025,7 +2037,7 @@ export interface components {
             "f\u00F8rteTil"?: components["schemas"]["Avgj\u00F8relse"];
         };
         /** @enum {string} */
-        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode" | "Er ilagt tidsbegrenset bortfall av dagpenger" | "Er ilagt sanskjonsperiode ved selvforskyldt arbeidsløshet" | "Tre påfølgende meldeperioder uten tilstrekkelig tap av arbeidstid § 10-4 annet ledd" | "Oppfyller kravet til eksport" | "Oppfyller medlemmets opplysningsplikt";
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode" | "Er ilagt tidsbegrenset bortfall av dagpenger" | "Er ilagt sanskjonsperiode ved selvforskyldt arbeidsløshet" | "Tre påfølgende meldeperioder uten tilstrekkelig tap av arbeidstid § 10-4 annet ledd" | "Oppfyller kravet til eksport" | "Oppfyller medlemmets opplysningsplikt" | "Etablering godkjent";
     };
     responses: never;
     parameters: never;
@@ -2062,6 +2074,62 @@ export interface operations {
             };
             /** @description Feil ved lagring av begrunnelse */
             400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+        };
+    };
+    endreOpplysning: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+                /** @description Opplysningens id */
+                opplysningId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EndreOpplysning"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Kvittering"];
+                };
+            };
+            /** @description Behandlingen er ikke i riktig tilstand for redigering */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Opplysningen kan ikke endres */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Feil ved endring av opplysning */
+            default: {
                 headers: {
                     [name: string]: unknown;
                 };

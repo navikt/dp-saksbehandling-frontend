@@ -181,6 +181,13 @@ export const klage: components["schemas"]["Klage"] = {
     },
     journalpostIder: ["JOURNALPOSTID_1", "JOURNALPOSTID_2"],
   },
+  behandlingerSomKanPaaklages: [
+    {
+      behandlingId: "019a492d-aa06-7c8b-841a-3378bce87b27",
+      utlostAv: "SØKNAD",
+      ferdigbehandletTidspunkt: "2025-09-11T15:54:16.734",
+    },
+  ],
 };
 
 export const klager: components["schemas"]["Klage"][] = [klage];

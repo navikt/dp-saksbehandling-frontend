@@ -1,12 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { delay, graphql, http, HttpResponse } from "msw";
+import { graphql } from "msw/graphql";
+import { http, HttpResponse } from "msw/http";
+import { delay } from "msw/utils/delay";
 
 import { mockJournalposter } from "./data/mock-journalposter";
 
+const api = graphql.link("http://localhost:3000/graphql");
+
 export const mockSaf = [
-  graphql.query("journalpost", async ({ variables }) => {
+  api.query("journalpost", async ({ variables }) => {
     await delay();
     const journalpost = mockJournalposter.find(
       (jp) => jp?.journalpostId === variables.journalpostId,
