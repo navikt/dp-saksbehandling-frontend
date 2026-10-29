@@ -1,4 +1,4 @@
-import { BodyShort, Heading } from "@navikt/ds-react";
+import { BodyShort, ExpansionCard, Heading } from "@navikt/ds-react";
 
 import { Avklaring } from "~/components/avklaringer/Avklaring";
 
@@ -33,16 +33,18 @@ export function Avklaringer({ avklaringer }: IProps) {
         </div>
       </div>
       {maskinelleAvklaringer.length > 0 && (
-        <div>
-          <Heading level="3" size={"small"}>
-            Maksinelle avklaringer
-          </Heading>
-          <div className={"mt-2 flex flex-col gap-2"}>
-            {maskinelleAvklaringer.map((avklaring) => (
-              <Avklaring avklaring={avklaring} key={avklaring.id} lukket />
-            ))}
-          </div>
-        </div>
+        <ExpansionCard aria-label="Maskinelle avklaringer">
+          <ExpansionCard.Header>
+            <ExpansionCard.Title size="small">Maksinelle avklaringer</ExpansionCard.Title>
+          </ExpansionCard.Header>
+          <ExpansionCard.Content>
+            <div className={"flex flex-col gap-2"}>
+              {maskinelleAvklaringer.map((avklaring) => (
+                <Avklaring avklaring={avklaring} key={avklaring.id} lukket />
+              ))}
+            </div>
+          </ExpansionCard.Content>
+        </ExpansionCard>
       )}
     </div>
   );
