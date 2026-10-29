@@ -13,6 +13,7 @@ import { useEffect, useRef } from "react";
 import { useActionData } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
+import { useOppgave } from "~/hooks/useOppgave";
 import { endreBeregningsregelAction } from "~/server-side-actions/endre-beregningsregel-action";
 import {
   BEREGNINGSREGEL_OPPLYSNINGER,
@@ -35,6 +36,7 @@ export function EndreBeregningsregelModal({
   opplysninger,
   sistePrøvingsdato,
 }: Props) {
+  const { readonly } = useOppgave();
   const modalRef = useRef<HTMLDialogElement>(null);
   const actionData = useActionData<typeof endreBeregningsregelAction>();
   const form = useForm({
@@ -72,6 +74,14 @@ export function EndreBeregningsregelModal({
       modalRef.current?.close();
     }
   }, [actionData]);
+
+  if (
+    readonly ||
+    opplysninger.length === 0 ||
+    opplysninger.some((opplysning) => !opplysning.redigerbar)
+  ) {
+    return null;
+  }
 
   return (
     <>

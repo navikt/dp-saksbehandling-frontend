@@ -69,6 +69,8 @@ function getTabs(
 
   const erTilBeslutning = behandling.tilstand === "TilBeslutning";
 
+  const ferdigBehandlet = ["Ferdig", "Avbrutt"].includes(behandling.tilstand);
+
   return [
     !erFerietillegg
       ? {
@@ -101,14 +103,16 @@ function getTabs(
           icon: <CurrencyExchangeIcon aria-hidden />,
         }
       : undefined,
-    {
-      url: `${baseUrl}/vedtak`,
-      label: "Brev til bruker",
-      icon: <EnvelopeClosedIcon aria-hidden />,
-      suffix: erTilBeslutning ? (
-        <ExclamationmarkTriangleFillIcon className={styles.advarsel} aria-hidden />
-      ) : null,
-    },
+    !ferdigBehandlet
+      ? {
+          url: `${baseUrl}/vedtak`,
+          label: "Brev til bruker",
+          icon: <EnvelopeClosedIcon aria-hidden />,
+          suffix: erTilBeslutning ? (
+            <ExclamationmarkTriangleFillIcon className={styles.advarsel} aria-hidden />
+          ) : null,
+        }
+      : undefined,
     // getEnv("GCP_ENV") === "dev"
     //   ? {
     //       url: `${baseUrl}/lekegrind`,
