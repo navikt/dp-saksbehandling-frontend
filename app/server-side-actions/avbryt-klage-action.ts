@@ -18,8 +18,8 @@ export async function avbrytKlageAction(
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, årsak } = validertSkjema.data;
-  const { error, response } = await avbrytKlage(request, behandlingId, årsak);
+  const { behandlingId, årsak, notat } = validertSkjema.data;
+  const { error, response } = await avbrytKlage(request, behandlingId, årsak, notat);
 
   if (error) {
     return getErrorAlert(error, response);
