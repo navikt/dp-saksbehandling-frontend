@@ -28,6 +28,7 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
         to={props.to}
         className={props.className}
         icon={props.icon}
+        aria-label={props["aria-label"]}
         loading={isNavigatingToThisLink}
       >
         {props.children}

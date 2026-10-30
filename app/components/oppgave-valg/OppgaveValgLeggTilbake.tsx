@@ -16,9 +16,10 @@ interface IProps {
   oppgave: components["schemas"]["Oppgave"] | components["schemas"]["OppgaveOversikt"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
+  iconOnly?: boolean;
 }
 
-export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant, iconOnly }: IProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
   const params = useParams();
   const navigate = useNavigate();
@@ -63,9 +64,11 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
         onClick={() => modalRef.current?.showModal()}
         loading={isPending}
         icon={<ArrowUndoIcon aria-hidden />}
+        aria-label="Legg tilbake"
+        title={iconOnly ? "Legg tilbake" : undefined}
         className={"aksel--font-regular aksel--full-bredde"}
       >
-        Legg tilbake
+        {!iconOnly && "Legg tilbake"}
       </Button>
 
       <Modal ref={modalRef} header={{ heading: "Legg tilbake" }}>
