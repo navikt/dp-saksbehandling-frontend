@@ -68,8 +68,8 @@ export function useTildelOppgaveMutation() {
         }
       };
 
-      performNavigation()?.then(() => {
-        queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+      return performNavigation()?.then(() => {
+        return queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
       });
     },
     onError: (error) => {
@@ -93,6 +93,7 @@ export function useTildelOppgaveMutation() {
 
   return {
     mutate: mutation.mutate,
+    mutateAsync: mutation.mutateAsync,
     isPending: mutation.isPending || navigation.state === "loading",
   };
 }
@@ -103,9 +104,9 @@ export function useLeggTilbakeOppgaveMutation() {
 
   const mutation = useMutation({
     mutationFn: leggTilbakeOppgaveFetch,
-    onSuccess: () => {
+    onSuccess: async () => {
       // Invalidate cache after mutation settles
-      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+      await queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
       addAlert({
         variant: "success",
         title: "Oppgave lagt tilbake",
@@ -116,6 +117,7 @@ export function useLeggTilbakeOppgaveMutation() {
 
   return {
     mutate: mutation.mutate,
+    mutateAsync: mutation.mutateAsync,
     isPending: mutation.isPending,
   };
 }
@@ -127,12 +129,13 @@ export function useReturnerTilSaksbehandlerMutation() {
     mutationFn: returnerTilSaksbehandlerFetch,
     onSuccess: () => {
       // Invalidate cache after mutation settles
-      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+      return queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
     },
   });
 
   return {
     mutate: mutation.mutate,
+    mutateAsync: mutation.mutateAsync,
     isPending: mutation.isPending,
   };
 }

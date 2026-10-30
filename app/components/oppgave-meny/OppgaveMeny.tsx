@@ -1,20 +1,20 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { ActionMenu, Button } from "@navikt/ds-react";
 
-import { OppgaveValgAvbryt } from "~/components/oppgave-valg/OppgaveValgAvbryt";
+import { OppgaveHandlingerModaler } from "~/components/oppgave-valg/OppgaveHandlingerModaler";
 import { OppgaveValgFlyttBehandlingTilNySak } from "~/components/oppgave-valg/OppgaveValgFlyttBehandlingTilNySak";
-import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
+import { OppgaveValgKnapp } from "~/components/oppgave-valg/OppgaveValgKnapp";
 import { OppgaveValgRekjørBehandling } from "~/components/oppgave-valg/OppgaveValgRekjørBehandling";
 import { OppgaveValgSendTilKontroll } from "~/components/oppgave-valg/OppgaveValgSendTilKontroll";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
-
-import { OppgaveValgReturnerTilMeg } from "../oppgave-valg/OppgaveValgReturnerTilSaksbehandler";
+import { useOppgaveHandlinger } from "~/hooks/useOppgaveHandlinger";
 
 export function OppgaveMeny() {
   const { oppgave, gyldigeOppgaveValg } = useOppgave();
   const { behandling } = useBehandling();
+  const { handlinger, isPending, leggTilbake, avbryt } = useOppgaveHandlinger(oppgave);
 
   return (
     <>
@@ -27,6 +27,7 @@ export function OppgaveMeny() {
               size={"small"}
               icon={<ChevronDownIcon aria-hidden />}
               iconPosition="right"
+              disabled={isPending}
             >
               Oppgavemeny
             </Button>
@@ -36,10 +37,13 @@ export function OppgaveMeny() {
             {gyldigeOppgaveValg.map((valg) => {
               switch (valg) {
                 case "legg-tilbake-oppgave":
-                  return <OppgaveValgLeggTilbake oppgave={oppgave} />;
-
                 case "returner-oppgave-til-meg":
-                  return <OppgaveValgReturnerTilMeg oppgave={oppgave} />;
+                case "avbryt-behandling": {
+                  const handling = handlinger[valg];
+                  return handling ? (
+                    <OppgaveValgKnapp key={valg} handling={handling} disabled={isPending} />
+                  ) : undefined;
+                }
 
                 case "rekjor-behandling":
                   return (
@@ -60,19 +64,17 @@ export function OppgaveMeny() {
                   return behandling.kreverTotrinnskontroll ? undefined : (
                     <OppgaveValgSendTilKontroll oppgave={oppgave} />
                   );
-
-                case "avbryt-behandling":
-                  return (
-                    <OppgaveValgAvbryt
-                      oppgaveId={oppgave.oppgaveId}
-                      lovligeEndringer={oppgave.lovligeEndringer}
-                    />
-                  );
               }
             })}
           </ActionMenu.Content>
         </ActionMenu>
       )}
+      <OppgaveHandlingerModaler
+        leggTilbake={leggTilbake}
+        avbryt={avbryt}
+        isPending={isPending}
+        lovligeEndringer={oppgave.lovligeEndringer}
+      />
     </>
   );
 }

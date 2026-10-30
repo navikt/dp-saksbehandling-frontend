@@ -1,102 +1,67 @@
-import {
-  MenuElipsisHorizontalCircleIcon,
-  PersonGavelIcon,
-  PersonPencilIcon,
-} from "@navikt/aksel-icons";
-import { ActionMenu, Button } from "@navikt/ds-react";
+import { MenuElipsisHorizontalCircleIcon } from "@navikt/aksel-icons";
+import { ActionMenu, Button, HStack } from "@navikt/ds-react";
 
-import { OppgaveValgBehandle } from "~/components/oppgave-valg/OppgaveValgBehandle";
-import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
-import { hentGyldigeOppgaveValg } from "~/context/oppgave-context";
+import { OppgaveHandlingerModaler } from "~/components/oppgave-valg/OppgaveHandlingerModaler";
+import { OppgaveValgKnapp } from "~/components/oppgave-valg/OppgaveValgKnapp";
+import { hentGyldigeOppgaveValg, IGyldigeOppgaveHandlinger } from "~/context/oppgave-context";
+import { useOppgaveHandlinger } from "~/hooks/useOppgaveHandlinger";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/saksbehandling-typer";
-import { OppgaveValgAvbryt } from "../oppgave-valg/OppgaveValgAvbryt";
-import { OppgaveValgReturnerTilMeg } from "../oppgave-valg/OppgaveValgReturnerTilSaksbehandler";
-import { OppgaveValgSe } from "../oppgave-valg/OppgaveValgSe";
 
 interface IProps {
   listeOppgave: components["schemas"]["OppgaveOversikt"];
 }
 
 export function ListeOppgaveMeny({ listeOppgave }: IProps) {
+  const { handlinger, isPending, leggTilbake, avbryt } = useOppgaveHandlinger(listeOppgave);
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const erSaksbehandler =
     listeOppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
   const erBeslutter = listeOppgave.beslutterIdent === saksbehandler.onPremisesSamAccountName;
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(listeOppgave, erSaksbehandler, erBeslutter);
+  const oppgaveValg = (Object.keys(handlinger) as IGyldigeOppgaveHandlinger[]).filter((valg) =>
+    gyldigeOppgaveValg.includes(valg),
+  );
+  const direkteValg = oppgaveValg[0];
+  const menyValg = oppgaveValg.slice(1);
+
+  function renderValg(valg: IGyldigeOppgaveHandlinger, iconOnly = false) {
+    const handling = handlinger[valg];
+    if (handling) {
+      return (
+        <OppgaveValgKnapp key={valg} handling={handling} iconOnly={iconOnly} disabled={isPending} />
+      );
+    }
+  }
 
   return (
     <>
-      {gyldigeOppgaveValg.length > 0 && (
-        <ActionMenu>
-          <ActionMenu.Trigger>
-            <Button
-              variant="tertiary-neutral"
-              size={"xsmall"}
-              icon={<MenuElipsisHorizontalCircleIcon />}
-              title={"Valg"}
-            />
-          </ActionMenu.Trigger>
+      <HStack gap="space-2" wrap={false} align="center">
+        {direkteValg && renderValg(direkteValg, true)}
+        {menyValg.length === 1 && renderValg(menyValg[0], true)}
+        {menyValg.length > 1 && (
+          <ActionMenu>
+            <ActionMenu.Trigger>
+              <Button
+                variant="tertiary-neutral"
+                size={"xsmall"}
+                icon={<MenuElipsisHorizontalCircleIcon />}
+                title={"Valg"}
+                disabled={isPending}
+              />
+            </ActionMenu.Trigger>
 
-          <ActionMenu.Content>
-            {gyldigeOppgaveValg.map((valg) => {
-              switch (valg) {
-                case "legg-tilbake-oppgave":
-                  return <OppgaveValgLeggTilbake key={valg} oppgave={listeOppgave} />;
-
-                case "behandle-oppgave":
-                  return (
-                    <OppgaveValgBehandle
-                      key={valg}
-                      listeOppgave={listeOppgave}
-                      label={"Behandle oppgave"}
-                      icon={<PersonPencilIcon aria-hidden={true} />}
-                    />
-                  );
-
-                case "kontroller-oppgave":
-                  return (
-                    <OppgaveValgBehandle
-                      key={valg}
-                      listeOppgave={listeOppgave}
-                      label={"Kontroller oppgave"}
-                      icon={<PersonGavelIcon aria-hidden={true} />}
-                    />
-                  );
-
-                case "se-oppgave":
-                  return (
-                    <OppgaveValgSe
-                      key={valg}
-                      oppgaveId={listeOppgave.oppgaveId}
-                      behandlingId={listeOppgave.behandlingId}
-                      behandlingType={listeOppgave.behandlingType}
-                    />
-                  );
-
-                case "avbryt-behandling":
-                  return (
-                    <OppgaveValgAvbryt
-                      key={valg}
-                      oppgaveId={listeOppgave.oppgaveId}
-                      lovligeEndringer={
-                        listeOppgave.lovligeEndringer || {
-                          avbrytAarsaker: [],
-                          paaVentAarsaker: [],
-                          leggTilbakeAarsaker: [],
-                        }
-                      }
-                    />
-                  );
-
-                case "returner-oppgave-til-meg":
-                  return <OppgaveValgReturnerTilMeg key={valg} oppgave={listeOppgave} />;
-              }
-            })}
-          </ActionMenu.Content>
-        </ActionMenu>
-      )}
+            <ActionMenu.Content>{menyValg.map((valg) => renderValg(valg))}</ActionMenu.Content>
+          </ActionMenu>
+        )}
+      </HStack>
+      <OppgaveHandlingerModaler
+        leggTilbake={leggTilbake}
+        avbryt={avbryt}
+        isPending={isPending}
+        lovligeEndringer={listeOppgave.lovligeEndringer}
+      />
     </>
   );
 }

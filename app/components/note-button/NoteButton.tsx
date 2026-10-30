@@ -89,14 +89,18 @@ export function NoteButton({ onClick, noteKey, oppgaveTilstand }: NoteButtonProp
   }
 
   return (
-    <button
+    <Button
+      type="button"
+      size="xsmall"
+      variant="tertiary"
       title={title || "Legg til huskelapp"}
+      aria-label={title || "Legg til huskelapp"}
       style={hasNote ? { backgroundColor: `var(--ax-${color})` } : {}}
-      className="box-content size-4 align-middle"
+      className="box-border size-6 align-middle"
       onClick={onClick}
     >
       {!hasNote && <DocPencilIcon />}
-    </button>
+    </Button>
   );
 }
 
