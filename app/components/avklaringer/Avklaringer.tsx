@@ -33,9 +33,11 @@ export function Avklaringer({ avklaringer }: IProps) {
         </div>
       </div>
       {maskinelleAvklaringer.length > 0 && (
-        <ExpansionCard aria-label="Maskinelle avklaringer">
+        <ExpansionCard size={"small"} aria-label="Maskinelle avklaringer">
           <ExpansionCard.Header>
-            <ExpansionCard.Title size="small">Maksinelle avklaringer</ExpansionCard.Title>
+            <Heading level="3" size="small">
+              Maksinelle avklaringer
+            </Heading>
           </ExpansionCard.Header>
           <ExpansionCard.Content>
             <div className={"flex flex-col gap-2"}>
