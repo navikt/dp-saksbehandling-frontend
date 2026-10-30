@@ -71,6 +71,14 @@ function getTabs(
 
   const ferdigBehandlet = ["Ferdig", "Avbrutt"].includes(behandling.tilstand);
 
+  function harÅpneAvklaringer(regelsettType: "Vilkår" | "Fastsettelse") {
+    return behandling.avklaringer.some(
+      (avklaring) =>
+        avklaring.status === "Åpen" &&
+        avklaring.regelsett.some((regelsett) => regelsett.type === regelsettType),
+    );
+  }
+
   return [
     !erFerietillegg
       ? {
@@ -83,11 +91,17 @@ function getTabs(
       url: `${baseUrl}/vilkar`,
       label: "Vilkårsvurderinger",
       icon: <ParagraphIcon aria-hidden />,
+      suffix: harÅpneAvklaringer("Vilkår") ? (
+        <ExclamationmarkTriangleFillIcon className={styles.advarsel} title="Har åpne avklaringer" />
+      ) : null,
     },
     {
       url: `${baseUrl}/fastsettelser`,
       label: "Fastsettelser",
       icon: <RobotSmileIcon aria-hidden />,
+      suffix: harÅpneAvklaringer("Fastsettelse") ? (
+        <ExclamationmarkTriangleFillIcon className={styles.advarsel} title="Har åpne avklaringer" />
+      ) : null,
     },
     prosessregler
       ? {

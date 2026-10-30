@@ -160,7 +160,11 @@ function handleBrowserRequest(
   });
 }
 
-export function handleError(error: unknown) {
+export function handleError(error: unknown, { request }: { request: Request }) {
+  if (request.signal.aborted && error instanceof Error && error.name === "AbortError") {
+    return;
+  }
+
   logger.error(error);
 
   if (isRouteErrorResponse(error)) {

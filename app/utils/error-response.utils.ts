@@ -28,7 +28,7 @@ export function handleError(
     if (typeof error === "string") {
       handleHtmlErrorResponse(response, message);
     }
-    handleHttpProblem(error);
+    handleHttpProblem(error, message);
   }
 
   logUnexpectedResponse(response, "error");
@@ -72,13 +72,13 @@ export function handleHttpProblem(
   problem:
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
-  logLevel: "error" | "warn" | "info" = "error",
+  message = fallbackMessage,
 ): never {
-  logger[logLevel](`${problem.status} - ${problem.title}: ${problem.detail}`);
-
-  throw new Response(problem.title, {
+  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  const responseMessage =
+    problem.status >= 500 ? message : [problem.title, problem.detail].filter(Boolean).join("\n\n");
+  throw new Response(responseMessage, {
     status: problem.status,
-    statusText: problem.detail,
   });
 }
 
