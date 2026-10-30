@@ -16,9 +16,11 @@ function EndretOpplysninger({ vurderinger }: IProps) {
   const { underKontroll } = useOppgave();
   const { visArvedeOpplysninger } = useBehandling();
 
-  const opplysningerSomSkalVises = vurderinger.opplysninger.filter((opplysning) =>
-    skalViseOpplysning(opplysning, visArvedeOpplysninger),
-  );
+  const opplysningerSomSkalVises = vurderinger.opplysninger
+    .filter((opplysning) => skalViseOpplysning(opplysning, visArvedeOpplysninger))
+    .sort(
+      (a, b) => b.perioder.at(-1)?.opprettet.localeCompare(a.perioder.at(-1)?.opprettet ?? "") ?? 0,
+    );
 
   return (
     <div>

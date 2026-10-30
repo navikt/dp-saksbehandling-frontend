@@ -4,6 +4,7 @@
   border: 1px solid var(--ax-border-neutral);
 }
 
+
 .editorWrapperReadonly {
   background-color: var(--ax-bg-neutral-moderate);
 }
@@ -23,6 +24,9 @@
 
 .editor [role="textbox"] {
   --list-padding: 1em;
+  max-height: 800px;
+  overflow-y: auto;
+
   /**
    * First, we initialize a counter for each block level.
    */
