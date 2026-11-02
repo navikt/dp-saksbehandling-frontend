@@ -1,34 +1,19 @@
 import { FilePlusIcon } from "@navikt/aksel-icons";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
 import { forwardRef } from "react";
-import { useLocation } from "react-router";
 
+import { useOpprettBehandlingMutation } from "~/api/behandling-hooks";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentValideringForOpprettBehandling } from "~/utils/validering.util";
 
 export const RevurderingModal = forwardRef<HTMLDialogElement>((props, modalRef) => {
-  const { pathname } = useLocation();
   const { personOversikt } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { mutate: opprettBehandling, isPending } = useOpprettBehandlingMutation();
 
   function closeModal() {
     if (modalRef && typeof modalRef !== "function" && modalRef.current) {
       modalRef.current.close();
     }
   }
-
-  const opprettRevurderingForm = useForm({
-    method: "post",
-    action: pathname,
-    submitSource: "state",
-    schema: hentValideringForOpprettBehandling(),
-    onSubmitSuccess: closeModal,
-    defaultValues: {
-      _action: "opprett-behandling",
-      personIdent: personOversikt.person.ident,
-      behandlingstype: "Revurdering",
-    },
-  });
 
   return (
     <Modal
@@ -58,8 +43,13 @@ export const RevurderingModal = forwardRef<HTMLDialogElement>((props, modalRef) 
       <Modal.Footer>
         <Button
           size={"small"}
-          loading={opprettRevurderingForm.formState.isSubmitting}
-          onClick={() => opprettRevurderingForm.submit()}
+          loading={isPending}
+          onClick={() =>
+            opprettBehandling(
+              { personIdent: personOversikt.person.ident, behandlingstype: "Revurdering" },
+              { onSuccess: closeModal },
+            )
+          }
         >
           Opprett revurdering
         </Button>

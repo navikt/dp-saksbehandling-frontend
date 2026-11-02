@@ -2,14 +2,14 @@ import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import { BodyLong, Button, Modal, TextField } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { forwardRef } from "react";
-import { useLocation } from "react-router";
 
+import { useOpprettBehandlingMutation } from "~/api/behandling-hooks";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentValideringForOpprettRevurderingEtterKlage } from "~/utils/validering.util";
 
 export const RevurderingEtterKlageModal = forwardRef<HTMLDialogElement>((props, modalRef) => {
-  const { pathname } = useLocation();
   const { personOversikt } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { mutateAsync: opprettBehandling, isPending } = useOpprettBehandlingMutation();
 
   function closeModal() {
     if (modalRef && typeof modalRef !== "function" && modalRef.current) {
@@ -18,14 +18,17 @@ export const RevurderingEtterKlageModal = forwardRef<HTMLDialogElement>((props, 
   }
 
   const opprettRevurderingEtterKlageForm = useForm({
-    method: "post",
-    action: pathname,
     submitSource: "state",
     schema: hentValideringForOpprettRevurderingEtterKlage(),
+    handleSubmit: async (values) => {
+      await opprettBehandling({
+        ...values,
+        personIdent: personOversikt.person.ident,
+        behandlingstype: "OmgjøringEtterKlage",
+      });
+    },
     onSubmitSuccess: closeModal,
     defaultValues: {
-      _action: "opprett-revurdering-etter-klage",
-      personIdent: personOversikt.person.ident,
       klageId: "",
     },
   });
@@ -55,7 +58,7 @@ export const RevurderingEtterKlageModal = forwardRef<HTMLDialogElement>((props, 
       <Modal.Footer>
         <Button
           size={"small"}
-          loading={opprettRevurderingEtterKlageForm.formState.isSubmitting}
+          loading={isPending || opprettRevurderingEtterKlageForm.formState.isSubmitting}
           onClick={() => opprettRevurderingEtterKlageForm.submit()}
         >
           Opprett revurdering etter klage

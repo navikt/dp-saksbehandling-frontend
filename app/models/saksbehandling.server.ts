@@ -443,17 +443,18 @@ export async function hentPersonOversikt(request: Request, personId: string) {
   handleError(error, response, "Uhåndtert feil i hentPersonOversikt()");
 }
 
-export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
+export async function hentOppgaveIdForBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.GET(
-    "/behandling/{behandlingId}/oppgaveId",
-    {
-      headers: getHeaders(onBehalfOfToken),
-      params: {
-        path: { behandlingId },
-      },
+  return await saksbehandlerClient.GET("/behandling/{behandlingId}/oppgaveId", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
     },
-  );
+  });
+}
+
+export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
+  const { data, error, response } = await hentOppgaveIdForBehandling(request, behandlingId);
 
   if (error) {
     const alert = getErrorAlert(error, response);
