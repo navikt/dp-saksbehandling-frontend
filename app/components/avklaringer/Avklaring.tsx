@@ -21,7 +21,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { alleRegelsett } from "~/utils/behandling.utils";
+import { alleRegelsett, hentOpplysningUrl } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import {
   konverterOpplysningVerdiTilSkjemaVerdi,
@@ -75,17 +75,12 @@ export function Avklaring({ avklaring, lukket }: IProps) {
     const opplysning =
       regelsett?.type === "Vilkår" ? synligeOpplysninger.at(-1) : synligeOpplysninger[0];
 
-    if (!regelsett || !opplysning) {
-      return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}`;
-    }
-
-    const fane = {
-      Vilkår: "vilkar",
-      Fastsettelse: "fastsettelser",
-      Prosess: "prosessregler",
-    }[regelsett.type];
-
-    return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/${fane}?opplysning=${opplysning.opplysningTypeId}`;
+    return hentOpplysningUrl({
+      oppgaveId,
+      behandlingId,
+      regelsett,
+      opplysningTypeId: opplysning?.opplysningTypeId,
+    });
   }
 
   return (
