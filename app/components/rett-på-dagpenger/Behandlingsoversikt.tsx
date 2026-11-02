@@ -4,6 +4,7 @@ import { useState } from "react";
 import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { alleRegelsett, hentOpplysningUrl } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 const opplysningsIDer = [
@@ -46,7 +47,18 @@ export function Behandlingsoversikt() {
         tittel={"Opplysninger"}
         pins={sistePrøvingsdato && [{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
         medLenkeTilOpplysning={true}
-        opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/MjA5OTE0NTUwMg==/opplysning`}
+        opplysningUrlBuilder={(opplysningTypeId) => {
+          const regelsett = alleRegelsett(behandling).find((regelsett) =>
+            regelsett.opplysninger.includes(opplysningTypeId),
+          );
+
+          return hentOpplysningUrl({
+            oppgaveId,
+            behandlingId,
+            regelsett,
+            opplysningTypeId,
+          });
+        }}
         visAllePerioder={true}
         førsteFraOgMedDato={førsteFraOgMedDato}
       />
