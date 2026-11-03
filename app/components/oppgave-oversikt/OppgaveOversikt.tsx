@@ -91,12 +91,13 @@ export function OppgaveOversikt(props: IProps) {
       <AnimatePresence initial={false}>
         {!erLukket && (
           <motion.div
+            className="h-full min-h-0"
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: 310, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <aside className="flex max-h-full flex-col gap-4 overflow-y-auto overscroll-contain">
+            <aside className="flex max-h-full flex-col gap-4 overflow-y-auto">
               <div className={"card flex flex-col gap-4 p-4"}>
                 <div className="flex items-center gap-2">
                   <Heading size={"small"}>Oppgaveinformasjon</Heading>
