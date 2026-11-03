@@ -536,22 +536,21 @@ export function hentValideringForUtvidetBeskrivelse() {
   });
 }
 
-export function hentValideringForOpprettBehandling() {
+export function hentValideringForOpprettRevurderingEtterKlage() {
   return z.object({
-    _action: z.literal("opprett-behandling"),
-    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
-    behandlingstype: z.enum(["Revurdering", "Manuell"], {
-      message: "Du må velge en behandlingstype",
-    }),
+    klageId: z.uuid({ message: "Du må skrive inn gyldig klage-ID" }),
   });
 }
 
-export function hentValideringForOpprettRevurderingEtterKlage() {
-  return z.object({
-    _action: z.literal("opprett-revurdering-etter-klage"),
-    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
-    klageId: z.uuid({ message: "Du må skrive inn gyldig klage-ID" }),
-  });
+export function hentValideringForOpprettBehandlingApi() {
+  const personIdent = z.string().min(1, "Det mangler personIdent i skjema");
+  return z.discriminatedUnion("behandlingstype", [
+    z.object({ personIdent, behandlingstype: z.enum(["Manuell", "Revurdering"]) }),
+    hentValideringForOpprettRevurderingEtterKlage().extend({
+      personIdent,
+      behandlingstype: z.literal("OmgjøringEtterKlage"),
+    }),
+  ]);
 }
 
 export function hentValideringForNyBarneperiode() {
