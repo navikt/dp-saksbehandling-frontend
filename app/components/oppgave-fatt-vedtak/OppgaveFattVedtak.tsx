@@ -55,13 +55,13 @@ export function OppgaveFattVedtak() {
 
   return (
     <>
-      <Button size="small" onClick={() => handleOnClick()}>
+      <Button size="small" onClick={() => handleOnClick()} disabled={!!oppgave.notat?.tekst.trim()}>
         Fatt vedtak
       </Button>
 
       {visFeilmelding && (
         <InlineMessage status="error">
-          Kan ikke fatte vedtak fordi melding om vedtak er feiler. Endre melding om vedtak kilde og
+          Kan ikke fatte vedtak fordi melding om vedtak feiler. Endre melding om vedtak kilde og
           prøv igjen.
         </InlineMessage>
       )}
