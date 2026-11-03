@@ -25,7 +25,7 @@ export function OppgaveValgKnapp({ handling, iconOnly = false, disabled = false 
     loading: handling.loading,
     icon: handling.icon,
     "aria-label": handling.label,
-    className: "aksel--font-regular aksel--full-bredde",
+    className: iconOnly ? "aksel--font-regular shrink-0" : "aksel--font-regular aksel--full-bredde",
   } as const;
   const innhold = !iconOnly && handling.label;
   const knapp =

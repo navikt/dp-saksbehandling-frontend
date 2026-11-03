@@ -37,7 +37,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
 
   return (
     <>
-      <HStack gap="space-2" wrap={false} align="center">
+      <HStack gap="space-2" wrap={false} align="center" className="w-max">
         {direkteValg && renderValg(direkteValg, true)}
         {menyValg.length === 1 && renderValg(menyValg[0], true)}
         {menyValg.length > 1 && (
