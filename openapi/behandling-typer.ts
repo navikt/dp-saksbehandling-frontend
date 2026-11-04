@@ -1935,7 +1935,7 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort" | "Manuell" | "Migrer" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning" | "KlageFørsteinstans" | "KlageKlageinstans" | "KlageTrygderetten";
+            type: "Søknad" | "Meldekort" | "Manuell" | "Migrering" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning" | "KlageFørsteinstans" | "KlageKlageinstans" | "KlageTrygderetten";
             /**
              * Format: date
              * @description Når hendelsen skjedde på utsiden av vårt system
