@@ -4,6 +4,12 @@
   }
 }
 
+.arvede-opplysninger-switch.aksel-switch>.aksel-switch__input,
+.arvede-opplysninger-switch.aksel-switch>.aksel-switch__track {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* Aksel tidslinje overrides */
 .aksel-timeline--first-row-highlight {
   #timeline-row-tl-row-0 {
@@ -11,18 +17,18 @@
     align-self: center;
     padding-bottom: var(--ax-space-12);
 
-    & + .aksel-timeline__row {
+    &+.aksel-timeline__row {
       flex-direction: column;
     }
 
-    & + .aksel-timeline__row:after {
+    &+.aksel-timeline__row:after {
       content: "";
       display: block;
       background-color: var(--ax-bg-default);
       height: 0.7rem;
     }
 
-    & + .aksel-timeline__row:after {
+    &+.aksel-timeline__row:after {
       border-bottom: 2px solid var(--ax-border-neutral-subtleA);
     }
   }
@@ -86,6 +92,7 @@
 }
 
 .aksel--font-regular {
+
   .aksel-button__icon,
   .aksel-label {
     font-weight: var(--ax-font-weight-regular);
@@ -104,6 +111,7 @@
     line-height: var(--ax-font-line-height-medium);
     padding-bottom: 0;
   }
+
   .aksel-process__timestamp {
     font-size: var(--ax-font-size-small);
     margin-bottom: 0;

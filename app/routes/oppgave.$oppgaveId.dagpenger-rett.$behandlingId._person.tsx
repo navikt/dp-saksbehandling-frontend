@@ -6,6 +6,7 @@ import { useVurderingerQuery } from "~/api/behandling-hooks";
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
+import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { BehandlingProvider } from "~/context/behandling-context";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useOppgave } from "~/hooks/useOppgave";
@@ -41,6 +42,7 @@ export default function BehandlingLayout() {
             <Outlet />
           </div>
           <aside aria-label="Sidepanel" className="flex min-w-0 flex-col gap-4">
+            <OppgaveOversiktVisArvedeOpplysninger />
             <div className="card flex min-w-0 flex-col gap-4 p-4">
               <Avklaringer avklaringer={behandling.avklaringer} />
               {isPending && <Loader size="large" title="Henter vurderinger" />}

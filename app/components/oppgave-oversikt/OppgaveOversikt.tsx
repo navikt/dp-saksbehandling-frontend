@@ -24,7 +24,6 @@ import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversik
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
-import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -268,10 +267,6 @@ export function OppgaveOversikt(props: IProps) {
                   </Heading>
                   <OppgaveKontroll />
                 </div>
-              )}
-
-              {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && (
-                <OppgaveOversiktVisArvedeOpplysninger />
               )}
 
               <div className={"card p-4"}>
