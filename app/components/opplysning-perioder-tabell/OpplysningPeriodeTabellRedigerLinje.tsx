@@ -32,6 +32,14 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.opplysning.opplysningTypeId,
+      periodeId: props.periode.id,
+      nåVerdi: konverterOpplysningVerdiTilSkjemaVerdi(props.periode.verdi),
+      nåFraOgMed: props.periode.gyldigFraOgMed
+        ? formaterTilNorskDato(props.periode.gyldigFraOgMed)
+        : undefined,
+      nåTilOgMed: props.periode.gyldigTilOgMed
+        ? formaterTilNorskDato(props.periode.gyldigTilOgMed)
+        : undefined,
       datatype: props.periode.verdi.datatype,
       behandlingId: behandlingId,
       verdi: konverterOpplysningVerdiTilSkjemaVerdi(props.periode.verdi),

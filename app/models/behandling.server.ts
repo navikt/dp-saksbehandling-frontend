@@ -81,6 +81,22 @@ export async function lagreOpplysning(
   });
 }
 
+export async function lagreOpplysningBegrunnelse(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+  begrunnelse: string,
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.PUT("/behandling/{behandlingId}/vurderinger/{opplysningId}", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { begrunnelse },
+    params: {
+      path: { behandlingId, opplysningId },
+    },
+  });
+}
+
 export async function slettPeriode(request: Request, behandlingId: string, periodeId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.DELETE("/behandling/{behandlingId}/opplysning/{opplysningId}", {

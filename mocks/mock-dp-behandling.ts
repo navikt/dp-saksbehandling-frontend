@@ -118,6 +118,15 @@ export const mockDpBehandling = [
     return response(204).empty();
   }),
 
+  http.put(`/behandling/{behandlingId}/vurderinger/{opplysningId}`, async ({ response }) => {
+    await delay();
+
+    if (apiError) {
+      return response(400).json(defaultError);
+    }
+    return response(204).empty();
+  }),
+
   http.get(`/behandling/{behandlingId}/vurderinger`, async ({ response }) => {
     await delay();
 
