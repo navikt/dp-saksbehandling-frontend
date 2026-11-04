@@ -36,7 +36,7 @@ export function Avklaringer({ avklaringer }: IProps) {
         <ExpansionCard size={"small"} aria-label="Maskinelle avklaringer">
           <ExpansionCard.Header>
             <Heading level="3" size="small">
-              Maksinelle avklaringer
+              Maskinelle avklaringer
             </Heading>
           </ExpansionCard.Header>
           <ExpansionCard.Content>
