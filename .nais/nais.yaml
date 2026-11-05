@@ -135,6 +135,7 @@ spec:
         groups:
           - id: "{{azure.grupper.saksbehandler}}"
           - id: "{{azure.grupper.beslutter}}"
+          - id: "{{azure.grupper.les}}"
         extra:
           - NAVident
     sidecar:
@@ -149,7 +150,7 @@ spec:
         - id: loki
         - id: elastic
 
+
   frontend:
     generatedConfig:
       mountPath: /app/build/client/nais.js
-
