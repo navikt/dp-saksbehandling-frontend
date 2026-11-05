@@ -1,7 +1,6 @@
-import { Textarea } from "@navikt/ds-react";
+import { UNSAFE_Combobox } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 import { useEffect, useState } from "react";
-import { useDebounceCallback } from "usehooks-ts";
 
 import { IKlageOpplysningProps } from "~/components/klage/klage-opplysning/KlageOpplysning";
 
@@ -15,13 +14,20 @@ interface IProps extends IKlageOpplysningProps {
 export function KlageOpplysningUuid({ opplysning, formScope, readonly }: IProps) {
   const field = useField(formScope);
   const [verdi, setVerdi] = useState<string>(opplysning.verdi || "");
-  const debouncedSetVerdi = useDebounceCallback(setVerdi, 2000);
 
   useEffect(() => {
     if (verdi !== opplysning.verdi) {
       field.setValue(verdi);
     }
   }, [verdi]);
+
+  function onToggleSelected(option: string, isSelected: boolean) {
+    if (isSelected) {
+      setVerdi(option);
+    } else {
+      setVerdi("");
+    }
+  }
 
   return (
     <>
@@ -32,16 +38,17 @@ export function KlageOpplysningUuid({ opplysning, formScope, readonly }: IProps)
       {opplysning.redigerbar && (
         <>
           <input {...field.getInputProps()} hidden={true} readOnly={true} />
-          <Textarea
-            // Denne må settes for å ikke kobles mot RVF skjema sin ID. Trengs for å få til debounced submit for input
+          <UNSAFE_Combobox
+            // Denne må settes for å ikke kobles mot RVF skjema sin ID.
             form={"ikke-rvf-form"}
-            size={"small"}
             label={opplysning.navn}
-            readOnly={readonly}
-            defaultValue={verdi}
-            onChange={(event) => debouncedSetVerdi(event.currentTarget.value)}
-            onBlur={() => debouncedSetVerdi.flush()}
+            size={"small"}
+            isMultiSelect={false}
+            onToggleSelected={onToggleSelected}
+            selectedOptions={[verdi]}
+            options={opplysning.valgmuligheter}
             error={field.error()}
+            readOnly={readonly}
           />
         </>
       )}

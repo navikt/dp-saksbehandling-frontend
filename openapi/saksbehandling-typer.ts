@@ -2682,13 +2682,6 @@ export interface components {
             behandlingType: components["schemas"]["BehandlingType"];
             utlostAv: components["schemas"]["UtlostAvType"];
         };
-        BehandlingSomKanPaaklages: {
-            /** Format: uuid */
-            behandlingId: string;
-            utlostAv: components["schemas"]["UtlostAvType"];
-            /** Format: date-time */
-            ferdigbehandletTidspunkt: string;
-        };
         Klage: {
             /** Format: uuid */
             behandlingId: string;
@@ -2701,8 +2694,6 @@ export interface components {
             klageinstansBehandling?: components["schemas"]["KlageinstansBehandling"];
             /** @description Årsaker til at klagen avbrytes */
             lovligeAvbrytAarsaker: components["schemas"]["AvbrytKlageAarsak"][];
-            /** @description Behandlinger som kan påklages */
-            behandlingerSomKanPaaklages: components["schemas"]["BehandlingSomKanPaaklages"][];
         };
         TekstVerdi: {
             verdi: string;
