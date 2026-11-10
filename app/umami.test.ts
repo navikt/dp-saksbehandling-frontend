@@ -89,6 +89,24 @@ describe("umamiBeforeSend", () => {
     expect(payload.url).toBe("/oppgave/:id/oppfolging/:id");
   });
 
+  test("erstatter barneliste-IDer, men ikke ny", () => {
+    const payload = {
+      url: "/oppgave/a1b2c3d4-e5f6-7890-abcd-ef1234567890/regelsett/3904804981/opplysning/f0e1d2c3-b4a5-6789-0abc-def123456789/barneliste/1234567890",
+    };
+    umamiBeforeSend("event", payload);
+    expect(payload.url).toBe(
+      "/oppgave/:id/regelsett/3904804981/opplysning/f0e1d2c3-b4a5-6789-0abc-def123456789/barneliste/:id",
+    );
+
+    const nyPayload = {
+      url: "/oppgave/a1b2c3d4-e5f6-7890-abcd-ef1234567890/regelsett/3904804981/opplysning/f0e1d2c3-b4a5-6789-0abc-def123456789/barneliste/ny",
+    };
+    umamiBeforeSend("event", nyPayload);
+    expect(nyPayload.url).toBe(
+      "/oppgave/:id/regelsett/3904804981/opplysning/f0e1d2c3-b4a5-6789-0abc-def123456789/barneliste/ny",
+    );
+  });
+
   test("erstatter person uuid for ny-behandling oppfolging", () => {
     const payload = {
       url: "/person/a1b2c3d4-e5f6-7890-abcd-ef1234567890/ny-behandling/oppfolging",
