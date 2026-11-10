@@ -220,27 +220,11 @@ export default function App() {
                   }}
                 />
                 <script
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                window.umamiBeforeSend = function(type, payload) {
-                  if (payload.url) {
-                    var ids = new Set(["oppgave","dagpenger-rett","person","innsending","klage"]);
-                    var segments = payload.url.split("/");
-                    for (var i = 0; i < segments.length - 1; i++) {
-                      if (ids.has(segments[i])) segments[i+1] = ":id";
-                    }
-                    payload.url = segments.join("/");
-                  }
-                  return payload;
-                }
-              `,
-                  }}
-                />
-                <script
                   defer
                   src={env.UMAMI_TRACKING_URL}
                   data-website-id={env.UMAMI_TRACKING_ID}
                   data-before-send="umamiBeforeSend"
+                  data-opt-out-filters="uuid"
                 />
               </SaksbehandlerProvider>
             </FeatureFlagsProvider>
