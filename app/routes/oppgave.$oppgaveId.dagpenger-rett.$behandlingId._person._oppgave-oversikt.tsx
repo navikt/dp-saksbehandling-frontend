@@ -1,5 +1,7 @@
+import { HStack } from "@navikt/ds-react";
 import { ActionFunctionArgs, Outlet } from "react-router";
 
+import { DokumentMeny } from "~/components/dokument-oversikt/DokumentMeny";
 import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
@@ -20,14 +22,21 @@ export default function BehandlingLayout() {
         tabIndex={0}
         className="relative h-full min-h-0 shrink-0"
       >
-        <OppgaveOversikt opprettetAv={behandling.opprettetAv} visKontroll={false} />
+        <OppgaveOversikt
+          opprettetAv={behandling.opprettetAv}
+          visKontroll={false}
+          visDokumenter={false}
+        />
       </div>
       <div className="min-h-0 min-w-0 flex-1 overflow-auto">
         <main>
           <div className={"card p-4"}>
             <div className="flex justify-between gap-6">
               <LinkTabs />
-              <OppgaveMeny />
+              <HStack gap="space-8" wrap={false} className="shrink-0">
+                <DokumentMeny />
+                <OppgaveMeny />
+              </HStack>
             </div>
             <div className="mt-4">
               <Outlet />

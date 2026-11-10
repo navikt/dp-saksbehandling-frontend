@@ -132,6 +132,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const kanAlltidLeggeTilPeriode = unleash.isEnabled(
     "dp-saksbehandling-frontend.kan-alltid-legge-til-periode",
   );
+  const dokumentIDropdown = unleash.isEnabled("dp-saksbehandling-frontend.dokument-plassering");
 
   return {
     saksbehandler,
@@ -144,6 +145,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       paaske,
       orkestratorBarnOpplysninger,
       kanAlltidLeggeTilPeriode,
+      dokumentIDropdown,
     },
     env: {
       IS_LOCALHOST: process.env.IS_LOCALHOST,

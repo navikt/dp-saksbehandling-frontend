@@ -41,6 +41,7 @@ interface IProps {
   klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
   opprettetAv?: behandlingComponents["schemas"]["Oppretter"];
   visKontroll?: boolean;
+  visDokumenter?: boolean;
 }
 
 export function OppgaveOversikt(props: IProps) {
@@ -269,12 +270,14 @@ export function OppgaveOversikt(props: IProps) {
                 </div>
               )}
 
-              <div className={"card p-4"}>
-                <Heading className={"pb-2"} size={"small"}>
-                  Dokumenter
-                </Heading>
-                <DokumentOversikt />
-              </div>
+              {props.visDokumenter !== false && (
+                <div className={"card p-4"}>
+                  <Heading className={"pb-2"} size={"small"}>
+                    Dokumenter
+                  </Heading>
+                  <DokumentOversikt />
+                </div>
+              )}
 
               <div className={"card p-4"}>
                 <div className="flex items-center justify-between">
