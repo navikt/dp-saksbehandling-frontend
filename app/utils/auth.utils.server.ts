@@ -50,7 +50,7 @@ export async function getMicrosoftOboToken(request: Request) {
 
 export async function getSAFOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.SAF_TOKEN as string;
+    return await getLocalToken("SAF_TOKEN");
   }
 
   const audience = `${process.env.SAF_AUDIENCE}`;

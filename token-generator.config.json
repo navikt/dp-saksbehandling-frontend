@@ -16,6 +16,10 @@
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering-personregister"
   },
   {
+    "env": "SAF_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-fss.teamdokumenthandtering.saf"
+  },
+  {
     "env": "MICROSOFT_TOKEN",
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=https%3A%2F%2Fgraph.microsoft.com%2F.default"
   }
