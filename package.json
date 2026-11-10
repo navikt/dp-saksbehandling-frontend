@@ -95,7 +95,7 @@
     "@portabletext/types": "4.0.2",
     "@react-router/dev": "8.3.0",
     "@react-router/fs-routes": "8.3.0",
-    "@tailwindcss/vite": "4.3.3",
+    "@tailwindcss/vite": "4.3.4",
     "@types/canvas-confetti": "1.9.0",
     "@types/compression": "1.8.1",
     "@types/lodash": "^4.17.27",
