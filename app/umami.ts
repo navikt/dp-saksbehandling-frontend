@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    umamiBeforeSend: typeof umamiBeforeSend;
+  }
+}
+
 export function umamiBeforeSend(type: string, payload: { url?: string }) {
   const fjernIdEtterSegment = new Set([
     "oppgave",
@@ -26,3 +32,11 @@ export function umamiBeforeSend(type: string, payload: { url?: string }) {
   }
   return payload;
 }
+
+export function installUmamiBeforeSend() {
+  if (typeof window !== "undefined") {
+    window.umamiBeforeSend = umamiBeforeSend;
+  }
+}
+
+installUmamiBeforeSend();

@@ -220,40 +220,6 @@ export default function App() {
                   }}
                 />
                 <script
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                window.umamiBeforeSend(type: string, payload: { url?: string }) {
-  const fjernIdEtterSegment = new Set([
-    "oppgave",
-    "dagpenger-rett",
-    "person",
-    "innsending",
-    "klage",
-    "tilbakekreving",
-    "oppfolging",
-    "barneliste",
-  ]);
-  if (payload.url) {
-    const segmenter = payload.url.split("/");
-    for (let i = 0; i < segmenter.length - 1; i++) {
-      if (!fjernIdEtterSegment.has(segmenter[i])) {
-        continue;
-      }
-
-      if (segmenter[i] === "barneliste" && segmenter[i + 1] === "ny") {
-        continue;
-      }
-
-      segmenter[i + 1] = ":id";
-    }
-    payload.url = segmenter.join("/");
-  }
-  return payload;
-}
-              `,
-                  }}
-                />
-                <script
                   defer
                   src={env.UMAMI_TRACKING_URL}
                   data-website-id={env.UMAMI_TRACKING_ID}

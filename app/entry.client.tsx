@@ -9,10 +9,12 @@ import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";
 
 import { initFaro } from "~/faro";
+import { installUmamiBeforeSend } from "~/umami";
 import { logger } from "~/utils/logger.utils";
 
 try {
   initFaro();
+  installUmamiBeforeSend();
 } catch (error) {
   logger.error(error);
 }
