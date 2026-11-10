@@ -52,6 +52,7 @@ export default function PersonOversikt() {
             oppgaver={oppgaverTilBehandling}
             totaltAntallOppgaver={oppgaverTilBehandling.length}
             excludedColumns={["personIdent", "beslutter", "utsattTilDato"]}
+            noSort
           />
         </div>
 
@@ -122,6 +123,7 @@ export default function PersonOversikt() {
                 oppgaver={alleOppgaver}
                 totaltAntallOppgaver={alleOppgaver.length}
                 excludedColumns={["personIdent"]}
+                noSort
               />
             </div>
           </Tabs.Panel>
@@ -138,6 +140,7 @@ export default function PersonOversikt() {
             oppgaver={ferietilleggOppgaver}
             totaltAntallOppgaver={ferietilleggOppgaver.length}
             excludedColumns={["personIdent"]}
+            noSort
           />
         </div>
       </div>

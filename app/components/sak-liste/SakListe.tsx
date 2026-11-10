@@ -24,8 +24,8 @@ export function SakListe({ saker, skjulMeldekortOppgaver }: IProps) {
         const idGrupper = sak.id.split("-");
         const sisteIdGruppe = idGrupper.pop();
         const forsteIdGruppe = idGrupper.join("-");
-        const førsteOppgave = sak.oppgaver.at(0);
-        const sisteOppgave = sak.oppgaver.at(-1);
+        const førsteOppgave = sak.oppgaver.at(-1);
+        const sisteOppgave = sak.oppgaver.at(0);
         const synligeOppgaver = filtrerMeldekortOppgaver(sak.oppgaver, skjulMeldekortOppgaver);
 
         return (
@@ -67,6 +67,7 @@ export function SakListe({ saker, skjulMeldekortOppgaver }: IProps) {
                 oppgaver={synligeOppgaver}
                 totaltAntallOppgaver={synligeOppgaver.length}
                 excludedColumns={["personIdent"]}
+                noSort
               />
             </ExpansionCard.Content>
           </ExpansionCard>

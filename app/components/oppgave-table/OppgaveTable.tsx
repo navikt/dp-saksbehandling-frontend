@@ -39,6 +39,7 @@ interface OppgaveTableProps {
   tittel?: string;
   icon?: React.ReactNode;
   henterOppgaver?: boolean;
+  noSort?: boolean;
 }
 
 export function OppgaveTable({
@@ -48,6 +49,7 @@ export function OppgaveTable({
   tittel,
   icon,
   henterOppgaver = false,
+  noSort = false,
 }: OppgaveTableProps) {
   const [selectedNoteKey, setSelectedNoteKey] = useState<string>();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
@@ -76,6 +78,7 @@ export function OppgaveTable({
         getRowKey={(oppgave) => oppgave.oppgaveId}
         defaultColumn="tidspunktOpprettet"
         emptyMessage="Fant ingen oppgaver"
+        noSort={noSort}
       >
         {(columnKey, value) =>
           renderOppgaveKolonne(
