@@ -16,6 +16,7 @@ export interface GenericTableProps<T, TColumnKey extends string = string> {
   children: (columnKey: TColumnKey, value: T) => ReactNode;
   defaultColumn: NoInfer<TColumnKey>;
   emptyMessage?: ReactNode;
+  noSort?: boolean;
 }
 
 export function GenericTable<T, TColumnKey extends string = string>({
@@ -25,6 +26,7 @@ export function GenericTable<T, TColumnKey extends string = string>({
   children,
   defaultColumn,
   emptyMessage = "Ingen data",
+  noSort = false,
 }: GenericTableProps<T, TColumnKey>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const columnEntries = Object.entries(columns) as [TColumnKey, TableColumn][];
@@ -48,8 +50,8 @@ export function GenericTable<T, TColumnKey extends string = string>({
       size="small"
       className="tabell--subtil"
       zebraStripes
-      sort={{ orderBy, direction }}
-      onSortChange={handleSortChange}
+      sort={noSort ? undefined : { orderBy, direction }}
+      onSortChange={noSort ? undefined : handleSortChange}
     >
       <Table.Header>
         <Table.Row>
@@ -57,8 +59,8 @@ export function GenericTable<T, TColumnKey extends string = string>({
             <Table.ColumnHeader
               key={columnKey}
               scope="col"
-              sortable={column.sortKey !== undefined}
-              sortKey={column.sortKey}
+              sortable={!noSort && column.sortKey !== undefined}
+              sortKey={noSort ? undefined : column.sortKey}
             >
               <Detail>{column.header}</Detail>
             </Table.ColumnHeader>

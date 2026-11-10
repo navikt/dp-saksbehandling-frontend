@@ -101,6 +101,7 @@ export function SisteSak({
             oppgaver={oppgaverSomIkkeErIDpBehandling}
             totaltAntallOppgaver={oppgaverSomIkkeErIDpBehandling.length}
             excludedColumns={["personIdent"]}
+            noSort
           />
         </>
       )}
