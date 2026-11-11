@@ -19,10 +19,34 @@ export function boolToStringbool(val: boolean | undefined) {
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
+  return hentOpplysningPeriodeFelter(datatype)
+    .extend({
+      _action: z.literal("lagre-opplysning"),
+      opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema").min(1),
+    })
+    .refine(erGyldigOpplysningsperiode, {
+      message: "Til og med må være samme dag som eller etter fra og med",
+      path: ["gyldigTilOgMed"],
+    });
+}
+
+export function hentValideringForEndreOpplysningPeriodeSkjema(
+  datatype: components["schemas"]["DataType"],
+) {
+  return hentOpplysningPeriodeFelter(datatype)
+    .extend({
+      _action: z.literal("endre-opplysning"),
+      opplysningId: z.string("Det mangler opplysningId i skjema").min(1),
+    })
+    .refine(erGyldigOpplysningsperiode, {
+      message: "Til og med må være samme dag som eller etter fra og med",
+      path: ["gyldigTilOgMed"],
+    });
+}
+
+function hentOpplysningPeriodeFelter(datatype: components["schemas"]["DataType"]) {
   return z.object({
-    _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
-    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
     datatype: z.string("Det mangler datatype i skjema"),
     behandlingId: z.string("Det mangler behandlingId i skjema"),
     begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
@@ -39,27 +63,23 @@ export function hentValideringForOpplysningPeriodeSkjema(
   });
 }
 
+function erGyldigOpplysningsperiode({
+  gyldigFraOgMed,
+  gyldigTilOgMed,
+}: {
+  gyldigFraOgMed: string;
+  gyldigTilOgMed?: string;
+}) {
+  return (
+    !gyldigTilOgMed ||
+    gyldigFraOgMed.split(".").reverse().join("-") <= gyldigTilOgMed.split(".").reverse().join("-")
+  );
+}
+
 export function hentValideringForNyOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
-  return z.object({
-    _action: z.literal("lagre-opplysning"),
-    verdi: hentValideringForOpplysningVerdi(datatype),
-    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
-    datatype: z.string("Det mangler datatype i skjema"),
-    behandlingId: z.string("Det mangler behandlingId i skjema"),
-    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
-    gyldigFraOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
-    ),
-    gyldigTilOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-  });
+  return hentValideringForOpplysningPeriodeSkjema(datatype);
 }
 
 export function hentValideringForSlettPeriode() {
