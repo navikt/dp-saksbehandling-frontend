@@ -8,7 +8,6 @@ interface FeatureFlagsContextType {
     valentines: boolean;
     hippHippHurra: boolean;
     paaske: boolean;
-    orkestratorBarnOpplysninger: boolean;
     kanAlltidLeggeTilPeriode: boolean;
   };
 }
