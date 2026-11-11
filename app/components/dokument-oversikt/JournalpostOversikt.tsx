@@ -1,5 +1,5 @@
 import { FilePdfIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
+import { BodyShort, Detail, Link, List } from "@navikt/ds-react";
 import { Fragment } from "react";
 
 import { JournalpostResponse } from "~/api/journalpost";
@@ -8,34 +8,11 @@ import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAle
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
-import { Variantformat } from "../../../graphql/generated/saf/graphql";
-
 interface IProps {
   journalposterResponse: JournalpostResponse[];
 }
 
 export function JournalpostOversikt({ journalposterResponse }: IProps) {
-  async function aapneDokument(
-    journalpostId: string,
-    dokumentInfoId: string,
-    variantFormat: Variantformat,
-  ) {
-    const url = `/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
-    }
-
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-
-    window.open(blobUrl, "_blank");
-  }
-
   return (
     <div className={"flex flex-col gap-2"}>
       {journalposterResponse.map((journalpost, index) => {
@@ -73,22 +50,14 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                         <List.Item
                           icon={<FilePdfIcon color={"var(--ax-text-subtle)"} aria-hidden />}
                         >
-                          <Button
-                            className={"text-start"}
-                            type="button"
-                            size="xsmall"
-                            variant="tertiary"
-                            onClick={() =>
-                              aapneDokument(
-                                journalpost?.journalpostId,
-                                dokument.dokumentInfoId,
-                                variant.variantformat,
-                              )
-                            }
+                          <Link
+                            className={"text-start visited:text-(--ax-text-meta-purple-subtle)"}
+                            href={`/api/hent-dokument/${journalpost.journalpostId}/${dokument.dokumentInfoId}/${variant.variantformat}`}
+                            target={`dokument-${journalpost.journalpostId}`}
                           >
                             {dokument.tittel}{" "}
                             {variant.variantformat !== "ARKIV" && `[${variant.variantformat}]`}
-                          </Button>
+                          </Link>
                         </List.Item>
                       )}
                     </Fragment>

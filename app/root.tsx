@@ -115,23 +115,26 @@ export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
+  const isEnabled = (key: string) =>
+    unleash.isEnabled(key, { userId: saksbehandler.onPremisesSamAccountName });
 
   // Only prefetch and dehydrate oppgaver when the initial request targets /mine-oppgaver
   const queryClient = new QueryClient();
   const url = new URL(request.url);
   await prefetchDataForRoute(url, request, queryClient);
 
-  const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
-  const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
-  const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
-  const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
-  const paaske = unleash.isEnabled("dp-saksbehandling-frontend.paaske");
-  const orkestratorBarnOpplysninger = unleash.isEnabled(
+  const jul = isEnabled("dp-saksbehandling-frontend.jul");
+  const halloween = isEnabled("dp-saksbehandling-frontend.halloween");
+  const valentines = isEnabled("dp-saksbehandling-frontend.valentines");
+  const hippHippHurra = isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
+  const paaske = isEnabled("dp-saksbehandling-frontend.paaske");
+  const orkestratorBarnOpplysninger = isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
-  const kanAlltidLeggeTilPeriode = unleash.isEnabled(
+  const kanAlltidLeggeTilPeriode = isEnabled(
     "dp-saksbehandling-frontend.kan-alltid-legge-til-periode",
   );
+  const dokumentIDropdown = unleash.isEnabled("dp-saksbehandling-frontend.dokument-plassering");
 
   return {
     saksbehandler,
@@ -144,6 +147,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       paaske,
       orkestratorBarnOpplysninger,
       kanAlltidLeggeTilPeriode,
+      dokumentIDropdown,
     },
     env: {
       IS_LOCALHOST: process.env.IS_LOCALHOST,
