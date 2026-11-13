@@ -5,79 +5,9 @@ import { getEnv } from "~/utils/env.utils";
 import { handleError } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { components, paths } from "../../openapi/soknad-orkestrator-typer";
+import { paths } from "../../openapi/soknad-orkestrator-typer";
 
 const orkestratorClient = createClient<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
-
-export async function hentBarn(request: Request, soknadbarnId: string) {
-  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-
-  const { response, data, error } = await orkestratorClient.GET(
-    "/opplysninger/barn/{soknadbarnId}",
-    {
-      headers: getHeaders(onBehalfOfToken),
-      params: {
-        path: { soknadbarnId },
-      },
-    },
-  );
-
-  if (data) {
-    return data;
-  }
-
-  handleError(error, response, "Uhåndtert feil i hentBarn()");
-}
-
-export async function redigerBarn(
-  request: Request,
-  soknadbarnId: string,
-  barnId: string,
-  requestBody: components["schemas"]["BarnRequest"],
-) {
-  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-
-  return await orkestratorClient.PUT("/opplysninger/barn/{soknadbarnId}/{barnId}", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ...requestBody },
-    params: {
-      path: { soknadbarnId, barnId },
-    },
-  });
-}
-
-export async function leggTilBarn(
-  request: Request,
-  soknadbarnId: string,
-  requestBody: components["schemas"]["BarnRequest"],
-) {
-  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-
-  return await orkestratorClient.POST("/opplysninger/barn/{soknadbarnId}", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ...requestBody },
-    params: {
-      path: { soknadbarnId },
-    },
-  });
-}
-
-export async function slettBarn(
-  request: Request,
-  soknadbarnId: string,
-  barnId: string,
-  requestBody: components["schemas"]["SlettBarnRequest"],
-) {
-  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-
-  return await orkestratorClient.POST("/opplysninger/barn/{soknadbarnId}/{barnId}/slett", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ...requestBody },
-    params: {
-      path: { soknadbarnId, barnId },
-    },
-  });
-}
 
 export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
