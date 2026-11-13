@@ -1,5 +1,6 @@
 import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
 
+import { getEnv } from "~/utils/env.utils";
 import { getLocalToken } from "~/utils/local-token-refresh.server";
 import { logger } from "~/utils/logger.utils";
 
@@ -17,8 +18,7 @@ export async function getRapporteringPersonregisterOboToken(request: Request) {
     return await getLocalToken("DP_RAPPORTERING_PERSONREGISTER_TOKEN");
   }
 
-  const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-rapportering-personregister/.default`;
-  return await getOnBehalfOfToken(request, audience);
+  return await getOnBehalfOfToken(request, getEnv("DP_RAPPORTERING_PERSONREGISTER_AUDIENCE"));
 }
 
 export async function getBehandlingOboToken(request: Request) {

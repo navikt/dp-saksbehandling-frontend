@@ -51,6 +51,8 @@ spec:
       value: "{{dp-saksbehandling_url}}"
     - name: DP_RAPPORTERING_PERSONREGISTER_URL
       value: "{{dp-rapportering-personregister_url}}"
+    - name: DP_RAPPORTERING_PERSONREGISTER_AUDIENCE
+      value: "{{dp-rapportering-personregister_audience}}"
     - name: DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL
       value: "{{dp-rapportering-saksbehandling-frontend_url}}"
     - name: DP_INNTEKT_REDIGERING_FRONTEND_URL
