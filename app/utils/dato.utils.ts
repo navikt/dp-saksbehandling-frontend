@@ -63,5 +63,5 @@ export function minGyldigFraOgMedDato() {
 }
 
 export function maxGyldigTilOgMedDato() {
-  return new Date(new Date().getFullYear() + 2, 11, 31);
+  return new Date(new Date().getFullYear() + 10, 11, 31);
 }
