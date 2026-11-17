@@ -179,8 +179,8 @@ importers:
         specifier: 2.14.0
         version: 2.14.0
       '@grafana/faro-web-tracing':
-        specifier: 2.13.0
-        version: 2.13.0(supports-color@5.5.0)
+        specifier: 2.14.0
+        version: 2.14.0(supports-color@5.5.0)
       '@graphql-typed-document-node/core':
         specifier: 3.2.0
         version: 3.2.0(graphql@17.1.0)
@@ -986,8 +986,8 @@ packages:
   '@grafana/faro-web-sdk@2.14.0':
     resolution: {integrity: sha512-ZZu5GmNvx+2pA+ma8dMER7GiJ/UVbI5qXWV5rK5ms6uK6hrh2xXKNETp9s1R+U/yVfHlo7n/ArtjQB/8/8noTw==}
 
-  '@grafana/faro-web-tracing@2.13.0':
-    resolution: {integrity: sha512-HANZzP3i3L5LF3B5JrktQ94iCmCm9oqv7HfgGyuxRI3c/yoHQzz7/qJu7iflo8cJrwrdAco2vIHsljgFNeuwWA==}
+  '@grafana/faro-web-tracing@2.14.0':
+    resolution: {integrity: sha512-mOewlmG3Y6rg1Xr7aWh0tIbghR7KKCAzCzRArHMw+I86rjFymnZAwZfnp9Aesjt/u57dBRBP6JvZ87naWYqxiw==}
 
   '@graphql-codegen/add@7.1.1':
     resolution: {integrity: sha512-xN4za/V9e1NentxtKQYKKWzSoWNs3x72vqUZ4YGIzFLLGOJOCNVrR9lXDDQHDPrtcPZaj06zksdrfuJ7qutNCA==}
@@ -6731,7 +6731,7 @@ snapshots:
       ua-parser-js: 1.0.41
       web-vitals: 6.2.0
 
-  '@grafana/faro-web-tracing@2.13.0(supports-color@5.5.0)':
+  '@grafana/faro-web-tracing@2.14.0(supports-color@5.5.0)':
     dependencies:
       '@grafana/faro-web-sdk': 2.14.0
       '@opentelemetry/api': 1.9.1
