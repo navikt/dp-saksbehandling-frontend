@@ -1,8 +1,9 @@
-import { HStack } from "@navikt/ds-react";
+import { HStack, VStack } from "@navikt/ds-react";
 import { ActionFunctionArgs, Outlet } from "react-router";
 
 import { DokumentMeny } from "~/components/dokument-oversikt/DokumentMeny";
 import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { LopendeRettTidslinje } from "~/components/lopende-rett-tidslinje/LopendeRettTidslinje";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { useBehandling } from "~/hooks/useBehandling";
@@ -29,7 +30,8 @@ export default function BehandlingLayout() {
         />
       </div>
       <div className="min-h-0 min-w-0 flex-1 overflow-auto">
-        <main>
+        <VStack as="main" gap="space-16">
+          <LopendeRettTidslinje />
           <div className={"card p-4"}>
             <div className="flex justify-between gap-6">
               <LinkTabs />
@@ -42,7 +44,7 @@ export default function BehandlingLayout() {
               <Outlet />
             </div>
           </div>
-        </main>
+        </VStack>
       </div>
     </div>
   );
