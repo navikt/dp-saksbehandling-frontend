@@ -67,7 +67,7 @@
     "date-fns": "4.4.0",
     "graphql": "17.1.0",
     "graphql-request": "7.4.0",
-    "isbot": "5.2.2",
+    "isbot": "5.2.3",
     "lodash": "4.18.1",
     "lru-cache": "11.5.3",
     "motion": "13.5.0",
