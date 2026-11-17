@@ -53,7 +53,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                           <Link
                             className={"text-start visited:text-(--ax-text-meta-purple-subtle)"}
                             href={`/api/hent-dokument/${journalpost.journalpostId}/${dokument.dokumentInfoId}/${variant.variantformat}`}
-                            target={`dokument-${journalpost.journalpostId}`}
+                            target={`dokument-${journalpost.journalpostId}/${dokument.dokumentInfoId}/${variant.variantformat}`}
                           >
                             {dokument.tittel}{" "}
                             {variant.variantformat !== "ARKIV" && `[${variant.variantformat}]`}
