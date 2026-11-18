@@ -8,6 +8,7 @@ interface IProps extends LinkProps {
   icon?: ReactNode;
   tittelPåHover?: string;
   target?: string;
+  style?: React.CSSProperties;
   to: string;
   className?: string;
 }
@@ -22,6 +23,7 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
     return (
       <Button
         as={ReactRouterLink}
+        style={props.style}
         variant={props.asButtonVariant}
         size={props.buttonSize ? props.buttonSize : "xsmall"}
         title={props.tittelPåHover}

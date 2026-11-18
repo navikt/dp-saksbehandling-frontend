@@ -1,5 +1,5 @@
-import { BulletListIcon, ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
-import { Button, Heading, InfoCard, List, Radio, RadioGroup } from "@navikt/ds-react";
+import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
+import { Button, Radio, RadioGroup } from "@navikt/ds-react";
 import { compareAsc } from "date-fns";
 import { useState } from "react";
 
@@ -9,7 +9,6 @@ import { formaterOpplysningVerdi, formaterPeriodeMedUke } from "~/utils/opplysni
 
 import { components } from "../../../openapi/behandling-typer";
 
-const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 const ANTALL_PERIODER_SOM_VISES = 5;
 
 const tableColumns = {
@@ -33,7 +32,7 @@ export function hentBetalingsopplysning(
   );
 }
 
-export function RevurderingResultat({ utenKort = false }: { utenKort?: boolean }) {
+export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
   const [utvidTabell, setUtvidTabell] = useState(false);
   const [sortOrder, setSortOrder] = useState<"eldste" | "nyeste">("eldste");
@@ -42,28 +41,6 @@ export function RevurderingResultat({ utenKort = false }: { utenKort?: boolean }
   if (!pengerSomSkalUtbetalesDenneBehandling) {
     return null;
   }
-
-  const omgjøringRegelsett =
-    behandling.fastsettelser.find((regelsett) => regelsett.id === omgjøringRegelsettId) ??
-    behandling.saksbehandlingsregler?.find((regelsett) => regelsett.id === omgjøringRegelsettId);
-
-  const omgjøringOpplysninger = behandling.opplysninger.filter((opplysninger) =>
-    omgjøringRegelsett?.opplysninger.includes(opplysninger.opplysningTypeId),
-  );
-
-  const omgjøringBegrunnelser = omgjøringOpplysninger
-    .map((opplysning) => ({
-      opplysningTypeId: opplysning.opplysningTypeId,
-      begrunnelse: opplysning.perioder[0]?.kilde?.begrunnelse,
-    }))
-    .filter(
-      (
-        entry,
-      ): entry is {
-        opplysningTypeId: string;
-        begrunnelse: NonNullable<typeof entry.begrunnelse>;
-      } => entry.begrunnelse !== undefined,
-    );
 
   const pengerSomSkalUtbetalesForrigeBehandling = forrigeBehandling?.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
@@ -91,22 +68,10 @@ export function RevurderingResultat({ utenKort = false }: { utenKort?: boolean }
     ? sortedTableValues
     : sortedTableValues.slice(0, ANTALL_PERIODER_SOM_VISES);
 
-  const innhold = (
-    <div className={"flex flex-col gap-3"}>
-      {omgjøringBegrunnelser.length > 0 && (
-        <>
-          <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
-          <List as="ul">
-            {omgjøringBegrunnelser.map(({ opplysningTypeId, begrunnelse }) => (
-              <List.Item key={opplysningTypeId}>{begrunnelse.verdi}</List.Item>
-            ))}
-          </List>
-        </>
-      )}
+  return (
+    <div className={"flex flex-col gap-2 py-2"}>
       {pengerSomSkalUtbetalesDenneBehandling && (
         <>
-          <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
-
           <RadioGroup
             legend="Sorter perioder"
             hideLegend
@@ -156,18 +121,5 @@ export function RevurderingResultat({ utenKort = false }: { utenKort?: boolean }
         </>
       )}
     </div>
-  );
-
-  if (utenKort) {
-    return innhold;
-  }
-
-  return (
-    <InfoCard data-color="info">
-      <InfoCard.Header icon={<BulletListIcon aria-hidden />}>
-        <InfoCard.Title>Betalingsoversikt</InfoCard.Title>
-      </InfoCard.Header>
-      <InfoCard.Content>{innhold}</InfoCard.Content>
-    </InfoCard>
   );
 }
