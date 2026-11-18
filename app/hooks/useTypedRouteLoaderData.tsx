@@ -1,12 +1,14 @@
 import { useRouteLoaderData } from "react-router";
 
 import type { loader as rootLoader } from "~/root";
+import type { loader as behandlingLoader } from "~/routes/behandling.$behandlingId";
 import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
 import type { loader as personBehandlingLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person";
 import type { loader as personLoader } from "~/routes/person.$personUuid";
 
 type Loaders = {
   root: typeof rootLoader;
+  "routes/behandling.$behandlingId": typeof behandlingLoader;
   "routes/person.$personUuid": typeof personLoader;
   "routes/oppgave.$oppgaveId": typeof oppgaveLoader;
   "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person": typeof personBehandlingLoader;

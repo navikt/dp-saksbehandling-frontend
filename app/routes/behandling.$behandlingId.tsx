@@ -6,7 +6,11 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
-import { hentOppgaveForBehandlingId, hentPersonOppgaver } from "~/models/saksbehandling.server";
+import {
+  hentMeldingOmVedtakHtml,
+  hentOppgaveForBehandlingId,
+  hentPersonOppgaver,
+} from "~/models/saksbehandling.server";
 import { filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -16,8 +20,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
   const personOppgaver = await hentPersonOppgaver(request, oppgave.person.ident);
   const antallOppgaver = filtrerOppgaverTilBehandling(personOppgaver).length;
+  const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, oppgave.oppgaveId);
 
-  return { oppgave, rapporteringPersonIdPromise, antallOppgaver };
+  return { oppgave, rapporteringPersonIdPromise, antallOppgaver, meldingOmVedtakPromise };
 }
 
 export default function BehandlingLayout() {

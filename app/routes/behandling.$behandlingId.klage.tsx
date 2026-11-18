@@ -20,46 +20,33 @@ import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useOppgave } from "~/hooks/useOppgave";
-import {
-  hentKlage,
-  hentMeldingOmVedtakHtml,
-  hentOppgaveForBehandlingId,
-} from "~/models/saksbehandling.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentKlage, hentOppgaveForBehandlingId } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
 import { isAlert } from "~/utils/type-guards";
 
-async function hentKlageOppgave(request: Request, behandlingId: string) {
-  const oppgave = await hentOppgaveForBehandlingId(request, behandlingId);
-
-  if (oppgave.behandlingType !== "KLAGE") {
-    throw new Response("Behandlingen er ikke en klage", { status: 404 });
-  }
-
-  return oppgave;
-}
-
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const oppgave = await hentKlageOppgave(request, params.behandlingId);
   const klage = await hentKlage(request, params.behandlingId);
-  const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, oppgave.oppgaveId);
 
-  return { klage, meldingOmVedtakPromise };
+  return { klage };
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const oppgave = await hentKlageOppgave(request, params.behandlingId);
+  const oppgave = await hentOppgaveForBehandlingId(request, params.behandlingId);
 
   return await handleActions(request, { ...params, oppgaveId: oppgave.oppgaveId });
 }
 
 export default function Klage() {
-  const { klage, meldingOmVedtakPromise } = useLoaderData<typeof loader>();
-  const { readonly: readOnly } = useOppgave();
+  const { klage } = useLoaderData<typeof loader>();
+  const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/behandling.$behandlingId");
+  const { oppgave, readonly: readOnly } = useOppgave();
+  invariant(oppgave.behandlingType === "KLAGE", "Oppgaven må være av typen KLAGE");
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
