@@ -470,7 +470,7 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
   }
 
   if (data) {
-    return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+    return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/vilkar`);
   }
 
   handleError(error, response, "Uhåndtert feil i hentOppgaveIdForBehandlingId()");

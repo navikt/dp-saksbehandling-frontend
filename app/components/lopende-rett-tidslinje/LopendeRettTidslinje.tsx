@@ -1,9 +1,12 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { BodyShort, Box, Button, Detail, HStack, InlineMessage, Timeline } from "@navikt/ds-react";
-import { addWeeks } from "date-fns";
+import { addDays, addWeeks, subDays } from "date-fns";
 import { useId, useState } from "react";
 
-import { Rettighetsperioder } from "~/components/rett-på-dagpenger/Rettighetsperioder";
+import {
+  hentBetalingsopplysning,
+  RevurderingResultat,
+} from "~/components/revurdering-resultat/RevurderingResultat";
 import {
   hentFargeForOpplysningPeriode,
   hentIkonForOpplysningPeriode,
@@ -14,11 +17,14 @@ import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 export function LopendeRettTidslinje() {
   const [utvidet, setUtvidet] = useState(false);
-  const rettighetsperioderId = useId();
+  const betalingsoversiktId = useId();
   const { behandling } = useBehandling();
   const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194",
   );
+  const førstePeriode = opplysning?.perioder[0];
+  const sistePeriode = opplysning?.perioder.at(-1);
+  const sluttdato = sistePeriode?.gyldigTilOgMed ?? sistePeriode?.gyldigFraOgMed;
 
   return (
     <Box as="section" aria-label="Har løpende rett på dagpenger" className="card">
@@ -28,7 +34,16 @@ export function LopendeRettTidslinje() {
             Ingen perioder for løpende rett på dagpenger i denne behandlingen.
           </InlineMessage>
         ) : (
-          <Timeline aria-label="Løpende rett på dagpenger" className="aksel--compact">
+          <Timeline
+            aria-label="Løpende rett på dagpenger"
+            className="aksel--compact"
+            startDate={
+              førstePeriode?.gyldigFraOgMed
+                ? subDays(new Date(førstePeriode.gyldigFraOgMed), 1)
+                : undefined
+            }
+            endDate={sluttdato ? addDays(new Date(sluttdato), 1) : undefined}
+          >
             <Timeline.Row
               label={
                 <BodyShort
@@ -47,7 +62,7 @@ export function LopendeRettTidslinje() {
                   end={
                     periode.gyldigTilOgMed
                       ? new Date(periode.gyldigTilOgMed)
-                      : addWeeks(new Date(periode.gyldigFraOgMed!), 10)
+                      : addWeeks(new Date(periode.gyldigFraOgMed!), 1)
                   }
                   status={hentFargeForOpplysningPeriode(periode.verdi)}
                   icon={hentIkonForOpplysningPeriode(periode.verdi)}
@@ -80,20 +95,26 @@ export function LopendeRettTidslinje() {
           </Timeline>
         )}
       </Box>
-      <Box id={rettighetsperioderId} hidden={!utvidet} padding="space-16">
-        <Rettighetsperioder />
-      </Box>
-      <Button
-        type="button"
-        variant="tertiary-neutral"
-        size="small"
-        className="w-full"
-        aria-expanded={utvidet}
-        aria-controls={rettighetsperioderId}
-        aria-label={utvidet ? "Skjul rettighetsperioder" : "Vis rettighetsperioder"}
-        icon={utvidet ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
-        onClick={() => setUtvidet((forrige) => !forrige)}
-      />
+      {hentBetalingsopplysning(behandling) && (
+        <>
+          <Box id={betalingsoversiktId} hidden={!utvidet} padding="space-16">
+            <RevurderingResultat utenKort />
+          </Box>
+          <Button
+            type="button"
+            variant="tertiary-neutral"
+            size="small"
+            className="w-full"
+            aria-expanded={utvidet}
+            aria-controls={betalingsoversiktId}
+            aria-label={utvidet ? "Skjul betalingsoversikt" : "Vis betalingsoversikt"}
+            icon={utvidet ? <ChevronUpIcon aria-hidden /> : <ChevronDownIcon aria-hidden />}
+            onClick={() => setUtvidet((forrige) => !forrige)}
+          >
+            Betalingsoversikt
+          </Button>
+        </>
+      )}
     </Box>
   );
 }

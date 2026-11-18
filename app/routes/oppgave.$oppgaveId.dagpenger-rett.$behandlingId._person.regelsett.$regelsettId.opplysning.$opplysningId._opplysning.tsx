@@ -132,14 +132,14 @@ function hentTilbakeKnappTilstand(
   behandling: components["schemas"]["Behandling"],
   opplysningTypeId: string,
 ) {
-  const forSlagTilVedtakTilstand = {
-    path: "behandle",
-    label: "Behandlingsoversikt",
+  const standardTilstand = {
+    path: "vilkar",
+    label: "Vilkårsvurderinger",
   };
 
   // Rett på dagpenger opplysning
   if (opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194") {
-    return forSlagTilVedtakTilstand;
+    return standardTilstand;
   }
 
   const opplysningErVilkår = behandling.vilkår.some((vilkår) =>
@@ -163,5 +163,5 @@ function hentTilbakeKnappTilstand(
     };
   }
 
-  return forSlagTilVedtakTilstand;
+  return standardTilstand;
 }

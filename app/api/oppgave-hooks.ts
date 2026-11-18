@@ -53,7 +53,7 @@ export function useTildelOppgaveMutation() {
           if (utlostAv === "FERIETILLEGG" && nyTilstand === "UNDER_BEHANDLING") {
             return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/avklaringer`);
           } else if (nyTilstand === "UNDER_BEHANDLING") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vilkar`);
           } else if (nyTilstand === "UNDER_KONTROLL") {
             return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
           }
