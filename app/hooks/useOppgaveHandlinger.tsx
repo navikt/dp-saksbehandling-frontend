@@ -26,10 +26,9 @@ import { hentValideringAvbrytOppgave } from "~/utils/validering.util";
 interface Oppgave {
   oppgaveId: string;
   behandlingId: string;
-  behandlingType: components["schemas"]["BehandlingType"];
 }
 
-export function useOppgaveHandlinger({ oppgaveId, behandlingId, behandlingType }: Oppgave) {
+export function useOppgaveHandlinger({ oppgaveId, behandlingId }: Oppgave) {
   const params = useParams();
   const { pathname } = useLocation();
   const navigation = useNavigation();
@@ -89,13 +88,7 @@ export function useOppgaveHandlinger({ oppgaveId, behandlingId, behandlingType }
     leggerTilbakeOppgave ||
     avbrytForm.formState.isSubmitting ||
     navigation.state !== "idle";
-  const oppgaveUrl = {
-    RETT_TIL_DAGPENGER: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vilkar`,
-    KLAGE: `/oppgave/${oppgaveId}/klage/${behandlingId}`,
-    INNSENDING: `/oppgave/${oppgaveId}/innsending/${behandlingId}`,
-    TILBAKEKREVING: `/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`,
-    OPPFØLGING: `/oppgave/${oppgaveId}/oppfolging/${behandlingId}`,
-  }[behandlingType];
+  const oppgaveUrl = `/behandling/${behandlingId}`;
 
   function utforHandling(valg: IGyldigeOppgaveHandlinger, handling: () => Promise<unknown>) {
     if (handlingPågårRef.current || isPending) {

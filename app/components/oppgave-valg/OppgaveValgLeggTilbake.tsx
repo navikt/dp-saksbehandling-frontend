@@ -45,7 +45,11 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant, ico
         {
           onSuccess: () => {
             // If returning the task being viewed, redirect to the list
-            if (params.oppgaveId === oppgave.oppgaveId && aktivtOppgaveSok) {
+            if (
+              (params.oppgaveId === oppgave.oppgaveId ||
+                params.behandlingId === oppgave.behandlingId) &&
+              aktivtOppgaveSok
+            ) {
               navigate(oppgavelisteUrl);
             }
             // Close modal

@@ -25,20 +25,7 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
   const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSokUtenPaginering);
 
   if (data) {
-    switch (data.behandlingType) {
-      case "RETT_TIL_DAGPENGER":
-        if (data.tilstand === "UNDER_KONTROLL") {
-          return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vedtak`);
-        }
-
-        return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vilkar`);
-
-      case "KLAGE":
-        return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
-
-      case "TILBAKEKREVING":
-        return redirect(`/oppgave/${data.oppgaveId}/tilbakekreving/${data.behandlingId}`);
-    }
+    return redirect(`/behandling/${data.behandlingId}`);
   }
 
   let alert: IAlert = {

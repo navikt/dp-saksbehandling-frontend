@@ -28,7 +28,7 @@ export async function opprettKlageAction(request: Request, formData: FormData) {
   const { data, error, response } = await opprettKlage(request, klageBody);
 
   if (data) {
-    return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
+    return redirect(`/behandling/${data.behandlingId}`);
   }
 
   if (error) {

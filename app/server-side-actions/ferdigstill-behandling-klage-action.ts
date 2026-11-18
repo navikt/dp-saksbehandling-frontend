@@ -1,17 +1,12 @@
-import { ActionFunctionArgs, redirect } from "react-router";
+import { redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { ferdigstillBehandlingKlage } from "~/models/saksbehandling.server";
 import { getErrorAlert } from "~/utils/error-response.utils";
 
-export async function ferdigstillBehandlingKlageAction(
-  request: Request,
-  params: ActionFunctionArgs["params"],
-  formData: FormData,
-) {
+export async function ferdigstillBehandlingKlageAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
   invariant(behandlingId, "behandlingId er påkrevd");
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const { error, response } = await ferdigstillBehandlingKlage(request, behandlingId);
 
@@ -19,5 +14,5 @@ export async function ferdigstillBehandlingKlageAction(
     return getErrorAlert(error, response);
   }
 
-  return redirect(`/oppgave/${params.oppgaveId}/klage/${behandlingId}/behandling-ferdig`);
+  return redirect(`/behandling/${behandlingId}/klage/behandling-ferdig`);
 }

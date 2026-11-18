@@ -2,9 +2,9 @@ import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aks
 import { Alert, Heading, Loader, Tabs } from "@navikt/ds-react";
 import { Suspense, useEffect, useState } from "react";
 import {
-  ActionFunctionArgs,
+  type ActionFunctionArgs,
   Await,
-  LoaderFunctionArgs,
+  type LoaderFunctionArgs,
   useActionData,
   useLoaderData,
   useRouteError,
@@ -19,35 +19,47 @@ import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/Meldi
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentKlage, hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
+import { useOppgave } from "~/hooks/useOppgave";
+import {
+  hentKlage,
+  hentMeldingOmVedtakHtml,
+  hentOppgaveForBehandlingId,
+} from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
 import { isAlert } from "~/utils/type-guards";
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  return await handleActions(request, params);
+async function hentKlageOppgave(request: Request, behandlingId: string) {
+  const oppgave = await hentOppgaveForBehandlingId(request, behandlingId);
+
+  if (oppgave.behandlingType !== "KLAGE") {
+    throw new Response("Behandlingen er ikke en klage", { status: 404 });
+  }
+
+  return oppgave;
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
+  const oppgave = await hentKlageOppgave(request, params.behandlingId);
   const klage = await hentKlage(request, params.behandlingId);
+  const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, oppgave.oppgaveId);
 
-  // Kun nødvendig for "melding om vedtak"-fanen, ikke bloker resten av behandlingen på denne
-  const meldingOmVedtakPromise = hentMeldingOmVedtakHtml(request, params.oppgaveId);
-
-  return {
-    klage,
-    meldingOmVedtakPromise,
-  };
+  return { klage, meldingOmVedtakPromise };
 }
 
-export default function Oppgave() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+export async function action({ request, params }: ActionFunctionArgs) {
+  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+
+  const oppgave = await hentKlageOppgave(request, params.behandlingId);
+
+  return await handleActions(request, { ...params, oppgaveId: oppgave.oppgaveId });
+}
+
+export default function Klage() {
   const { klage, meldingOmVedtakPromise } = useLoaderData<typeof loader>();
+  const { readonly: readOnly } = useOppgave();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -60,9 +72,6 @@ export default function Oppgave() {
       setAktivTab("behandling");
     }
   }, [skjulMeldingOmVedtak, aktivTab]);
-
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
-  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
 
   const tabs = [
     { value: "behandling", label: "Behandling", icon: <DocPencilIcon /> },

@@ -1,14 +1,49 @@
-import { type LoaderFunctionArgs } from "react-router";
+import { type LoaderFunctionArgs, Outlet, useLoaderData, useRouteError } from "react-router";
 import invariant from "tiny-invariant";
 
-import { hentBehandling } from "~/models/behandling.server";
-import { hentOppgaveForBehandlingId } from "~/models/saksbehandling.server";
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { OppgaveProvider } from "~/context/oppgave-context";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
+import { hentOppgaveForBehandlingId, hentPersonOppgaver } from "~/models/saksbehandling.server";
+import { filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
   const oppgave = await hentOppgaveForBehandlingId(request, params.behandlingId);
-  const behandling = await hentBehandling(request, params.behandlingId);
+  const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
+  const personOppgaver = await hentPersonOppgaver(request, oppgave.person.ident);
+  const antallOppgaver = filtrerOppgaverTilBehandling(personOppgaver).length;
 
-  return { oppgave, behandling };
+  return { oppgave, rapporteringPersonIdPromise, antallOppgaver };
+}
+
+export default function BehandlingLayout() {
+  const { saksbehandler } = useTypedRouteLoaderData("root");
+  const { oppgave, rapporteringPersonIdPromise, antallOppgaver } = useLoaderData<typeof loader>();
+
+  return (
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+      <PersonBoks
+        person={oppgave.person}
+        rapporteringPersonIdPromise={rapporteringPersonIdPromise}
+        antallOppgaver={antallOppgaver}
+      />
+      <div className="main overflow-scroll">
+        <Outlet />
+      </div>
+    </OppgaveProvider>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return (
+    <div className="main overflow-scroll overflow-y-auto">
+      <ErrorMessageComponent error={error} />
+    </div>
+  );
 }
