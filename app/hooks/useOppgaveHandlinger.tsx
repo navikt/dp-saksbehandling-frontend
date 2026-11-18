@@ -90,7 +90,7 @@ export function useOppgaveHandlinger({ oppgaveId, behandlingId, behandlingType }
     avbrytForm.formState.isSubmitting ||
     navigation.state !== "idle";
   const oppgaveUrl = {
-    RETT_TIL_DAGPENGER: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`,
+    RETT_TIL_DAGPENGER: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vilkar`,
     KLAGE: `/oppgave/${oppgaveId}/klage/${behandlingId}`,
     INNSENDING: `/oppgave/${oppgaveId}/innsending/${behandlingId}`,
     TILBAKEKREVING: `/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`,

@@ -2,7 +2,6 @@ import {
   CurrencyExchangeIcon,
   EnvelopeClosedIcon,
   ExclamationmarkTriangleFillIcon,
-  GavelSoundBlockIcon,
   ParagraphIcon,
   RobotSmileIcon,
   TasklistIcon,
@@ -65,8 +64,6 @@ function getTabs(
       skalViseRegelsett(regelsett, behandling.opplysninger, visArvedeOpplysninger),
     );
 
-  const erFerietillegg = behandling.behandletHendelse.type === "Ferietillegg";
-
   const erTilBeslutning = behandling.tilstand === "TilBeslutning";
 
   const ferdigBehandlet = ["Ferdig", "Avbrutt"].includes(behandling.tilstand);
@@ -80,13 +77,6 @@ function getTabs(
   }
 
   return [
-    !erFerietillegg
-      ? {
-          url: `${baseUrl}/behandle`,
-          label: "Behandlingsoversikt",
-          icon: <GavelSoundBlockIcon aria-hidden />,
-        }
-      : undefined,
     {
       url: `${baseUrl}/vilkar`,
       label: "Vilkårsvurderinger",

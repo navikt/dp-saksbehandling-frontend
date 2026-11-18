@@ -11,10 +11,10 @@ describe("umamiBeforeSend", () => {
 
   test("erstatter oppgaveId and behandlingId for dagpenger-rett", () => {
     const payload = {
-      url: "/oppgave/a1b2c3d4-e5f6-7890-abcd-ef1234567890/dagpenger-rett/f0e1d2c3-b4a5-6789-0abc-def123456789/behandle",
+      url: "/oppgave/a1b2c3d4-e5f6-7890-abcd-ef1234567890/dagpenger-rett/f0e1d2c3-b4a5-6789-0abc-def123456789/vilkar",
     };
     umamiBeforeSend("event", payload);
-    expect(payload.url).toBe("/oppgave/:id/dagpenger-rett/:id/behandle");
+    expect(payload.url).toBe("/oppgave/:id/dagpenger-rett/:id/vilkar");
   });
 
   test("erstatter personUuid", () => {

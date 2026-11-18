@@ -31,7 +31,7 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
           return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vedtak`);
         }
 
-        return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/behandle`);
+        return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vilkar`);
 
       case "KLAGE":
         return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
