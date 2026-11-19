@@ -1,11 +1,6 @@
+import { Box, HGrid, VStack } from "@navikt/ds-react";
 import { useState } from "react";
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
+import { useActionData, useLoaderData, useRouteError } from "react-router";
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
@@ -13,42 +8,44 @@ import { InnsendingDokumentOversikt } from "~/components/innsending/innsending-d
 import { InnsendingInfo } from "~/components/innsending/innsending-info/InnsendingInfo";
 import { IValgtDokument, PdfViewer } from "~/components/innsending/pdf-viewer/PdfViewer";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useOppgave } from "~/hooks/useOppgave";
 import { hentInnsending } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  return await handleActions(request, params);
-}
+import type { Route } from "./+types/behandling.$behandlingId.innsending";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+export async function loader({ params, request }: Route.LoaderArgs) {
   const innsending = await hentInnsending(request, params.behandlingId);
 
   return { innsending };
 }
 
+export async function action({ request, params }: Route.ActionArgs) {
+  return await handleActions(request, params);
+}
+
 export default function Innsending() {
   const { innsending } = useLoaderData<typeof loader>();
+  const { oppgave } = useOppgave();
+  invariant(oppgave.behandlingType === "INNSENDING", "Oppgaven må være av typen INNSENDING");
   const [valgtDokument, setValgtDokument] = useState<IValgtDokument>();
-
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <div className={`grid grid-cols-[350px_1fr] gap-4`}>
-      <section className="flex flex-col gap-4">
+    <HGrid columns="350px 1fr" gap="space-16">
+      <VStack as="section" gap="space-16">
         <InnsendingInfo innsending={innsending} />
-
-        <div className="card p-4">
+        <Box className="card" padding="space-16">
           <InnsendingDokumentOversikt
             valgtDokument={valgtDokument}
             setValgtDokument={setValgtDokument}
           />
-        </div>
-      </section>
+        </Box>
+      </VStack>
       {valgtDokument && <PdfViewer valgtDokument={valgtDokument} />}
-    </div>
+    </HGrid>
   );
 }
 

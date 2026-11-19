@@ -1,11 +1,10 @@
-import { type LoaderFunctionArgs, redirect } from "react-router";
-import invariant from "tiny-invariant";
+import { redirect } from "react-router";
 
 import { hentOppgaveForBehandlingId } from "~/models/saksbehandling.server";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+import type { Route } from "./+types/behandling.$behandlingId._index";
 
+export async function loader({ params, request }: Route.LoaderArgs) {
   const oppgave = await hentOppgaveForBehandlingId(request, params.behandlingId);
   const { oppgaveId, behandlingId, behandlingType } = oppgave;
   const legacyBaseUrl = `/oppgave/${oppgaveId}`;
@@ -13,9 +12,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const url = {
     KLAGE: `/behandling/${behandlingId}/klage`,
     RETT_TIL_DAGPENGER: `${legacyBaseUrl}/dagpenger-rett/${behandlingId}/${dagpengerFane}`,
-    INNSENDING: `${legacyBaseUrl}/innsending/${behandlingId}`,
-    TILBAKEKREVING: `${legacyBaseUrl}/tilbakekreving/${behandlingId}`,
-    OPPFØLGING: `${legacyBaseUrl}/oppfolging/${behandlingId}`,
+    INNSENDING: `/behandling/${behandlingId}/innsending`,
+    TILBAKEKREVING: `/behandling/${behandlingId}/tilbakekreving`,
+    OPPFØLGING: `/behandling/${behandlingId}/oppfolging`,
   }[behandlingType];
 
   return redirect(url);

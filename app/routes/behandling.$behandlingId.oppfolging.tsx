@@ -1,11 +1,5 @@
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { HGrid } from "@navikt/ds-react";
+import { useActionData, useLoaderData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OppfolgingInfo } from "~/components/oppfolging/oppfolging-info/OppfolgingInfo";
@@ -15,15 +9,16 @@ import { hentOppfolging } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  return await handleActions(request, params);
-}
+import type { Route } from "./+types/behandling.$behandlingId.oppfolging";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+export async function loader({ params, request }: Route.LoaderArgs) {
   const oppfolging = await hentOppfolging(request, params.behandlingId);
 
   return { oppfolging };
+}
+
+export async function action({ request, params }: Route.ActionArgs) {
+  return await handleActions(request, params);
 }
 
 export default function OppfolgingRoute() {
@@ -32,10 +27,10 @@ export default function OppfolgingRoute() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <div className={`grid grid-cols-[350px_1fr] gap-4`}>
+    <HGrid columns="350px 1fr" gap="space-16">
       <OppfolgingInfo oppfolging={oppfolging} />
       <OppfolgingInnhold oppfolging={oppfolging} />
-    </div>
+    </HGrid>
   );
 }
 

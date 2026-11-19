@@ -5,6 +5,7 @@ import { Form, useLocation } from "react-router";
 import { components } from "@/openapi/saksbehandling-typer";
 import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
 import { useAktivtOppgaveSok } from "~/hooks/useAktivtOppgaveSok";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForFerdigstillOppgave, NyBehandlingType } from "~/utils/validering.util";
@@ -24,6 +25,7 @@ export function FerdigstillOppgaveSkjema({
 }: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
+  const { oppgave } = useOppgave();
   const aktivtOppgaveSok = useAktivtOppgaveSok();
 
   const ferdigstillSkjema = useForm({
@@ -34,6 +36,7 @@ export function FerdigstillOppgaveSkjema({
     defaultValues: {
       _action: variant,
       behandlingId,
+      oppgaveId: oppgave.oppgaveId,
       sakId: "",
       vurdering: "",
       aktivtOppgaveSok,

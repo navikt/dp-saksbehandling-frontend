@@ -1,13 +1,6 @@
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
-import { BodyShort } from "@navikt/ds-react";
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { BodyShort, HStack, VStack } from "@navikt/ds-react";
+import { useActionData, useLoaderData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -19,35 +12,37 @@ import { hentTilbakekreving } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  return await handleActions(request, params);
-}
+import type { Route } from "./+types/behandling.$behandlingId.tilbakekreving";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+export async function loader({ params, request }: Route.LoaderArgs) {
   const tilbakekreving = await hentTilbakekreving(request, params.behandlingId);
 
   return { tilbakekreving };
 }
 
+export async function action({ request, params }: Route.ActionArgs) {
+  return await handleActions(request, params);
+}
+
 export default function Tilbakekreving() {
   const { tilbakekreving } = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   const { oppgave } = useOppgave();
 
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
   return (
-    <div className={"flex gap-4"}>
+    <HStack gap="space-16" align="stretch" wrap={false}>
       <BeslutterNotatProvider notat={oppgave.notat}>
         <OppgaveOversikt />
       </BeslutterNotatProvider>
-      <div className={"card flex flex-1 flex-col items-center justify-center"}>
+      <VStack className="card flex-1" align="center" justify="center">
         <BodyShort>Oppgaven behandles i tilbakekrevingsløsningen</BodyShort>
-        <LoadingLink to={tilbakekreving.saksbehandlingURL} target={"_blank"}>
-          Åpne behandling (åpnes i ny fane) <ExternalLinkIcon />
+        <LoadingLink to={tilbakekreving.saksbehandlingURL} target="_blank">
+          Åpne behandling (åpnes i ny fane) <ExternalLinkIcon aria-hidden />
         </LoadingLink>
-      </div>
-    </div>
+      </VStack>
+    </HStack>
   );
 }
 

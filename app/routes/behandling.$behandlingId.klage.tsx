@@ -1,14 +1,7 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Alert, Heading, Loader, Tabs } from "@navikt/ds-react";
 import { Suspense, useEffect, useState } from "react";
-import {
-  type ActionFunctionArgs,
-  Await,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
+import { Await, useActionData, useLoaderData, useRouteError } from "react-router";
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
@@ -26,17 +19,15 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
 import { isAlert } from "~/utils/type-guards";
 
-export async function loader({ request, params }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+import type { Route } from "./+types/behandling.$behandlingId.klage";
 
+export async function loader({ request, params }: Route.LoaderArgs) {
   const klage = await hentKlage(request, params.behandlingId);
 
   return { klage };
 }
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-
+export async function action({ request, params }: Route.ActionArgs) {
   const oppgave = await hentOppgaveForBehandlingId(request, params.behandlingId);
 
   return await handleActions(request, { ...params, oppgaveId: oppgave.oppgaveId });

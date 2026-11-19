@@ -1,5 +1,4 @@
-import { type LoaderFunctionArgs, Outlet, useLoaderData, useRouteError } from "react-router";
-import invariant from "tiny-invariant";
+import { Outlet, useLoaderData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
@@ -13,9 +12,9 @@ import {
 } from "~/models/saksbehandling.server";
 import { filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+import type { Route } from "./+types/behandling.$behandlingId";
 
+export async function loader({ params, request }: Route.LoaderArgs) {
   const oppgave = await hentOppgaveForBehandlingId(request, params.behandlingId);
   const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
   const personOppgaver = await hentPersonOppgaver(request, oppgave.person.ident);
