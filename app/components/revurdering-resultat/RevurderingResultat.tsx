@@ -20,11 +20,6 @@ const tableColumns = {
 export function hentBetalingsopplysning(
   behandling: Pick<components["schemas"]["Behandling"], "behandletHendelse" | "opplysninger">,
 ) {
-  const hendelsestype = behandling.behandletHendelse.type;
-  if (hendelsestype !== "Omgjøring" && hendelsestype !== "Meldekort") {
-    return undefined;
-  }
-
   return behandling.opplysninger.find(
     (opplysning) =>
       opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95" &&
