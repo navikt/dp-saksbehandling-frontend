@@ -462,6 +462,22 @@ export const mockDpSaksbehandling = [
     return response(200).json([...mockListeOppgaver, ...avbrutteListeOppgaver]);
   }),
 
+  http.get("/behandling/{behandlingId}/oppgave", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const oppgave = mockOppgaver.find((oppgave) => oppgave.behandlingId === params.behandlingId);
+
+    if (!oppgave) {
+      return response(404).json(get404Error(`/behandling/${params.behandlingId}/oppgave`));
+    }
+
+    return response(200).json(oppgave);
+  }),
+
   http.get("/behandling/{behandlingId}/oppgaveId", async ({ response, params }) => {
     await delay(delayMs);
 

@@ -94,7 +94,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await ferdigstillKlageAction(request, params, formData);
 
     case "ferdigstill-behandling-klage":
-      return await ferdigstillBehandlingKlageAction(request, params, formData);
+      return await ferdigstillBehandlingKlageAction(request, formData);
 
     case "avbryt-klage":
       return await avbrytKlageAction(request, params, formData);

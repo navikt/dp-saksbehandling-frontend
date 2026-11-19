@@ -7,10 +7,10 @@ declare global {
 export function umamiBeforeSend(type: string, payload: { url?: string }) {
   const fjernIdEtterSegment = new Set([
     "oppgave",
+    "behandling",
     "dagpenger-rett",
     "person",
     "innsending",
-    "klage",
     "tilbakekreving",
     "oppfolging",
     "barneliste",

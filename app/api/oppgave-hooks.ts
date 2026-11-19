@@ -44,33 +44,9 @@ export function useTildelOppgaveMutation() {
 
   const mutation = useMutation({
     mutationFn: tildelOppgaveFetch,
-    onSuccess: (result, payload) => {
-      const { behandlingType, nyTilstand, utlostAv } = result.data;
-      const { oppgaveId, behandlingId } = payload;
-
-      const performNavigation = () => {
-        if (behandlingType === "RETT_TIL_DAGPENGER") {
-          if (utlostAv === "FERIETILLEGG" && nyTilstand === "UNDER_BEHANDLING") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/avklaringer`);
-          } else if (nyTilstand === "UNDER_BEHANDLING") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vilkar`);
-          } else if (nyTilstand === "UNDER_KONTROLL") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
-          }
-        } else if (behandlingType === "KLAGE") {
-          return navigate(`/oppgave/${oppgaveId}/klage/${behandlingId}`);
-        } else if (behandlingType === "INNSENDING") {
-          return navigate(`/oppgave/${oppgaveId}/innsending/${behandlingId}`);
-        } else if (behandlingType === "TILBAKEKREVING") {
-          return navigate(`/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`);
-        } else if (behandlingType === "OPPFØLGING") {
-          return navigate(`/oppgave/${oppgaveId}/oppfolging/${behandlingId}`);
-        }
-      };
-
-      return performNavigation()?.then(() => {
-        return queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
-      });
+    onSuccess: async (_result, payload) => {
+      await navigate(`/behandling/${payload.behandlingId}`);
+      await queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
     },
     onError: (error) => {
       if (error instanceof ApiError) {

@@ -8,7 +8,7 @@ import styles from "~/components/melding-om-vedtak/utvidede-beskrivelser/Utvidet
 import { RikTekstEditor } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { useOppgave } from "~/hooks/useOppgave";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
@@ -23,7 +23,7 @@ interface IProps {
 
 export function UtvidetBeskrivelseInput(props: IProps) {
   const { addAlert } = useGlobalAlerts();
-  const { oppgaveId } = useTypeSafeParams();
+  const { oppgave } = useOppgave();
   const { pathname } = useLocation();
 
   const { oppdaterUtvidetBeskrivelse, meldingOmVedtak } = useMeldingOmVedtak();
@@ -32,7 +32,7 @@ export function UtvidetBeskrivelseInput(props: IProps) {
     lagreUtvidetBeskrivelseFetcher.submit(
       {
         _action: "lagre-utvidet-beskrivelse",
-        oppgaveId,
+        oppgaveId: oppgave.oppgaveId,
         brevBlokkId: props.utvidetBeskrivelse.brevblokkId,
         utvidetBeskrivelse: verdi,
       },

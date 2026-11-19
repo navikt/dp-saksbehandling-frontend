@@ -14,7 +14,7 @@ export async function sokPersonAction(request: Request, formData: FormData) {
   const { personIdent } = validertSkjema.data;
 
   if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(personIdent)) {
-    return redirect(`/dagpenger-rett/${personIdent}`);
+    return redirect(`/behandling/${personIdent}`);
   }
 
   const personResponse = await sokPerson(request, personIdent);
