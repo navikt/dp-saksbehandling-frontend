@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
-import { lagreOpplysning } from "~/models/behandling.server";
+import { lagreOpplysning, lagreOpplysningBegrunnelse } from "~/models/behandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
@@ -22,11 +22,31 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, opplysningTypeId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } =
-    validertSkjema.data;
+  const {
+    behandlingId,
+    opplysningTypeId,
+    periodeId,
+    nåVerdi,
+    nåFraOgMed,
+    nåTilOgMed,
+    verdi,
+    gyldigFraOgMed,
+    gyldigTilOgMed,
+    begrunnelse,
+  } = validertSkjema.data;
 
   let gyldigFraOgMedDato: string | undefined = undefined;
   let gyldigTilOgMedDato: string | undefined = undefined;
+  let nåFraOgMedDato: string | undefined = undefined;
+  let nåTilOgMedDato: string | undefined = undefined;
+
+  if (nåFraOgMed) {
+    nåFraOgMedDato = formaterTilBackendDato(nåFraOgMed);
+  }
+
+  if (nåTilOgMed) {
+    nåTilOgMedDato = formaterTilBackendDato(nåTilOgMed);
+  }
 
   if (gyldigFraOgMed) {
     gyldigFraOgMedDato = formaterTilBackendDato(gyldigFraOgMed);
@@ -34,6 +54,32 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
 
   if (gyldigTilOgMed) {
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
+  }
+
+  if (
+    verdi === nåVerdi &&
+    gyldigFraOgMedDato === nåFraOgMedDato &&
+    gyldigTilOgMedDato === nåTilOgMedDato &&
+    periodeId
+  ) {
+    const { error, response } = await lagreOpplysningBegrunnelse(
+      request,
+      behandlingId,
+      periodeId,
+      begrunnelse ? begrunnelse : "",
+    );
+    if (error) {
+      return getErrorAlert(error, response);
+    }
+
+    if (response.status == 204) {
+      const successAlert: IAlert = {
+        variant: "success",
+        title: "Begrunnelse for opplysning lagret",
+      };
+      return successAlert;
+    }
+    throw new Error(`Uhåndtert feil i lagreOpplysningBegrunnelseAction(): ${response.status}`);
   }
 
   const { data, error, response } = await lagreOpplysning(
