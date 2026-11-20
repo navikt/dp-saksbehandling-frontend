@@ -31,16 +31,20 @@ describe("umamiBeforeSend", () => {
     expect(payload.url).toBe("/oppgave/:id/innsending/:id");
   });
 
-  test.each(["", "/klage", "/klage/behandling-ferdig"])(
-    "erstatter behandlingId i ny behandlingsrute %s",
-    (suffix) => {
-      const payload = {
-        url: `/behandling/a1b2c3d4-e5f6-7890-abcd-ef1234567890${suffix}`,
-      };
-      umamiBeforeSend("event", payload);
-      expect(payload.url).toBe(`/behandling/:id${suffix}`);
-    },
-  );
+  test.each([
+    "",
+    "/klage",
+    "/klage/behandling-ferdig",
+    "/innsending",
+    "/oppfolging",
+    "/tilbakekreving",
+  ])("erstatter behandlingId i ny behandlingsrute %s", (suffix) => {
+    const payload = {
+      url: `/behandling/a1b2c3d4-e5f6-7890-abcd-ef1234567890${suffix}`,
+    };
+    umamiBeforeSend("event", payload);
+    expect(payload.url).toBe(`/behandling/:id${suffix}`);
+  });
 
   test("beholder regelsett- og opplysning-IDer", () => {
     const payload = {

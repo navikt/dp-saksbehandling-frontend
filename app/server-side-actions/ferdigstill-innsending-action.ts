@@ -1,5 +1,5 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { ActionFunctionArgs, redirect } from "react-router";
+import { redirect } from "react-router";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { IAlert } from "~/context/alert-context";
@@ -10,11 +10,7 @@ import { getErrorAlert } from "~/utils/error-response.utils";
 import { hentTekstForFerdigstilling } from "~/utils/tekst.utils";
 import { hentValideringForFerdigstillOppgave } from "~/utils/validering.util";
 
-export async function ferdigstillInnsendingAction(
-  request: Request,
-  params: ActionFunctionArgs["params"],
-  formData: FormData,
-) {
+export async function ferdigstillInnsendingAction(request: Request, formData: FormData) {
   const validertSkjema = await parseFormData(
     formData,
     hentValideringForFerdigstillOppgave("ferdigstill-innsending"),
@@ -56,7 +52,7 @@ export async function ferdigstillInnsendingAction(
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/oppgave/${params.oppgaveId}/fullfort-oppgave`, {
+  return redirect(`/oppgave/${data.oppgaveId}/fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
