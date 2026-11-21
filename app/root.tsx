@@ -128,9 +128,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const valentines = isEnabled("dp-saksbehandling-frontend.valentines");
   const hippHippHurra = isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
   const paaske = isEnabled("dp-saksbehandling-frontend.paaske");
-  const kanAlltidLeggeTilPeriode = isEnabled(
-    "dp-saksbehandling-frontend.kan-alltid-legge-til-periode",
-  );
   const dokumentIDropdown = unleash.isEnabled("dp-saksbehandling-frontend.dokument-plassering");
 
   return {
@@ -142,7 +139,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       valentines,
       hippHippHurra,
       paaske,
-      kanAlltidLeggeTilPeriode,
       dokumentIDropdown,
     },
     env: {

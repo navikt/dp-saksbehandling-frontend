@@ -1,37 +1,40 @@
 import { Button, DatePicker, Table, Textarea, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { add, sub } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
+import { useOpplysningLagret } from "~/hooks/useOpplysningLagret";
 import {
   formaterTilNorskDato,
   maxGyldigTilOgMedDato,
   minGyldigFraOgMedDato,
 } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
-import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
+import { hentValideringForEndreOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   opplysning: components["schemas"]["RedigerbareOpplysninger"];
   periode: components["schemas"]["Opplysningsperiode"];
-  periodeIndex: number;
   setPeriodeUnderRedigering: (periodeId?: string) => void;
 }
 
 export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
   const { behandlingId } = useParams();
+  const opplysningLagret = useOpplysningLagret();
 
   const periodeForm = useForm({
     method: "post",
     submitSource: "state",
-    schema: hentValideringForOpplysningPeriodeSkjema(props.periode.verdi.datatype),
-    onSubmitSuccess: () => props.setPeriodeUnderRedigering(undefined),
+    schema: hentValideringForEndreOpplysningPeriodeSkjema(props.periode.verdi.datatype),
+    onSubmitSuccess: async (responseData) => {
+      await opplysningLagret(responseData);
+      props.setPeriodeUnderRedigering(undefined);
+    },
     defaultValues: {
-      _action: "lagre-opplysning",
-      opplysningTypeId: props.opplysning.opplysningTypeId,
+      _action: "endre-opplysning",
+      opplysningId: props.periode.id,
       datatype: props.periode.verdi.datatype,
       behandlingId: behandlingId,
       verdi: konverterOpplysningVerdiTilSkjemaVerdi(props.periode.verdi),
@@ -48,23 +51,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
   const ubegrensetFromDate =
     props.opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc77";
 
-  const forrigePeriodeTilOgMedDato =
-    props.opplysning.perioder[props.periodeIndex - 1]?.gyldigTilOgMed;
-
-  const nestePeriodeFraOgMedDato =
-    props.opplysning.perioder[props.periodeIndex + 1]?.gyldigFraOgMed;
-
   const datepickerFraOgMed = useDatepicker({
     defaultSelected: props.periode.gyldigFraOgMed
       ? new Date(props.periode.gyldigFraOgMed)
       : undefined,
-    // Tidligste gylding fra og med dato er forrige periode sin til og med dato + 1 dag
-    fromDate: ubegrensetFromDate
-      ? undefined
-      : forrigePeriodeTilOgMedDato
-        ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
-        : minGyldigFraOgMedDato(),
-    toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : maxGyldigTilOgMedDato(),
+    fromDate: ubegrensetFromDate ? undefined : minGyldigFraOgMedDato(),
+    toDate: maxGyldigTilOgMedDato(),
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();
       periodeForm.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
@@ -88,10 +80,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       ? new Date(props.periode.gyldigTilOgMed)
       : undefined,
     fromDate: datepickerFraOgMed.selectedDay ?? minGyldigFraOgMedDato(),
-    // Seneste gylding til og med dato er neste periode sin fra og med dato - 1 dag
-    toDate: nestePeriodeFraOgMedDato
-      ? sub(new Date(nestePeriodeFraOgMedDato), { days: 1 })
-      : maxGyldigTilOgMedDato(),
+    toDate: maxGyldigTilOgMedDato(),
 
     onDateChange: (dato) => {
       periodeForm.field("gyldigFraOgMed").clearError();

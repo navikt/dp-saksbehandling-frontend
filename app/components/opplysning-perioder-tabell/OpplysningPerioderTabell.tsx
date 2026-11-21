@@ -8,7 +8,6 @@ import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
-import { useFeatureFlags } from "~/hooks/useFeatureFlags";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
@@ -28,7 +27,6 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
   const { behandlingId, regelsettId: regelsettIdFraRoute } = useParams();
   const regelsettId = valgtRegelsettId ?? regelsettIdFraRoute;
   const { readonly, oppgave } = useOppgave();
-  const { featureFlags } = useFeatureFlags();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
   const slettPeriodeForm = useForm({
     method: "post",
@@ -38,14 +36,6 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
   });
 
   const isBarneopplysning = opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b";
-
-  // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
-  const kanLeggeTilNyPeriode =
-    featureFlags.kanAlltidLeggeTilPeriode ||
-    isBarneopplysning ||
-    opplysning.perioder.length === 0 ||
-    opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
-    opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
@@ -72,7 +62,7 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
         </Table.Header>
 
         <Table.Body>
-          {opplysning.perioder.map((periode, index) => {
+          {opplysning.perioder.map((periode) => {
             if (periode.id === periodeIdUnderRedigering) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
@@ -80,7 +70,6 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
                   opplysning={opplysning}
                   setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
                   periode={periode}
-                  periodeIndex={index}
                 />
               );
             }
@@ -102,12 +91,10 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
                 </Table.DataCell>
                 <Table.DataCell>{periode.opprinnelse}</Table.DataCell>
 
-                {!readonly &&
-                  opplysning.redigerbar &&
-                  periode.opprinnelse !== "Arvet" &&
-                  !isBarneopplysning && (
-                    <>
-                      <Table.DataCell>
+                {!readonly && opplysning.redigerbar && !isBarneopplysning && (
+                  <>
+                    <Table.DataCell>
+                      {periode.opprinnelse !== "Arvet" && (
                         <Button
                           size={"xsmall"}
                           variant={"tertiary"}
@@ -120,20 +107,21 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
                           data-umami-event="Slett periode"
                           data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
                         />
-                      </Table.DataCell>
+                      )}
+                    </Table.DataCell>
 
-                      <Table.DataCell>
-                        <Button
-                          size={"xsmall"}
-                          variant={"tertiary"}
-                          icon={<PencilIcon />}
-                          data-umami-event="Rediger periode"
-                          data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
-                          onClick={() => setPeriodeIdUnderRedigering(periode.id)}
-                        />
-                      </Table.DataCell>
-                    </>
-                  )}
+                    <Table.DataCell>
+                      <Button
+                        size={"xsmall"}
+                        variant={"tertiary"}
+                        icon={<PencilIcon />}
+                        data-umami-event="Rediger periode"
+                        data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
+                        onClick={() => setPeriodeIdUnderRedigering(periode.id)}
+                      />
+                    </Table.DataCell>
+                  </>
+                )}
 
                 {opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
@@ -189,7 +177,6 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
             }
             data-umami-event="Legg til periode"
             data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
-            disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode
           </Button>

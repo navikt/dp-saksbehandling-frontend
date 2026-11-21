@@ -4,6 +4,7 @@ import { isSameDay } from "date-fns";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
+import { useOpplysningLagret } from "~/hooks/useOpplysningLagret";
 import {
   formaterTilNorskDato,
   maxGyldigTilOgMedDato,
@@ -16,6 +17,7 @@ import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.uti
 export function PrøvingsdatoInput() {
   const { readonly } = useOppgave();
   const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const opplysningLagret = useOpplysningLagret();
   const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
 
   if (
@@ -30,6 +32,7 @@ export function PrøvingsdatoInput() {
     method: "post",
     submitSource: "state",
     schema: hentValideringForOpplysningPeriodeSkjema(prøvingsdatoOpplysningPeriode.verdi.datatype),
+    onSubmitSuccess: opplysningLagret,
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: prøvingsdatoOpplysning.opplysningTypeId,
