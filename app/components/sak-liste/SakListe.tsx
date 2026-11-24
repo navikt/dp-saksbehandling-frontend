@@ -1,7 +1,7 @@
 import { BodyShort, CopyButton, ExpansionCard } from "@navikt/ds-react";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
+import { filtrerOppgaver } from "~/utils/oppgave.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import { OppgaveTable } from "../oppgave-table/OppgaveTable";
@@ -9,9 +9,10 @@ import { OppgaveTable } from "../oppgave-table/OppgaveTable";
 interface IProps {
   saker: components["schemas"]["Sak"][];
   skjulMeldekortOppgaver: boolean;
+  skjulAvbrutteOppgaver: boolean;
 }
 
-export function SakListe({ saker, skjulMeldekortOppgaver }: IProps) {
+export function SakListe({ saker, skjulMeldekortOppgaver, skjulAvbrutteOppgaver }: IProps) {
   return (
     <>
       {saker.length === 0 && (
@@ -26,7 +27,11 @@ export function SakListe({ saker, skjulMeldekortOppgaver }: IProps) {
         const forsteIdGruppe = idGrupper.join("-");
         const førsteOppgave = sak.oppgaver.at(-1);
         const sisteOppgave = sak.oppgaver.at(0);
-        const synligeOppgaver = filtrerMeldekortOppgaver(sak.oppgaver, skjulMeldekortOppgaver);
+        const synligeOppgaver = filtrerOppgaver(
+          sak.oppgaver,
+          skjulMeldekortOppgaver,
+          skjulAvbrutteOppgaver,
+        );
 
         return (
           <ExpansionCard

@@ -2,7 +2,7 @@ import { FolderFileIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
 
 import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
-import { filtrerMeldekortOppgaver } from "~/utils/oppgave.utils";
+import { filtrerOppgaver } from "~/utils/oppgave.utils";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -15,6 +15,7 @@ interface IProps {
   sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
   gjetterSisteBehandling?: behandlingComponents["schemas"]["Behandling"];
   skjulMeldekortOppgaver: boolean;
+  skjulAvbrutteOppgaver: boolean;
 }
 
 export function SisteSak({
@@ -22,12 +23,13 @@ export function SisteSak({
   sakIDpBehandling,
   gjetterSisteBehandling,
   skjulMeldekortOppgaver,
+  skjulAvbrutteOppgaver,
 }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
 
-  const oppgaverSomIkkeErIDpBehandling = filtrerMeldekortOppgaver(
+  const oppgaverSomIkkeErIDpBehandling = filtrerOppgaver(
     sakIDpBehandling
       ? sak.oppgaver.filter(
           (oppgave) =>
@@ -37,6 +39,7 @@ export function SisteSak({
         )
       : sak.oppgaver,
     skjulMeldekortOppgaver,
+    skjulAvbrutteOppgaver,
   );
 
   const oppgaverOgBehandlinger = sakIDpBehandling
@@ -51,7 +54,8 @@ export function SisteSak({
         )
         .filter(
           (oppgaveOgBehandling) =>
-            !skjulMeldekortOppgaver || oppgaveOgBehandling.oppgave.utlostAv !== "MELDEKORT",
+            (!skjulMeldekortOppgaver || oppgaveOgBehandling.oppgave.utlostAv !== "MELDEKORT") &&
+            (!skjulAvbrutteOppgaver || oppgaveOgBehandling.oppgave.tilstand !== "AVBRUTT"),
         )
     : [];
 

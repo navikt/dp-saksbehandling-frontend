@@ -16,7 +16,7 @@ import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { filtrerMeldekortOppgaver, filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
+import { filtrerOppgaver, filtrerOppgaverTilBehandling } from "~/utils/oppgave.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
@@ -30,13 +30,18 @@ export default function PersonOversikt() {
     useTypedRouteLoaderData("routes/person.$personUuid");
   const actionData = useActionData<typeof action>();
   const [skjulMeldekortOppgaver, setSkjulMeldekortOppgaver] = useState(false);
+  const [skjulAvbrutteOppgaver, setSkjulAvbrutteOppgaver] = useState(false);
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   const oppgaverTilBehandling = filtrerOppgaverTilBehandling(personOversikt.oppgaver);
 
   const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver);
-  const alleOppgaver = filtrerMeldekortOppgaver(personOversikt.oppgaver, skjulMeldekortOppgaver);
+  const alleOppgaver = filtrerOppgaver(
+    personOversikt.oppgaver,
+    skjulMeldekortOppgaver,
+    skjulAvbrutteOppgaver,
+  );
   return (
     <div className="main">
       <div className={`${styles.container}`}>
@@ -84,6 +89,13 @@ export default function PersonOversikt() {
             >
               Skjul meldekort
             </Switch>
+            <Switch
+              checked={skjulAvbrutteOppgaver}
+              size={"small"}
+              onChange={(e) => setSkjulAvbrutteOppgaver(e.target.checked)}
+            >
+              Skjul avbrutte oppgaver
+            </Switch>
           </div>
 
           <Tabs.Panel value="siste-sak">
@@ -92,6 +104,7 @@ export default function PersonOversikt() {
                 sak={sisteSak}
                 sakIDpBehandling={sisteSakIDpBehandling}
                 skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+                skjulAvbrutteOppgaver={skjulAvbrutteOppgaver}
               />
             )}
             {sisteSak && gjetterSisteBehandling && (
@@ -99,6 +112,7 @@ export default function PersonOversikt() {
                 sak={sisteSak}
                 gjetterSisteBehandling={gjetterSisteBehandling}
                 skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+                skjulAvbrutteOppgaver={skjulAvbrutteOppgaver}
               />
             )}
             {!sisteSak && (
@@ -112,6 +126,7 @@ export default function PersonOversikt() {
             <SakListe
               saker={personOversikt.saker}
               skjulMeldekortOppgaver={skjulMeldekortOppgaver}
+              skjulAvbrutteOppgaver={skjulAvbrutteOppgaver}
             />
           </Tabs.Panel>
 
