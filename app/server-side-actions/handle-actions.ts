@@ -41,6 +41,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await sokPersonAction(request, formData);
 
     case "lagre-opplysning":
+    case "endre-opplysning":
       return await lagreOpplysningAction(request, formData);
 
     case "endre-beregningsregel":

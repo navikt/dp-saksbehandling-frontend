@@ -4,6 +4,7 @@ import { add } from "date-fns";
 import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/opplysning-periode-input/OpplysningPeriodeInput";
+import { useOpplysningLagret } from "~/hooks/useOpplysningLagret";
 import {
   formaterTilNorskDato,
   maxGyldigTilOgMedDato,
@@ -20,6 +21,7 @@ interface IProps {
 
 export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
   const { behandlingId } = useParams();
+  const opplysningLagret = useOpplysningLagret();
 
   const sisteOpplysningPeriodeTilOgMedDato =
     props.opplysning.perioder[props.opplysning.perioder.length - 1]?.gyldigTilOgMed;
@@ -28,7 +30,10 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
     method: "post",
     submitSource: "state",
     schema: hentValideringForNyOpplysningPeriodeSkjema(props.opplysning.datatype),
-    onSubmitSuccess: () => props.setPeriodeUnderRedigering(undefined),
+    onSubmitSuccess: async (responseData) => {
+      await opplysningLagret(responseData);
+      props.setPeriodeUnderRedigering(undefined);
+    },
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.opplysning.opplysningTypeId,
@@ -48,9 +53,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
     defaultSelected: sisteOpplysningPeriodeTilOgMedDato
       ? add(new Date(sisteOpplysningPeriodeTilOgMedDato), { days: 1 })
       : undefined,
-    fromDate: sisteOpplysningPeriodeTilOgMedDato
-      ? add(new Date(sisteOpplysningPeriodeTilOgMedDato), { days: 1 })
-      : minGyldigFraOgMedDato(),
+    fromDate: minGyldigFraOgMedDato(),
     onDateChange: (dato) => {
       nyOpplysningPeriodeForm.field("gyldigFraOgMed").clearError();
       nyOpplysningPeriodeForm

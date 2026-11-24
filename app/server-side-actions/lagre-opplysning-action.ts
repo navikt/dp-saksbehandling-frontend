@@ -1,11 +1,15 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 import invariant from "tiny-invariant";
+import { z } from "zod";
 
 import { IAlert } from "~/context/alert-context";
-import { lagreOpplysning } from "~/models/behandling.server";
+import { endreOpplysning, lagreOpplysning } from "~/models/behandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getErrorAlert } from "~/utils/error-response.utils";
-import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
+import {
+  hentValideringForEndreOpplysningPeriodeSkjema,
+  hentValideringForOpplysningPeriodeSkjema,
+} from "~/utils/validering.util";
 
 import { components } from "../../openapi/behandling-typer";
 
@@ -15,15 +19,17 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
 
   const validertSkjema = await parseFormData(
     formData,
-    hentValideringForOpplysningPeriodeSkjema(opplysningDatatype),
+    z.discriminatedUnion("_action", [
+      hentValideringForOpplysningPeriodeSkjema(opplysningDatatype),
+      hentValideringForEndreOpplysningPeriodeSkjema(opplysningDatatype),
+    ]),
   );
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, opplysningTypeId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } =
-    validertSkjema.data;
+  const { behandlingId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } = validertSkjema.data;
 
   let gyldigFraOgMedDato: string | undefined = undefined;
   let gyldigTilOgMedDato: string | undefined = undefined;
@@ -36,15 +42,24 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
   }
 
-  const { data, error, response } = await lagreOpplysning(
-    request,
-    behandlingId,
-    opplysningTypeId,
-    konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi),
-    begrunnelse ? begrunnelse : "",
-    gyldigFraOgMedDato,
-    gyldigTilOgMedDato,
-  );
+  const backendVerdi = konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi);
+  const { data, error, response } =
+    validertSkjema.data._action === "endre-opplysning"
+      ? await endreOpplysning(request, behandlingId, validertSkjema.data.opplysningId, {
+          verdi: backendVerdi,
+          begrunnelse,
+          gyldigFraOgMed: gyldigFraOgMedDato,
+          gyldigTilOgMed: gyldigTilOgMedDato,
+        })
+      : await lagreOpplysning(
+          request,
+          behandlingId,
+          validertSkjema.data.opplysningTypeId,
+          backendVerdi,
+          begrunnelse,
+          gyldigFraOgMedDato,
+          gyldigTilOgMedDato,
+        );
 
   if (error) {
     return getErrorAlert(error, response);

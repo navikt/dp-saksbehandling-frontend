@@ -96,6 +96,15 @@ export const mockDpBehandling = [
     return response(200).json({ behandlingId: params.behandlingId });
   }),
 
+  http.put(`/behandling/{behandlingId}/opplysning/{opplysningId}`, async ({ response, params }) => {
+    await delay();
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json({ behandlingId: params.behandlingId });
+  }),
+
   http.delete(
     `/behandling/{behandlingId}/opplysning/{opplysningId}`,
     async ({ response, params }) => {
