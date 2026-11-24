@@ -604,7 +604,6 @@ export function hentValideringForFlyttBehandlingTilNySak() {
     _action: z.literal("flytt-behandling-til-ny-sak"),
     behandlingId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
-    aktivtOppgaveSok: z.string().optional(),
-    kilde: z.enum(["kontroll", "feilutbetaling"]).optional(),
+    personUuid: z.string().min(1, "Det mangler personUuid i skjema"),
   });
 }
