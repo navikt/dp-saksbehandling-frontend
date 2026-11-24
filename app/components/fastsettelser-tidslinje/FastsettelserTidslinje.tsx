@@ -103,6 +103,7 @@ export function FastsettelserTidslinje() {
                     <OpplysningPerioderTabell
                       opplysning={valgtOpplysning}
                       regelsettId={fastsettelse.id}
+                      visTittel={true}
                     />
                   </div>
                 )}

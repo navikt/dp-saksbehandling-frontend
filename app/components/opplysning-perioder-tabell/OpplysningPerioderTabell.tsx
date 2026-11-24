@@ -1,5 +1,5 @@
 import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, HelpText, Link, Table } from "@navikt/ds-react";
+import { Button, Heading, HelpText, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -19,11 +19,16 @@ import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 interface IProps {
   opplysning: components["schemas"]["RedigerbareOpplysninger"];
   regelsettId?: string;
+  visTittel?: boolean;
 }
 
 const NY_PERIODE_ID = "NY-PERIODE";
 
-export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelsettId }: IProps) {
+export function OpplysningPerioderTabell({
+  opplysning,
+  regelsettId: valgtRegelsettId,
+  visTittel,
+}: IProps) {
   const navigate = useNavigate();
   const { behandlingId, regelsettId: regelsettIdFraRoute } = useParams();
   const regelsettId = valgtRegelsettId ?? regelsettIdFraRoute;
@@ -49,6 +54,11 @@ export function OpplysningPerioderTabell({ opplysning, regelsettId: valgtRegelse
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
+      {visTittel && (
+        <Heading level="3" size="small">
+          {opplysning.navn}
+        </Heading>
+      )}
       <Table size="small" className={"aksel--compact"} zebraStripes={true}>
         <Table.Header>
           <Table.Row>
