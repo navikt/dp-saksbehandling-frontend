@@ -49,8 +49,8 @@ export function BehandlingSidepanel() {
         className="card min-w-0"
         onChange={(value) => {
           setSidepanelTab(value);
-          if (value === "dokumenter" && sidepanelTab !== value) {
-            window.umami?.track("Vis dokumenter", { visning: "tab" });
+          if (sidepanelTab !== value) {
+            window.umami?.track("Viser sidepanel-tab", { tab: value });
           }
         }}
       >
