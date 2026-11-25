@@ -224,8 +224,8 @@ importers:
         specifier: 8.2.15
         version: 8.2.15(@types/react@19.3.0)(react@19.3.1)
       '@portabletext/keyboard-shortcuts':
-        specifier: 3.0.0
-        version: 3.0.0
+        specifier: 3.0.1
+        version: 3.0.1
       '@portabletext/plugin-list-index':
         specifier: ^2.0.27
         version: 2.0.27(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
