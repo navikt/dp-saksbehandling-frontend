@@ -1,12 +1,12 @@
 import { HStack, VStack } from "@navikt/ds-react";
+import { useState } from "react";
 import { ActionFunctionArgs, Outlet } from "react-router";
 
 import { BehandlingOversikt } from "~/components/behandling-oversikt/BehandlingOversikt";
-import { DokumentMeny } from "~/components/dokument-oversikt/DokumentMeny";
 import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
-import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
-import { useBehandling } from "~/hooks/useBehandling";
+import { useOppgave } from "~/hooks/useOppgave";
 import { handleActions } from "~/server-side-actions/handle-actions";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -14,29 +14,27 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function BehandlingLayout() {
-  const { behandling } = useBehandling();
+  const { oppgave } = useOppgave();
+  const [visHuskelapp, setVisHuskelapp] = useState(false);
   return (
     <div className="flex h-full min-h-0 gap-4">
-      <div
-        role="region"
-        aria-label="Oppgaveoversikt"
-        tabIndex={0}
-        className="relative h-full min-h-0 shrink-0"
-      >
-        <OppgaveOversikt
-          opprettetAv={behandling.opprettetAv}
-          visKontroll={false}
-          visDokumenter={false}
-        />
-      </div>
+      {visHuskelapp && (
+        <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
+      )}
+
       <div className="min-h-0 min-w-0 flex-1 overflow-auto">
         <VStack as="main" gap="space-16">
           <BehandlingOversikt />
           <div className={"card p-4"}>
             <div className="flex justify-between gap-6">
               <LinkTabs />
-              <HStack gap="space-8" wrap={false} className="shrink-0">
-                <DokumentMeny />
+              <HStack align="center" gap="space-8" wrap={false} className="shrink-0">
+                <NoteButton
+                  noteKey={oppgave.oppgaveId}
+                  onClick={() => setVisHuskelapp(true)}
+                  oppgaveTilstand={oppgave.tilstand}
+                />
+
                 <OppgaveMeny />
               </HStack>
             </div>
