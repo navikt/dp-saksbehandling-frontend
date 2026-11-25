@@ -221,14 +221,14 @@ importers:
         specifier: 6.0.8
         version: 6.0.8(@types/react@19.3.0)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@3.0.7(@types/node@26.0.0)(graphql@17.1.0)(supports-color@5.5.0)(typescript@6.0.3)(vite@8.3.8(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))(vite@8.3.8(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
       '@portabletext/editor':
-        specifier: 8.2.14
-        version: 8.2.14(@types/react@19.3.0)(react@19.3.1)
+        specifier: 8.2.15
+        version: 8.2.15(@types/react@19.3.0)(react@19.3.1)
       '@portabletext/keyboard-shortcuts':
         specifier: 3.0.0
         version: 3.0.0
       '@portabletext/plugin-list-index':
         specifier: ^2.0.27
-        version: 2.0.27(@portabletext/editor@8.2.14(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
+        version: 2.0.27(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@portabletext/react':
         specifier: 8.0.1
         version: 8.0.1(react@19.3.1)
@@ -237,7 +237,7 @@ importers:
         version: 6.0.0
       '@portabletext/toolbar':
         specifier: 9.0.28
-        version: 9.0.28(@portabletext/editor@8.2.14(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
+        version: 9.0.28(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@react-router/node':
         specifier: 8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(typescript@6.0.3)
@@ -2362,15 +2362,11 @@ packages:
     resolution: {integrity: sha512-cN7m59YG56m0JTl3ppKS7Awf9qkk/FcwIJJktTIoEHhbyDR7B1liYe1XQS4T42WynRz9BF0uRsX2fz/jpy4tog==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/editor@8.2.14':
-    resolution: {integrity: sha512-j8vp8oNaRS+0D9OgixLtfMTxh2+64zZBgykc5QTXKGnkfR2B2EuFvfllEXFYzzmhXTWGOKN167lTAE46hSg0qQ==}
+  '@portabletext/editor@8.2.15':
+    resolution: {integrity: sha512-VerHYc5nA68yjKr8W1jmg0PQ8Dymqj4aF5PYvEzkbZQVakRJmtrX+dUUxN9/NSIwzeCq76cwN9DdsqUINFx94A==}
     engines: {node: '>=22.12'}
     peerDependencies:
       react: ^19.3.1
-
-  '@portabletext/html@2.0.2':
-    resolution: {integrity: sha512-9s69Dd2F5QjSHeiM11w+vnuYSjSDatXK3W033rpVCOG5AItVglFUmZzKh7UqAFeV6T9sTSjCfaX7lo2UesK6Uw==}
-    engines: {node: '>=22.12'}
 
   '@portabletext/html@2.0.3':
     resolution: {integrity: sha512-SOiJjn0aYEIdo8sQ8YAPPAw1ErfaT3JOq4wDfeDEnHbeiEOGExt41KTTUNuMza6swShAcuITvneCaxfDVtAdiQ==}
@@ -2380,8 +2376,12 @@ packages:
     resolution: {integrity: sha512-YsK/3mkFEVHs021S9EGA885p6eIe3XzFcARKD7scqtNaPBz7y579XXoa78kXe6XBLgiuKmB8eU3/Ucdnvi5SCA==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/patches@3.0.5':
-    resolution: {integrity: sha512-ItBZMdRSkoYPa0Mckv72lfLdMhku0H3EUTWftdh9JQpkKgUOQIYffuA0HqKBxGo3CNXU3SVLWe2UjNJACGRTFg==}
+  '@portabletext/keyboard-shortcuts@3.0.1':
+    resolution: {integrity: sha512-d7GxT5JyX449OOII1Xf+pGn3tGNbnEHXCD7CTesi7SN9EqW5ILgBLoKp7yUcqsmcfnWJASx1B/uq54BXkW1s9w==}
+    engines: {node: '>=22.12'}
+
+  '@portabletext/patches@3.0.6':
+    resolution: {integrity: sha512-zVIz9zUD0UJhYyLEIqGXTTdvsiVmd0pRpwGoXr5U0zqAr8uRu/yu5zAHAeqZIAQJKnpcMWi3kPQYY0XokwByow==}
     engines: {node: '>=22.12'}
 
   '@portabletext/plugin-list-index@2.0.27':
@@ -2397,16 +2397,12 @@ packages:
     peerDependencies:
       react: ^19
 
-  '@portabletext/repair@1.0.3':
-    resolution: {integrity: sha512-zHTMVj31lk7dTGHqW4dzWUVWZczT+zdpgkxraozAtuZDDpkL3/vCLtxEox3wg2py1/jGZk+3hNHZXw+9ax6UXg==}
+  '@portabletext/repair@1.0.4':
+    resolution: {integrity: sha512-CQla0KrI9hTsGA3QgF+gs5ZQj58pyBpvud9pKZ7TjGFYYjocOL/kQ9EoQcAFJ1MX48w2NsdnZyn8IguEv+Lcig==}
     engines: {node: '>=22.12'}
 
   '@portabletext/sanity-bridge@5.0.1':
     resolution: {integrity: sha512-3Qku8ObtRejRdS41G+PT6XYEKXZHRuxjJ/ADWb7ErkebQM13WGHP5tyXGTv+AEgpwZLNkbiAiD2J57rMpGiHNg==}
-    engines: {node: '>=22.12'}
-
-  '@portabletext/schema@3.1.0':
-    resolution: {integrity: sha512-Th8x0I21GDDv+yQEqF1w/G9iuyLkFdUM424VSSCCdZRSnfor2m23m+GFdf3pVTte6TPOzu4Ku89FwqyRRJ2vxQ==}
     engines: {node: '>=22.12'}
 
   '@portabletext/schema@3.1.1':
@@ -8534,13 +8530,13 @@ snapshots:
       - '@types/react'
       - vitest
 
-  '@portabletext/editor@8.2.14(@types/react@19.3.0)(react@19.3.1)':
+  '@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1)':
     dependencies:
-      '@portabletext/html': 2.0.2
-      '@portabletext/keyboard-shortcuts': 3.0.0
-      '@portabletext/patches': 3.0.5
-      '@portabletext/repair': 1.0.3
-      '@portabletext/schema': 3.1.0
+      '@portabletext/html': 2.0.3
+      '@portabletext/keyboard-shortcuts': 3.0.1
+      '@portabletext/patches': 3.0.6
+      '@portabletext/repair': 1.0.4
+      '@portabletext/schema': 3.1.1
       '@portabletext/to-html': 6.0.0
       '@sanity/diff-match-patch': 3.2.1
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.1)(xstate@5.32.6)
@@ -8551,11 +8547,6 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@portabletext/html@2.0.2':
-    dependencies:
-      '@portabletext/schema': 3.1.0
-      '@vercel/stega': 1.1.0
-
   '@portabletext/html@2.0.3':
     dependencies:
       '@portabletext/schema': 3.1.1
@@ -8563,13 +8554,15 @@ snapshots:
 
   '@portabletext/keyboard-shortcuts@3.0.0': {}
 
-  '@portabletext/patches@3.0.5':
+  '@portabletext/keyboard-shortcuts@3.0.1': {}
+
+  '@portabletext/patches@3.0.6':
     dependencies:
       '@sanity/diff-match-patch': 3.2.1
 
-  '@portabletext/plugin-list-index@2.0.27(@portabletext/editor@8.2.14(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)':
+  '@portabletext/plugin-list-index@2.0.27(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@portabletext/editor': 8.2.14(@types/react@19.3.0)(react@19.3.1)
+      '@portabletext/editor': 8.2.15(@types/react@19.3.0)(react@19.3.1)
       react: 19.3.1
 
   '@portabletext/react@8.0.1(react@19.3.1)':
@@ -8578,10 +8571,10 @@ snapshots:
       '@portabletext/types': 4.0.2
       react: 19.3.1
 
-  '@portabletext/repair@1.0.3':
+  '@portabletext/repair@1.0.4':
     dependencies:
-      '@portabletext/patches': 3.0.5
-      '@portabletext/schema': 3.1.0
+      '@portabletext/patches': 3.0.6
+      '@portabletext/schema': 3.1.1
 
   '@portabletext/sanity-bridge@5.0.1(@types/react@19.3.0)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(jsdom@30.1.3)(msw@3.0.7(@types/node@26.0.0)(graphql@17.1.0)(supports-color@5.5.0)(typescript@6.0.3)(vite@8.3.8(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))(vite@8.3.8(@types/node@26.0.0)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))':
     dependencies:
@@ -8591,8 +8584,6 @@ snapshots:
       - '@types/react'
       - vitest
 
-  '@portabletext/schema@3.1.0': {}
-
   '@portabletext/schema@3.1.1': {}
 
   '@portabletext/to-html@6.0.0':
@@ -8600,9 +8591,9 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.28(@portabletext/editor@8.2.14(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
+  '@portabletext/toolbar@9.0.28(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
     dependencies:
-      '@portabletext/editor': 8.2.14(@types/react@19.3.0)(react@19.3.1)
+      '@portabletext/editor': 8.2.15(@types/react@19.3.0)(react@19.3.1)
       '@portabletext/keyboard-shortcuts': 3.0.0
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.1)(xstate@5.32.6)
       react: 19.3.1
