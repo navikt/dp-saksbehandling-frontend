@@ -25,3 +25,15 @@ export function filtrerMeldekortOppgaver<T extends { utlostAv: UtlostAvType }>(
 ): T[] {
   return oppgaver.filter((oppgave) => !skjulMeldekortOppgaver || oppgave.utlostAv !== "MELDEKORT");
 }
+
+export function filtrerOppgaver<T extends { utlostAv: UtlostAvType; tilstand: string }>(
+  oppgaver: readonly T[],
+  skjulMeldekortOppgaver: boolean,
+  skjulAvbrutteOppgaver: boolean,
+): T[] {
+  return oppgaver.filter(
+    (oppgave) =>
+      (!skjulMeldekortOppgaver || oppgave.utlostAv !== "MELDEKORT") &&
+      (!skjulAvbrutteOppgaver || oppgave.tilstand !== "AVBRUTT"),
+  );
+}
