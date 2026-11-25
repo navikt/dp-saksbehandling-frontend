@@ -4,14 +4,17 @@ import { useSearchParams } from "react-router";
 import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useBehandling } from "~/hooks/useBehandling";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { skalViseRegelsett } from "~/utils/behandling.utils";
 import { skalViseOpplysning } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTidslinje";
+import { OpplysningerTittel } from "../opplysninger-tittel/OpplysningerTittel";
 
 export function FastsettelserTidslinje() {
+  const { readonly } = useOppgave();
   const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
   const tidslinjeState = useTidslinjeNavigeringState(behandling);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -100,6 +103,13 @@ export function FastsettelserTidslinje() {
                 />
                 {valgtOpplysning && (
                   <div className="mt-4">
+                    <OpplysningerTittel
+                      tittel={valgtOpplysning.navn}
+                      redigertAvSaksbehandler={valgtOpplysning.redigertAvSaksbehandler}
+                      opplysningKilde={valgtOpplysning.formål}
+                      opplysninger={[valgtOpplysning]}
+                      readonly={readonly}
+                    />
                     <OpplysningPerioderTabell
                       opplysning={valgtOpplysning}
                       regelsettId={fastsettelse.id}
