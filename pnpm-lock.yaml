@@ -236,8 +236,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       '@portabletext/toolbar':
-        specifier: 9.0.28
-        version: 9.0.28(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
+        specifier: 9.0.29
+        version: 9.0.29(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@react-router/node':
         specifier: 8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(typescript@6.0.3)
@@ -2372,10 +2372,6 @@ packages:
     resolution: {integrity: sha512-SOiJjn0aYEIdo8sQ8YAPPAw1ErfaT3JOq4wDfeDEnHbeiEOGExt41KTTUNuMza6swShAcuITvneCaxfDVtAdiQ==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/keyboard-shortcuts@3.0.0':
-    resolution: {integrity: sha512-YsK/3mkFEVHs021S9EGA885p6eIe3XzFcARKD7scqtNaPBz7y579XXoa78kXe6XBLgiuKmB8eU3/Ucdnvi5SCA==}
-    engines: {node: '>=22.12'}
-
   '@portabletext/keyboard-shortcuts@3.0.1':
     resolution: {integrity: sha512-d7GxT5JyX449OOII1Xf+pGn3tGNbnEHXCD7CTesi7SN9EqW5ILgBLoKp7yUcqsmcfnWJASx1B/uq54BXkW1s9w==}
     engines: {node: '>=22.12'}
@@ -2413,11 +2409,11 @@ packages:
     resolution: {integrity: sha512-kMqr55pJDBsIyOHLeVccFMFfJxSdozS+A1TeYhiihIinSDhb6ibUxpQIpg0B1n54vZJJW8rDs+QayP3vQqLKUg==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/toolbar@9.0.28':
-    resolution: {integrity: sha512-qO7WJy0c//pIkeTAZo2Ldb8Q+pWERBe37y+qAdDjq6/71KtkxB4oY3T/qIQ2uZYL0s43OpY9WmOgz11m5IgLHw==}
+  '@portabletext/toolbar@9.0.29':
+    resolution: {integrity: sha512-p+wbceGshBcZbcz1VySIcPGWUyGpltbHc9WZaMNmw7/eGBlQRQyR/0Rls16MjEwRwuINaN8YGW6/IvcO+gdAIg==}
     engines: {node: '>=22.12'}
     peerDependencies:
-      '@portabletext/editor': ^8.2.14
+      '@portabletext/editor': ^8.2.15
       react: ^19.3.1
 
   '@portabletext/toolkit@6.0.0':
@@ -8555,8 +8551,6 @@ snapshots:
       '@portabletext/schema': 3.1.1
       '@vercel/stega': 1.1.0
 
-  '@portabletext/keyboard-shortcuts@3.0.0': {}
-
   '@portabletext/keyboard-shortcuts@3.0.1': {}
 
   '@portabletext/patches@3.0.6':
@@ -8594,10 +8588,10 @@ snapshots:
       '@portabletext/toolkit': 6.0.0
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@9.0.28(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
+  '@portabletext/toolbar@9.0.29(@portabletext/editor@8.2.15(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)':
     dependencies:
       '@portabletext/editor': 8.2.15(@types/react@19.3.0)(react@19.3.1)
-      '@portabletext/keyboard-shortcuts': 3.0.0
+      '@portabletext/keyboard-shortcuts': 3.0.1
       '@xstate/react': 6.1.0(@types/react@19.3.0)(react@19.3.1)(xstate@5.32.6)
       react: 19.3.1
       xstate: 5.32.6
