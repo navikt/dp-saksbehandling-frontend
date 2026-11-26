@@ -3,12 +3,12 @@ import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
 
-import { paths } from "../openapi/rapportering-personregister-typer";
+import { paths } from "../openapi/dp-meldekort-typer";
 
 const apiError = false;
-const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_RAPPORTERING_PERSONREGISTER_URL") });
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_MELDEKORT_URL") });
 
-export const mockDpRapporteringPersonregister = [
+export const mockDpMeldekort = [
   http.post(`/hentPersonId`, async ({ response }) => {
     await delay(10);
 

@@ -13,7 +13,7 @@ Appen er basert på ~~[Remix](https://remix.run/docs)~~ [React Router Framework 
 ### Oppsett
 
 1. Kopier `.env.example` til `.env` og oppdater med Unleash-token.
-   Token finner du her: https://dagpenger-unleash-web.nav.cloud.nais.io/admin/api
+   Token finner du her: https://teamdagpenger-unleash-web.iap.nav.cloud.nais.io/admin/api
 
 ```sh
 cp .env.example .env

@@ -13,12 +13,12 @@ export async function getSaksbehandlingOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getRapporteringPersonregisterOboToken(request: Request) {
+export async function getDpMeldekortOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return await getLocalToken("DP_RAPPORTERING_PERSONREGISTER_TOKEN");
+    return await getLocalToken("DP_MELDEKORT_TOKEN");
   }
 
-  return await getOnBehalfOfToken(request, getEnv("DP_RAPPORTERING_PERSONREGISTER_AUDIENCE"));
+  return await getOnBehalfOfToken(request, getEnv("DP_MELDEKORT_AUDIENCE"));
 }
 
 export async function getBehandlingOboToken(request: Request) {
