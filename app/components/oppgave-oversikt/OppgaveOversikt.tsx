@@ -1,41 +1,18 @@
-import {
-  ChevronLeftDoubleIcon,
-  ChevronRightDoubleIcon,
-  ExternalLinkIcon,
-} from "@navikt/aksel-icons";
-import {
-  BodyShort,
-  Button,
-  CopyButton,
-  Detail,
-  Heading,
-  Link,
-  Skeleton,
-  Tag,
-} from "@navikt/ds-react";
+import { BodyShort, CopyButton, Detail, Skeleton, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
-import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
 import { useLocation } from "react-router";
 
 import { components as behandlingComponents } from "@/openapi/behandling-typer";
 import { components } from "@/openapi/saksbehandling-typer";
-import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
-import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
-import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
-import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { getEnv } from "~/utils/env.utils";
 import {
   hentFargevariantForSøknadsresultat,
   hentOppgaveTilstandTekst,
   hentTekstForKlageinstansUtfall,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
-
-import { NoteButton, NoteModal } from "../note-button/NoteButton";
 
 interface IProps {
   klageinstansUtfall?: components["schemas"]["KlageinstansUtfall"];
@@ -45,10 +22,8 @@ interface IProps {
 }
 
 export function OppgaveOversikt(props: IProps) {
-  const [visHuskelapp, setVisHuskelapp] = useState(false);
   const location = useLocation();
-  const [erLukket, setErLukket] = useState(true);
-  const { oppgave, underKontroll } = useOppgave();
+  const { oppgave } = useOppgave();
 
   const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
     ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
@@ -84,244 +59,153 @@ export function OppgaveOversikt(props: IProps) {
   };
 
   return (
-    <div className="relative h-full min-h-0">
-      {visHuskelapp && (
-        <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
-      )}
-      <AnimatePresence initial={false}>
-        {!erLukket && (
-          <motion.div
-            className="h-full min-h-0"
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 310, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          >
-            <aside className="flex max-h-full flex-col gap-4 overflow-y-auto">
-              <div className={"card flex flex-col gap-4 p-4"}>
-                <div className="flex items-center gap-2">
-                  <Heading size={"small"}>Oppgaveinformasjon</Heading>
-                  <NoteButton
-                    noteKey={oppgave.oppgaveId}
-                    onClick={() => setVisHuskelapp(true)}
-                    oppgaveTilstand={oppgave.tilstand}
-                  />
-                </div>
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Opprettet"}
-                  verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
-                />
+    <div className="flex flex-col gap-2">
+      <VerdiMedTittel
+        visBorder={true}
+        label={"Opprettet"}
+        verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
+      />
 
-                {props.opprettetAv && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Opprettet av"}
-                    verdi={`${props.opprettetAv.ident} (${props.opprettetAv.type})`}
-                  />
-                )}
-
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Utløst av"}
-                  verdi={hentUtløstAvTekstForVisning(oppgave.utlostAv)}
-                />
-
-                {rettighetEmneknagger.length > 0 && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Rettighet"}
-                    verdi={rettighetEmneknagger
-                      .map((emneknagg) => emneknagg.visningsnavn)
-                      .join(", ")}
-                  />
-                )}
-
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Status"}
-                  verdi={
-                    <>
-                      <BodyShort size={"small"}>
-                        {hentOppgaveTilstandTekst(oppgave.tilstand)}
-                      </BodyShort>
-
-                      {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                        <Tag
-                          size={"xsmall"}
-                          variant={"outline"}
-                          data-color={"brand-magenta"}
-                          className={"whitespace-nowrap"}
-                        >
-                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                        </Tag>
-                      )}
-                    </>
-                  }
-                />
-                {props.klageinstansUtfall && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Utfall fra klageinstans"}
-                    verdi={hentTekstForKlageinstansUtfall(props.klageinstansUtfall.verdi)}
-                  />
-                )}
-
-                {søknadResultatEmneknagger.length > 0 && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Søknadsresultat"}
-                    verdi={
-                      <div>
-                        {søknadResultatEmneknagger.map((emneknagg) => (
-                          <Tag
-                            key={emneknagg.visningsnavn}
-                            size={"xsmall"}
-                            variant={"outline"}
-                            data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
-                            className={"whitespace-nowrap"}
-                          >
-                            <Detail>{emneknagg.visningsnavn}</Detail>
-                          </Tag>
-                        ))}
-                      </div>
-                    }
-                  />
-                )}
-
-                {(avslagsGrunner.length > 0 ||
-                  avbruttGrunner.length > 0 ||
-                  påVentGrunner.length > 0) && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Årsak"}
-                    verdi={
-                      <div className={"flex flex-wrap gap-2"}>
-                        {avslagsGrunner.map((emneknagg) => (
-                          <Tag
-                            key={emneknagg.visningsnavn}
-                            size={"xsmall"}
-                            variant={"outline"}
-                            data-color={"danger"}
-                            className={"whitespace-nowrap"}
-                          >
-                            <Detail>{emneknagg.visningsnavn}</Detail>
-                          </Tag>
-                        ))}
-
-                        {avbruttGrunner.map((emneknagg) => (
-                          <Tag
-                            key={emneknagg.visningsnavn}
-                            size={"xsmall"}
-                            variant={"outline"}
-                            data-color={"warning"}
-                            className={"whitespace-nowrap"}
-                          >
-                            {emneknagg.visningsnavn}
-                          </Tag>
-                        ))}
-
-                        {påVentGrunner.map((emneknagg) => (
-                          <Tag
-                            key={emneknagg.visningsnavn}
-                            size={"xsmall"}
-                            variant={"outline"}
-                            data-color={"brand-magenta"}
-                            className={"whitespace-nowrap"}
-                          >
-                            {emneknagg.visningsnavn}
-                          </Tag>
-                        ))}
-                      </div>
-                    }
-                  />
-                )}
-
-                {oppgave.saksbehandler && (
-                  <VerdiMedTittel
-                    visBorder={true}
-                    label={"Saksbehandler"}
-                    verdi={`${oppgave.saksbehandler.fornavn} ${oppgave.saksbehandler.etternavn}`}
-                  />
-                )}
-
-                {oppgave.beslutter && (
-                  <VerdiMedTittel
-                    label={"Beslutter"}
-                    verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
-                  />
-                )}
-                <div>
-                  <CopyButton
-                    size="xsmall"
-                    copyText={JSON.stringify(utviklerinformasjon, null, 2)}
-                    text="Kopier utviklerinformasjon"
-                    activeText="Kopiert"
-                  />
-                </div>
-              </div>
-
-              {underKontroll && props.visKontroll !== false && (
-                <div className={"card p-4"}>
-                  <Heading className={"pb-2"} size={"small"}>
-                    Kontroll
-                  </Heading>
-                  <OppgaveKontroll />
-                </div>
-              )}
-
-              {props.visDokumenter !== false && (
-                <div className={"card p-4"}>
-                  <Heading className={"pb-2"} size={"small"}>
-                    Dokumenter
-                  </Heading>
-                  <DokumentOversikt />
-                </div>
-              )}
-
-              <div className={"card p-4"}>
-                <div className="flex items-center justify-between">
-                  <Heading className={"pb-2"} size={"small"}>
-                    Historikk
-                  </Heading>
-                  <Link
-                    href={`${getEnv("DP_AKTIVITETSLOGG_FRONTEND_URL")}/aktivitetslogg?behandlingId=${oppgave.behandlingId}`}
-                    target="_blank"
-                  >
-                    Se i aktivitetslogg <ExternalLinkIcon className="inline-block" />
-                  </Link>
-                </div>
-                <OppgaveHistorikk />
-              </div>
-
-              <div className={"card p-4"}>
-                <Heading className={"pb-2"} size={"small"}>
-                  Fagsystemer
-                </Heading>
-
-                <FagsystemLenker />
-              </div>
-            </aside>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        className="absolute top-4"
-        initial={false}
-        animate={{
-          right: erLukket ? -12 : -10,
-        }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-      >
-        <Button
-          size={"xsmall"}
-          variant={"primary"}
-          icon={erLukket ? <ChevronRightDoubleIcon /> : <ChevronLeftDoubleIcon />}
-          onClick={() => setErLukket(!erLukket)}
-          aria-label={erLukket ? "Åpne oppgaveoversikt" : "Lukk oppgaveoversikt"}
+      {props.opprettetAv && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Opprettet av"}
+          verdi={`${props.opprettetAv.ident} (${props.opprettetAv.type})`}
         />
-      </motion.div>
+      )}
+
+      <VerdiMedTittel
+        visBorder={true}
+        label={"Utløst av"}
+        verdi={hentUtløstAvTekstForVisning(oppgave.utlostAv)}
+      />
+
+      {rettighetEmneknagger.length > 0 && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Rettighet"}
+          verdi={rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
+        />
+      )}
+
+      <VerdiMedTittel
+        visBorder={true}
+        label={"Status"}
+        verdi={
+          <>
+            <BodyShort size={"small"}>{hentOppgaveTilstandTekst(oppgave.tilstand)}</BodyShort>
+
+            {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+              <Tag
+                size={"xsmall"}
+                variant={"outline"}
+                data-color={"brand-magenta"}
+                className={"whitespace-nowrap"}
+              >
+                <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+              </Tag>
+            )}
+          </>
+        }
+      />
+      {props.klageinstansUtfall && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Utfall fra klageinstans"}
+          verdi={hentTekstForKlageinstansUtfall(props.klageinstansUtfall.verdi)}
+        />
+      )}
+
+      {søknadResultatEmneknagger.length > 0 && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Søknadsresultat"}
+          verdi={
+            <div>
+              {søknadResultatEmneknagger.map((emneknagg) => (
+                <Tag
+                  key={emneknagg.visningsnavn}
+                  size={"xsmall"}
+                  variant={"outline"}
+                  data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                  className={"whitespace-nowrap"}
+                >
+                  <Detail>{emneknagg.visningsnavn}</Detail>
+                </Tag>
+              ))}
+            </div>
+          }
+        />
+      )}
+
+      {(avslagsGrunner.length > 0 || avbruttGrunner.length > 0 || påVentGrunner.length > 0) && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Årsak"}
+          verdi={
+            <div className={"flex flex-wrap gap-2"}>
+              {avslagsGrunner.map((emneknagg) => (
+                <Tag
+                  key={emneknagg.visningsnavn}
+                  size={"xsmall"}
+                  variant={"outline"}
+                  data-color={"danger"}
+                  className={"whitespace-nowrap"}
+                >
+                  <Detail>{emneknagg.visningsnavn}</Detail>
+                </Tag>
+              ))}
+
+              {avbruttGrunner.map((emneknagg) => (
+                <Tag
+                  key={emneknagg.visningsnavn}
+                  size={"xsmall"}
+                  variant={"outline"}
+                  data-color={"warning"}
+                  className={"whitespace-nowrap"}
+                >
+                  {emneknagg.visningsnavn}
+                </Tag>
+              ))}
+
+              {påVentGrunner.map((emneknagg) => (
+                <Tag
+                  key={emneknagg.visningsnavn}
+                  size={"xsmall"}
+                  variant={"outline"}
+                  data-color={"brand-magenta"}
+                  className={"whitespace-nowrap"}
+                >
+                  {emneknagg.visningsnavn}
+                </Tag>
+              ))}
+            </div>
+          }
+        />
+      )}
+
+      {oppgave.saksbehandler && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Saksbehandler"}
+          verdi={`${oppgave.saksbehandler.fornavn} ${oppgave.saksbehandler.etternavn}`}
+        />
+      )}
+
+      {oppgave.beslutter && (
+        <VerdiMedTittel
+          label={"Beslutter"}
+          verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
+        />
+      )}
+      <div>
+        <CopyButton
+          size="xsmall"
+          copyText={JSON.stringify(utviklerinformasjon, null, 2)}
+          text="Kopier utviklerinformasjon"
+          activeText="Kopiert"
+        />
+      </div>
     </div>
   );
 }

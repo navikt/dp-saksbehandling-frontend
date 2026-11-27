@@ -67,13 +67,14 @@ interface NoteButtonProps {
   onClick: () => void;
   noteKey: string;
   oppgaveTilstand: components["schemas"]["OppgaveTilstand"];
+  size?: "small" | "xsmall";
 }
 
 /**
  * @param noteKey - Et notat vil bli laget på denne nøkkelen.
  * Dersom notatet eksisterer viser vi et farget kort.
  */
-export function NoteButton({ onClick, noteKey, oppgaveTilstand }: NoteButtonProps) {
+export function NoteButton({ onClick, noteKey, oppgaveTilstand, size }: NoteButtonProps) {
   const { note, color, updateNote } = useUpdateNoteData(noteKey);
   const hasNote = typeof note === "string";
 
@@ -91,7 +92,7 @@ export function NoteButton({ onClick, noteKey, oppgaveTilstand }: NoteButtonProp
   return (
     <Button
       type="button"
-      size="xsmall"
+      size={size || "small"}
       variant="tertiary"
       title={title || "Legg til huskelapp"}
       aria-label={title || "Legg til huskelapp"}

@@ -148,6 +148,7 @@ export function SakOppgaveTable({
                   oppgaveTilstand={oppgave.tilstand}
                   noteKey={oppgave.oppgaveId}
                   onClick={() => setSelectedNoteKey(oppgave.oppgaveId)}
+                  size="xsmall"
                 />
               );
             case "valg":

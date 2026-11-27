@@ -34,6 +34,7 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
     urlPath: location.pathname,
   };
 
+  // todo: flytt/restrukturer denne óg, lager trello-lapp :p
   return (
     <section className="flex flex-col gap-4">
       {visHuskelapp && (
@@ -46,6 +47,7 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
             noteKey={oppgave.oppgaveId}
             onClick={() => setVisHuskelapp(true)}
             oppgaveTilstand={oppgave.tilstand}
+            size="xsmall"
           />
         </div>
         <VerdiMedTittel

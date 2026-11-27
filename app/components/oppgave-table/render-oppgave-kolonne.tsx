@@ -105,6 +105,7 @@ export function renderOppgaveKolonne(
           oppgaveTilstand={oppgave.tilstand}
           noteKey={oppgave.oppgaveId}
           onClick={() => onSelectNote(oppgave.oppgaveId)}
+          size="xsmall"
         />
       );
     case "valg":
